@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Card>
+  <div @click="openLink" class="hubitem">
+    <Card :bordered="false" dis-hover>
       <div style="text-align:center">
         <img ref="icon" src="">
         <p>{{this.label}}</p>
@@ -10,13 +10,21 @@
 </template>
 
 <script>
+import { shell } from "electron";
+const { remote } = require("electron");
+const { Menu, MenuItem } = require("electron").remote;
+
 export default {
   props: ["title", "path"],
 
   computed: {
     label() {
-      // return this.path.split('\\').pop().split('/').pop();
-      return 'test'
+      // return filename or path name
+      return this.path
+        .split("\\")
+        .pop()
+        .split("/")
+        .pop();
     }
   },
 
@@ -27,11 +35,50 @@ export default {
     app.getFileIcon(this.path, { size: "large" }, function(err, res) {
       self.$refs.icon.src = res.toDataURL();
     });
+
+    // Add context menu
+    this.$el.addEventListener(
+      "contextmenu",
+      e => {
+        e.preventDefault();
+        const menu = new Menu();
+        let me = this;
+        menu.append(
+          new MenuItem({
+            label: "Delete",
+            click() {
+              console.log(me.path);
+            }
+          })
+        );
+        menu.append(
+          new MenuItem({
+            label: "Open folder",
+            click() {
+              // const fs = require('fs');
+              // console.log(fs.lstatSync(me.path).isDirectory())
+              const path = require('path')
+              shell.openExternal(path.dirname(me.path));
+            }
+          })
+        );
+        menu.popup(remote.getCurrentWindow());
+      },
+      false
+    );
+  },
+
+  methods: {
+    openLink() {
+      shell.openExternal(this.path);
+    }
   }
 };
 </script>
 
 <style>
-
+.hubitem {
+  cursor: pointer;
+}
 </style>
 

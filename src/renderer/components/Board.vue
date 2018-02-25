@@ -4,7 +4,7 @@
       <Alert show-icon>No hubs yet.</Alert>
     </div>
 
-    <hub v-for="hub in hubs"
+    <hub v-for="hub in hubs" class="hub"
     :name="hub.id"
     :key="hub.id"
     :label="hub.label"
@@ -52,6 +52,11 @@ export default {
 <style>
 .tab-content {
   background: #eee;
-  padding: 20px;
+  height: 100vh;
 }
+
+.hub {
+  margin-bottom: 10px;
+}
+
 </style>

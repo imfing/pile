@@ -1,7 +1,7 @@
 <template>
   <div id="wrapper">
     <Row>
-      <Col span="24">
+      <Col span="24" style="background: #eee;padding:16px;">
         <Tabs type="card" closable @on-tab-remove="handleTabRemove">
           <TabPane v-for="board in boards"
           :label="boardTabLabel(board.label, board.id)"
@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       boards: [],
-      selectedTab: 'default',
+      selectedTab: "default",
       boardTabLabel: (boardLabel, boardId) => h => {
         return h("div", [
           h("span", boardLabel),

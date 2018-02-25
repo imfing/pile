@@ -3,8 +3,12 @@
     <Card>
       <p slot="title">{{this.label}}</p>
       <div class="hub-content">
+        <div v-if="isHubEmpty">
+          <Alert show-icon>Drag something here.</Alert>
+        </div>
         <Row :gutter="16">
-          <Col v-for="item in items" :key="item.id" span="6">
+          <Col v-for="item in items" :key="item.id" 
+          :xs="6" :sm="4" :md="4" :lg="3">
             <hub-item
             :path="item.path"></hub-item>
           </Col>
@@ -38,6 +42,12 @@ export default {
     HubItem
   },
 
+  computed: {
+    isHubEmpty(){
+      return !this.items.length;
+    }
+  },
+
   data() {
     return {
       items: []
@@ -50,16 +60,8 @@ export default {
       console.log(filepath);
       this.items.push({
         'path': filepath,
-        'id': 'lala'
+        'id': 'lala' //TODO
       });
-      // var app = require("electron").remote.app;
-      // app.getFileIcon(filepath, { size: "large" }, function(err, res) {
-      //   console.log(res.toDataURL());
-      //   // var im = document.createElement("img");
-      //   // im.src = res.toDataURL();
-      //   // var div1 = document.getElementsByClassName("sectionfile")[0];
-      //   // div1.appendChild(im);
-      // });
     },
     fetchHubItems() {
       this.items = boardsStore.getHubItems(this.boardId, this.hubId);
