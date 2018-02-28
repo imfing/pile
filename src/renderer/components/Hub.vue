@@ -10,6 +10,8 @@
           <Col v-for="item in items" :key="item.id" 
           :xs="6" :sm="4" :md="4" :lg="3">
             <hub-item
+            @deleteItem="removeHubItem"
+            :itemId="item.id"
             :path="item.path"></hub-item>
           </Col>
         </Row>
@@ -58,13 +60,15 @@ export default {
     async handleDrop(files) {
       var filepath = files[0].path;
       console.log(filepath);
-      this.items.push({
-        'path': filepath,
-        'id': 'lala' //TODO
-      });
+      boardsStore.addHubItem(this.boardId, this.hubId, filepath);
+      this.fetchHubItems();
     },
     fetchHubItems() {
       this.items = boardsStore.getHubItems(this.boardId, this.hubId);
+    },
+    removeHubItem(itemId){
+      boardsStore.removeHubItem(this.boardId, this.hubId, itemId);
+      this.fetchHubItems();
     }
   },
 

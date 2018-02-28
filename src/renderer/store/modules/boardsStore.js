@@ -86,5 +86,26 @@ export default {
       .get('items')
       .cloneDeep()
       .value()
+  },
+  addHubItem(boardId, hubId, path) {
+    return db
+      .get('boards')
+      .getById(boardId)
+      .get('hubs')
+      .getById(hubId)
+      .get('items')
+      .insert({
+        path: path
+      })
+      .write()
+  },
+  removeHubItem(boardId, hubId, itemId){
+    db.get('boards')
+    .getById(boardId)
+    .get('hubs')
+    .getById(hubId)
+    .get('items')
+    .remove({id: itemId})
+    .write()
   }
 }

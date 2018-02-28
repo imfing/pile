@@ -13,9 +13,10 @@
 import { shell } from "electron";
 const { remote } = require("electron");
 const { Menu, MenuItem } = require("electron").remote;
+import boardsStore from "../store/modules/boardsStore";
 
 export default {
-  props: ["title", "path"],
+  props: ["title", "path", "itemId"],
 
   computed: {
     label() {
@@ -47,7 +48,9 @@ export default {
           new MenuItem({
             label: "Delete",
             click() {
-              console.log(me.path);
+              // console.log(me.path);
+              // console.log(me.itemId);
+              me.deleteItem();
             }
           })
         );
@@ -57,7 +60,7 @@ export default {
             click() {
               // const fs = require('fs');
               // console.log(fs.lstatSync(me.path).isDirectory())
-              const path = require('path')
+              const path = require("path");
               shell.openExternal(path.dirname(me.path));
             }
           })
@@ -71,6 +74,9 @@ export default {
   methods: {
     openLink() {
       shell.openExternal(this.path);
+    },
+    deleteItem: function() {
+      this.$emit("deleteItem", this.itemId);
     }
   }
 };
