@@ -1,0 +1,48 @@
+<template>
+    <Modal :value="newBoardModal"
+         title="Add new board"
+         okText="Add"
+         :closable="false"
+         :mask-closable="false"
+         cancelText="Cancel">
+    <Input v-model="newBoardName"
+           placeholder="New board name"
+           @on-keyup.enter="submitNewBoard"
+    />
+    <div slot="footer">
+      <Button type="text" size="large" @click="closeNewBoardModal">Cancel</Button>
+      <Button type="primary" size="large" @click="submitNewBoard">Add new board</Button>
+    </div>
+  </Modal>
+</template>
+
+<script>
+export default {
+  props: ['newBoardModal'],
+  data () {
+    return {
+      newBoardName: ''
+    }
+  },
+  methods: {
+    submitNewBoard () {
+      if (this.newBoardName.trim() === '') {
+        this.newBoardName = ''
+        return false
+      }
+      this.$emit('submitNewBoard', this.newBoardName)
+      this.newBoardName = ''
+    },
+    closeNewBoardModal () {
+      this.$emit('closeNewBoardModal')
+      this.newBoardName = ''
+    }
+  }
+
+}
+</script>
+
+<style>
+
+
+</style>

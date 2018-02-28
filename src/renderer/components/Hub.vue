@@ -16,6 +16,17 @@
           </Col>
         </Row>
       </div>
+      <div slot="extra">
+        <Dropdown @on-click='handleHubOptions'>
+          <Button type="text">
+              <Icon type="more"></Icon>
+          </Button>
+          <DropdownMenu slot="list">
+              <DropdownItem name='hub-rename'>Rename</DropdownItem>
+              <DropdownItem name='hub-delete'>Delete</DropdownItem>            
+          </DropdownMenu>
+        </Dropdown>
+      </div>
     </Card>
   </div>
 </template>
@@ -45,7 +56,7 @@ export default {
   },
 
   computed: {
-    isHubEmpty(){
+    isHubEmpty() {
       return !this.items.length;
     }
   },
@@ -59,16 +70,35 @@ export default {
   methods: {
     async handleDrop(files) {
       var filepath = files[0].path;
-      console.log(filepath);
+      // console.log(filepath);
       boardsStore.addHubItem(this.boardId, this.hubId, filepath);
       this.fetchHubItems();
     },
     fetchHubItems() {
       this.items = boardsStore.getHubItems(this.boardId, this.hubId);
     },
-    removeHubItem(itemId){
+    removeHubItem(itemId) {
       boardsStore.removeHubItem(this.boardId, this.hubId, itemId);
       this.fetchHubItems();
+    },
+    deleteHub(){
+      this.$emit('deleteHub');
+    },
+    handleHubOptions: function(name) {
+      if (name == "hub-rename") {
+      } else if (name == "hub-delete") {
+        this.$Modal.confirm({
+          title: `Remove hub '${this.label}' ?`,
+          okText: "OK, remove it",
+          cancelText: "Cancel",
+          content: `<p>Remove hub <strong>"${this.label}"</strong>?</p>`,
+          onOk: () => {
+            boardsStore.removeHub(this.boardId, this.hubId);
+            this.deleteHub();
+            this.$Message.info("Hub removed");
+          }
+        });
+      }
     }
   },
 

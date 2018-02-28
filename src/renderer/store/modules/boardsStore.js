@@ -18,7 +18,7 @@ db.defaults({
 }).write()
 
 export default {
-  saveNewBoard (boardName, defaults) {
+  saveNewBoard(boardName) {
     return db
       .get('boards')
       .insert({
@@ -27,49 +27,55 @@ export default {
       })
       .write()
   },
-  saveBoardsArray (boardsArray) {
+  saveBoardsArray(boardsArray) {
     return db
       .set('boards', boardsArray)
       .write()
   },
-  saveHubsArray (boardId, items) {
+  saveHubsArray(boardId, items) {
     return db
       .get('boards')
       .getById(boardId)
       .set('hubs', items)
       .write()
   },
-  removeBoard (boardId) {
+  removeBoard(boardId) {
     db.get('boards')
-      .remove({id: boardId})
+      .remove({ id: boardId })
       .write()
   },
-  setActiveBoard (boardId) {
+  setActiveBoard(boardId) {
     db.set('activeBoard', boardId)
       .write()
   },
-  getActiveBoard () {
+  getActiveBoard() {
     return db.get('activeBoard')
       .value()
   },
-  getList () {
+  getFirstBoard() {
+    return db.get('boards')
+      .first()
+      .value()
+  },
+  getList() {
     return db
       .get('boards')
       .cloneDeep()
       .value()
   },
-  addHubToEnd (boardId, type) {
+  addHubToEnd(boardId, type) {
     return db
       .get('boards')
       .getById(boardId)
       .get('hubs')
       .insert({
         label: 'New Hub',
-        type: type
+        type: type,
+        items: []
       })
       .write()
   },
-  getHubs (boardId) {
+  getHubs(boardId) {
     return db
       .get('boards')
       .getById(boardId)
@@ -99,13 +105,20 @@ export default {
       })
       .write()
   },
-  removeHubItem(boardId, hubId, itemId){
+  removeHubItem(boardId, hubId, itemId) {
     db.get('boards')
-    .getById(boardId)
-    .get('hubs')
-    .getById(hubId)
-    .get('items')
-    .remove({id: itemId})
-    .write()
+      .getById(boardId)
+      .get('hubs')
+      .getById(hubId)
+      .get('items')
+      .remove({ id: itemId })
+      .write()
+  },
+  removeHub(boardId, hubId) {
+    db.get('boards')
+      .getById(boardId)
+      .get('hubs')
+      .remove({ id: hubId })
+      .write()
   }
 }

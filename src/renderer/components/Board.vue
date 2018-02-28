@@ -4,12 +4,27 @@
       <Alert show-icon>No hubs yet.</Alert>
     </div>
 
-    <hub v-for="hub in hubs" class="hub"
+    <div>
+      <Dropdown style="margin-bottom:10px;" @on-click="addNewHub">
+        <Button type="ghost">
+            New Hub
+            <Icon type="arrow-down-b"></Icon>
+        </Button>
+        <DropdownMenu slot="list">
+            <DropdownItem name='new-hub-item'>Item</DropdownItem>
+            <DropdownItem name='new-hub-url'>Url</DropdownItem>
+            <DropdownItem name='new-hub-todo'>Todo</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </div>
+
+    <hub v-for="hub in hubs" class="hub" 
     :name="hub.id"
     :key="hub.id"
     :label="hub.label"
     :boardId="boardId"
     :hubId="hub.id"
+    @deleteHub="fetchBoardItems"
     ></hub>
   </div>
 </template>
@@ -40,6 +55,14 @@ export default {
   methods: {
     fetchBoardItems() {
       this.hubs = boardsStore.getHubs(this.boardId);
+    },
+    addNewHub: function(name) {
+      if (name == "new-hub-item") {
+        boardsStore.addHubToEnd(this.boardId, name);
+        this.fetchBoardItems()
+      } else if (name == "new-hub-url") {
+      } else if (name == "new-hub-todo") {
+      }
     }
   },
 
@@ -58,5 +81,4 @@ export default {
 .hub {
   margin-bottom: 10px;
 }
-
 </style>
