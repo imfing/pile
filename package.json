@@ -55,7 +55,7 @@
     "iview": "^2.9.2",
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0",
-    "vue": "^2.3.3",
+    "vue": "^2.5.13",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
     "vuedraggable": "^2.16.0"
@@ -87,7 +87,7 @@
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "vue-html-loader": "^1.2.4",
-    "vue-loader": "^13.0.5",
+    "vue-loader": "^13.7.1",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.4.2",
     "webpack": "^3.5.2",

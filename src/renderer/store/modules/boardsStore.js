@@ -120,5 +120,13 @@ export default {
       .get('hubs')
       .remove({ id: hubId })
       .write()
+  },
+  setHubLabel(boardId, hubId, label) {
+    db.get('boards')
+      .getById(boardId)
+      .get('hubs')
+      .getById(hubId)
+      .set('label', label)
+      .write()
   }
 }

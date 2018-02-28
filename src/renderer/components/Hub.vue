@@ -28,12 +28,19 @@
         </Dropdown>
       </div>
     </Card>
+
+    <rename-hub-modal :renameHubModal="renameHubModal"
+    :original-name="this.label"
+    @submitHubName="renameHub"
+    @closeRenameHubModal="closeRenameHubModal"
+    ></rename-hub-modal>
   </div>
 </template>
 
 <script>
 import HubItem from "./HubItem.vue";
 import boardsStore from "../store/modules/boardsStore";
+import RenameHubModal from './RenameHubModal.vue';
 
 export default {
   mounted: function() {
@@ -52,7 +59,8 @@ export default {
   props: ["boardId", "label", "hubId"],
 
   components: {
-    HubItem
+    HubItem,
+    RenameHubModal
   },
 
   computed: {
@@ -63,7 +71,9 @@ export default {
 
   data() {
     return {
-      items: []
+      inputValue: "",
+      items: [],
+      renameHubModal: false
     };
   },
 
@@ -81,11 +91,25 @@ export default {
       boardsStore.removeHubItem(this.boardId, this.hubId, itemId);
       this.fetchHubItems();
     },
-    deleteHub(){
-      this.$emit('deleteHub');
+    deleteHub() {
+      this.$emit("refreshHub");
+    },
+    renameHub(newname) {
+      // console.log(newname);
+      boardsStore.setHubLabel(this.boardId, this.hubId, newname);
+      this.$emit("refreshHub");
+      this.closeRenameHubModal();
+      this.$Message.success("Rename ok");
+    },
+    showRenameHubModal(){
+      this.renameHubModal = true;
+    },
+    closeRenameHubModal(){
+      this.renameHubModal = false;
     },
     handleHubOptions: function(name) {
       if (name == "hub-rename") {
+        this.showRenameHubModal();
       } else if (name == "hub-delete") {
         this.$Modal.confirm({
           title: `Remove hub '${this.label}' ?`,

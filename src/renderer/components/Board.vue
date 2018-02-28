@@ -17,14 +17,14 @@
         </DropdownMenu>
       </Dropdown>
     </div>
-
+    
     <hub v-for="hub in hubs" class="hub" 
     :name="hub.id"
     :key="hub.id"
     :label="hub.label"
     :boardId="boardId"
     :hubId="hub.id"
-    @deleteHub="fetchBoardItems"
+    @refreshHub="fetchBoardItems"
     ></hub>
   </div>
 </template>
