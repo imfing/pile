@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-    <Row>
+    <Row id="tabrow">
       <Col span="24" style="background: #eee;padding:16px;">
         <Tabs v-model="selectedTab" 
               type="card" 
@@ -128,7 +128,10 @@ export default {
 
 <style>
 body {
-  font-family: 'Segoe UI', 'Microsoft YaHei', 'Lato' ,sans-serif !important;
-}
-</style>
+  font-family: "Segoe UI", "Microsoft YaHei", "Lato", sans-serif !important;
+  height: 100vh;
+  background: #eee;
 
+}
+
+</style>

@@ -8,7 +8,7 @@
         </div>
         <Row :gutter="16">
           <Col v-for="item in items" :key="item.id" 
-          :xs="6" :sm="4" :md="4" :lg="3">
+          :xs="4" :sm="4" :md="2" :lg="2">
             <hub-item
             @deleteItem="removeHubItem"
             :itemId="item.id"
@@ -16,6 +16,7 @@
           </Col>
         </Row>
       </div>
+
       <div slot="extra">
         <Dropdown @on-click='handleHubOptions'>
           <Button type="text">
@@ -40,7 +41,9 @@
 <script>
 import HubItem from "./HubItem.vue";
 import boardsStore from "../store/modules/boardsStore";
-import RenameHubModal from './RenameHubModal.vue';
+import RenameHubModal from "./RenameHubModal.vue";
+import { basename, extname } from "path";
+import { shell } from "electron";
 
 export default {
   mounted: function() {
@@ -80,8 +83,22 @@ export default {
   methods: {
     async handleDrop(files) {
       var filepath = files[0].path;
-      // console.log(filepath);
-      boardsStore.addHubItem(this.boardId, this.hubId, filepath);
+      const fs = require("fs");
+      const path = require("path");
+
+      if (fs.lstatSync(filepath).isDirectory()) {
+        boardsStore.addHubItem(this.boardId, this.hubId, filepath);
+      } else {
+        var filename = path.basename(filepath);
+        var filetype = path.extname(filename);
+        if (filetype == ".lnk") {
+          var spath = shell.readShortcutLink(filepath);
+          boardsStore.addHubItem(this.boardId, this.hubId, spath.target);
+        } else {
+          boardsStore.addHubItem(this.boardId, this.hubId, filepath);
+        }
+      }
+
       this.fetchHubItems();
     },
     fetchHubItems() {
@@ -95,16 +112,15 @@ export default {
       this.$emit("refreshHub");
     },
     renameHub(newname) {
-      // console.log(newname);
       boardsStore.setHubLabel(this.boardId, this.hubId, newname);
       this.$emit("refreshHub");
       this.closeRenameHubModal();
       this.$Message.success("Rename ok");
     },
-    showRenameHubModal(){
+    showRenameHubModal() {
       this.renameHubModal = true;
     },
-    closeRenameHubModal(){
+    closeRenameHubModal() {
       this.renameHubModal = false;
     },
     handleHubOptions: function(name) {
@@ -134,6 +150,6 @@ export default {
 
 <style>
 .hub-content {
-  min-height: 100px;
+  min-height: 70px;
 }
 </style>

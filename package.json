@@ -1,9 +1,9 @@
 {
   "name": "pile",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "fing <mtobeiyf@163.com>",
-  "description": "Access your piles of work in one place.",
-  "license": null,
+  "description": "Access your piles of work at one place.",
+  "license": "GPL v3.0",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -51,6 +51,7 @@
     }
   },
   "dependencies": {
+    "autolinker": "^1.6.2",
     "axios": "^0.16.1",
     "iview": "^2.9.2",
     "lodash-id": "^0.14.0",

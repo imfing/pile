@@ -12,32 +12,53 @@
         </Button>
         <DropdownMenu slot="list">
             <DropdownItem name='new-hub-item'>Item</DropdownItem>
-            <DropdownItem name='new-hub-url'>Url</DropdownItem>
+            <DropdownItem name='new-hub-note'>Note</DropdownItem>
             <DropdownItem name='new-hub-todo'>Todo</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </div>
     
-    <hub v-for="hub in hubs" class="hub" 
-    :name="hub.id"
-    :key="hub.id"
-    :label="hub.label"
-    :boardId="boardId"
-    :hubId="hub.id"
-    @refreshHub="fetchBoardItems"
-    ></hub>
+    <div v-for="hub in hubs" class="hub" :key="hub.id">
+      <hub v-if="hub.type=='item'"
+        :name="hub.id"
+        :label="hub.label"
+        :boardId="boardId"
+        :hubId="hub.id"
+        @refreshHub="fetchBoardItems"
+        ></hub>
+        
+      <hub-note v-if="hub.type=='note'"
+        :name="hub.id"
+        :label="hub.label"
+        :boardId="boardId"
+        :hubId="hub.id"
+        @refreshHub="fetchBoardItems"></hub-note>
+
+      <hub-todo v-if="hub.type=='todo'"
+        :name="hub.id"
+        :label="hub.label"
+        :boardId="boardId"
+        :hubId="hub.id"
+        @refreshHub="fetchBoardItems"></hub-todo>      
+    </div>
+
   </div>
 </template>
 
 <script>
 import Hub from "./Hub.vue";
+import HubNote from "./HubNote.vue";
+import HubTodo from "./HubTodo.vue"
+
 import boardsStore from "../store/modules/boardsStore";
 
 export default {
   props: ["boardId", "label", "selectedTab"],
 
   components: {
-    Hub
+    Hub,
+    HubNote,
+    HubTodo
   },
 
   data() {
@@ -58,10 +79,14 @@ export default {
     },
     addNewHub: function(name) {
       if (name == "new-hub-item") {
-        boardsStore.addHubToEnd(this.boardId, name);
-        this.fetchBoardItems()
-      } else if (name == "new-hub-url") {
+        boardsStore.addHubToEnd(this.boardId, "item");
+        this.fetchBoardItems();
+      } else if (name == "new-hub-note") {
+        boardsStore.addHubToEnd(this.boardId, "note");
+        this.fetchBoardItems();
       } else if (name == "new-hub-todo") {
+        boardsStore.addHubToEnd(this.boardId, "todo");
+        this.fetchBoardItems();
       }
     }
   },
@@ -73,11 +98,6 @@ export default {
 </script>
 
 <style>
-.tab-content {
-  background: #eee;
-  height: 100vh;
-}
-
 .hub {
   margin-bottom: 10px;
 }

@@ -128,5 +128,49 @@ export default {
       .getById(hubId)
       .set('label', label)
       .write()
+  },
+  addHubNote(boardId, hubId, content) {
+    return db
+      .get('boards')
+      .getById(boardId)
+      .get('hubs')
+      .getById(hubId)
+      .get('items')
+      .insert({
+        content: content
+      })
+      .write()
+  },
+  removeHubNote(boardId, hubId, itemId) {
+    db.get('boards')
+      .getById(boardId)
+      .get('hubs')
+      .getById(hubId)
+      .get('items')
+      .remove({ id: itemId })
+      .write()
+  },
+  setTodoIsDone(boardId, hubId, itemId, newVal){
+    db.get('boards')
+      .getById(boardId)
+      .get('hubs')
+      .getById(hubId)
+      .get('items')
+      .getById(itemId)
+      .set('isDone', newVal)
+      .write()
+  },
+  addHubTodoItem(boardId, hubId, content) {
+    return db
+      .get('boards')
+      .getById(boardId)
+      .get('hubs')
+      .getById(hubId)
+      .get('items')
+      .insert({
+        content: content,
+        isDone: false
+      })
+      .write()
   }
 }
