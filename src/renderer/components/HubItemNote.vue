@@ -1,8 +1,9 @@
 <template>
   <div class="hub-item-note">
     <Row class="note-row">
-      <span v-html="textWithLink"
-        @click="handleLinkClick"></span>
+      <!-- <span v-html="textWithLink"
+        @click="handleLinkClick"></span> -->
+      <vue-markdown>{{this.content}}</vue-markdown>
     </Row>
   </div>
 </template>
@@ -12,9 +13,14 @@ import { shell } from "electron";
 const { remote } = require("electron");
 const { Menu, MenuItem } = require("electron").remote;
 import boardsStore from "../store/modules/boardsStore";
+import VueMarkdown from "vue-markdown";
 
 export default {
   props: ["content", "itemId"],
+
+  components: {
+    VueMarkdown
+  },
 
   data() {
     return {};
@@ -85,9 +91,11 @@ export default {
 </script>
 
 <style>
+/* @import url('../../../static/katex.min.css'); */
+/* @import url('../../../static/prism.css'); */
+
 .hub-item-note {
   border-bottom: 1px dashed #e9eaec;
-  /* margin-top: 5px; */
 }
 
 .note-row {

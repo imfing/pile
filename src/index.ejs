@@ -2,13 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>pile</title>
+    <title>Pile</title>
     <% if (htmlWebpackPlugin.options.nodeModules) { %>
       <!-- Add `node_modules/` to global paths so `require` works properly in development -->
       <script>
         require('module').globalPaths.push('<%= htmlWebpackPlugin.options.nodeModules.replace(/\\/g, '\\\\') %>')
       </script>
     <% } %>
+    <link href="../static/prism.css" rel="stylesheet" />
+    <link href="../static/katex.min.css" rel="stylesheet" />
   </head>
   <body>
     <div id="app"></div>
@@ -16,7 +18,7 @@
     <script>
       if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
     </script>
-
     <!-- webpack builds are automatically injected -->
+    <script src="../static/prism.js"></script>
   </body>
 </html>
