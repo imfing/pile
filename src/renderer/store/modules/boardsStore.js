@@ -9,11 +9,7 @@ db.defaults({
   boards: [{
     id: 'default',
     label: 'Default board',
-    hubs: [{
-      id: 'testhub',
-      label: 'testhub',
-      items: []
-    }]
+    hubs: []
   }]
 }).write()
 
@@ -37,6 +33,15 @@ export default {
       .get('boards')
       .getById(boardId)
       .set('hubs', items)
+      .write()
+  },
+  saveHubItemsArray(boardId, hubId, items){
+    return db
+      .get('boards')
+      .getById(boardId)
+      .get('hubs')
+      .getById(hubId)
+      .set('items', items)
       .write()
   },
   removeBoard(boardId) {
@@ -63,13 +68,13 @@ export default {
       .cloneDeep()
       .value()
   },
-  addHubToEnd(boardId, type) {
+  addHubToEnd(boardId, type, title) {
     return db
       .get('boards')
       .getById(boardId)
       .get('hubs')
       .insert({
-        label: 'New Hub',
+        label: title,
         type: type,
         items: []
       })
