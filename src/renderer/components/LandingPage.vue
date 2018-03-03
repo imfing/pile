@@ -77,9 +77,6 @@ export default {
   },
 
   methods: {
-    handleTabRemove(name) {
-      this["tab" + name] = false;
-    },
     loadBoards() {
       this.boards = boardsStore.getList();
     },
@@ -102,20 +99,24 @@ export default {
       this.$Message.success("Board added");
     },
     handleBoardRemove(boardLabel, boardId) {
-      this.$Modal.confirm({
-        title: `Remove board '${boardLabel}' ?`,
-        okText: "OK, remove it",
-        cancelText: "Cancel",
-        content: `<p>Remove board <strong>"${boardLabel}"</strong>?</p>`,
-        onOk: () => {
-          boardsStore.removeBoard(boardId);
-          const firstBoardId = boardsStore.getFirstBoard().id;
-          boardsStore.setActiveBoard(firstBoardId);
-          this.selectedTab = firstBoardId;
-          this.loadBoards();
-          this.$Message.info("Board removed");
-        }
-      });
+      if (this.boards.length <= 1) {
+        this.$Message.error("You should keep at least one board.");
+      } else {
+        this.$Modal.confirm({
+          title: `Remove board '${boardLabel}' ?`,
+          okText: "OK, remove it",
+          cancelText: "Cancel",
+          content: `<p>Remove board <strong>"${boardLabel}"</strong>?</p>`,
+          onOk: () => {
+            boardsStore.removeBoard(boardId);
+            const firstBoardId = boardsStore.getFirstBoard().id;
+            boardsStore.setActiveBoard(firstBoardId);
+            this.selectedTab = firstBoardId;
+            this.loadBoards();
+            this.$Message.info("Board removed");
+          }
+        });
+      }
     }
   },
 
@@ -130,8 +131,6 @@ export default {
 body {
   font-family: "Segoe UI", "Microsoft YaHei", "Lato", sans-serif !important;
   height: 100vh;
-  background: #eee;
-
+  background-color: #eee !important;
 }
-
 </style>

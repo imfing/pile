@@ -1,8 +1,5 @@
 <template>
   <div class="tab-content">
-    <div v-if="isBoardEmpty" class="info">
-      <Alert show-icon>No hubs yet.</Alert>
-    </div>
 
     <div>
       <Dropdown style="margin-bottom:10px;" @on-click="addNewHub">
@@ -16,6 +13,10 @@
             <DropdownItem name='new-hub-todo'>Todo</DropdownItem>
         </DropdownMenu>
       </Dropdown>
+    </div>
+    
+    <div v-if="isBoardEmpty" class="info">
+      <Alert show-icon>No hubs yet.</Alert>
     </div>
     
     <div v-for="hub in hubs" class="hub" :key="hub.id">
@@ -48,7 +49,7 @@
 <script>
 import Hub from "./Hub.vue";
 import HubNote from "./HubNote.vue";
-import HubTodo from "./HubTodo.vue"
+import HubTodo from "./HubTodo.vue";
 
 import boardsStore from "../store/modules/boardsStore";
 
@@ -79,13 +80,13 @@ export default {
     },
     addNewHub: function(name) {
       if (name == "new-hub-item") {
-        boardsStore.addHubToEnd(this.boardId, "item");
+        boardsStore.addHubToEnd(this.boardId, "item", "App/Files");
         this.fetchBoardItems();
       } else if (name == "new-hub-note") {
-        boardsStore.addHubToEnd(this.boardId, "note");
+        boardsStore.addHubToEnd(this.boardId, "note", "Notes");
         this.fetchBoardItems();
       } else if (name == "new-hub-todo") {
-        boardsStore.addHubToEnd(this.boardId, "todo");
+        boardsStore.addHubToEnd(this.boardId, "todo", "Todo");
         this.fetchBoardItems();
       }
     }
@@ -100,5 +101,8 @@ export default {
 <style>
 .hub {
   margin-bottom: 10px;
+}
+.tab-content {
+  min-height: 300px;
 }
 </style>

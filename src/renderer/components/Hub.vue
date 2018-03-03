@@ -6,15 +6,19 @@
         <div v-if="isHubEmpty">
           <Alert show-icon>Drag something here.</Alert>
         </div>
-        <Row :gutter="16">
-          <Col v-for="item in items" :key="item.id" 
-          :xs="4" :sm="4" :md="2" :lg="2">
+
+        <draggable v-model="items" 
+        :options="{group:'people'}" class="drag-box"
+        @change="handleDragItem"
+        @start="drag=true"
+        @end="drag=false">
+          <div v-for="item in items" :key="item.id">
             <hub-item
-            @deleteItem="removeHubItem"
-            :itemId="item.id"
-            :path="item.path"></hub-item>
-          </Col>
-        </Row>
+              @deleteItem="removeHubItem"
+              :itemId="item.id"
+              :path="item.path"></hub-item>
+          </div>
+        </draggable>
       </div>
 
       <div slot="extra">
@@ -23,7 +27,7 @@
               <Icon type="more"></Icon>
           </Button>
           <DropdownMenu slot="list">
-              <DropdownItem name='hub-rename'>Rename</DropdownItem>
+              <DropdownItem name='hub-rename'>Rename</DropdownItem> 
               <DropdownItem name='hub-delete'>Delete</DropdownItem>            
           </DropdownMenu>
         </Dropdown>
@@ -44,13 +48,16 @@ import boardsStore from "../store/modules/boardsStore";
 import RenameHubModal from "./RenameHubModal.vue";
 import { basename, extname } from "path";
 import { shell } from "electron";
+import draggable from "vuedraggable";
 
 export default {
   mounted: function() {
     this.$el.addEventListener("drop", e => {
       e.preventDefault();
       e.stopPropagation();
-      this.handleDrop(e.dataTransfer.files);
+      if (e.dataTransfer.files.length) {
+        this.handleDrop(e.dataTransfer.files);
+      }
       return false;
     });
     this.$el.addEventListener("dragover", e => {
@@ -63,7 +70,8 @@ export default {
 
   components: {
     HubItem,
-    RenameHubModal
+    RenameHubModal,
+    draggable
   },
 
   computed: {
@@ -92,7 +100,9 @@ export default {
         var filename = path.basename(filepath);
         var filetype = path.extname(filename);
         if (filetype == ".lnk") {
+          // console.log(filepath)
           var spath = shell.readShortcutLink(filepath);
+          // console.log(spath)
           boardsStore.addHubItem(this.boardId, this.hubId, spath.target);
         } else {
           boardsStore.addHubItem(this.boardId, this.hubId, filepath);
@@ -139,6 +149,9 @@ export default {
           }
         });
       }
+    },
+    handleDragItem() {
+      boardsStore.saveHubItemsArray(this.boardId, this.hubId, this.items)
     }
   },
 
@@ -151,5 +164,11 @@ export default {
 <style>
 .hub-content {
   min-height: 70px;
+}
+
+.drag-box {
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
