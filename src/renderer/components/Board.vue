@@ -2,21 +2,21 @@
   <div class="tab-content">
 
     <div>
-      <Dropdown style="margin-bottom:10px;" @on-click="addNewHub">
+      <Dropdown placement="bottom-start" style="margin-bottom:10px;" @on-click="addNewHub">
         <Button type="ghost">
-            New Hub
+            {{$t("m.newHub.button")}}
             <Icon type="arrow-down-b"></Icon>
         </Button>
         <DropdownMenu slot="list">
-            <DropdownItem name='new-hub-item'>Item</DropdownItem>
-            <DropdownItem name='new-hub-note'>Note</DropdownItem>
-            <DropdownItem name='new-hub-todo'>Todo</DropdownItem>
+            <DropdownItem name='new-hub-item'>{{$t("m.newHub.item")}}</DropdownItem>
+            <DropdownItem name='new-hub-note'>{{$t("m.newHub.note")}}</DropdownItem>
+            <DropdownItem name='new-hub-todo'>{{$t("m.newHub.todo")}}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </div>
     
     <div v-if="isBoardEmpty" class="info">
-      <Alert show-icon>No hubs yet.</Alert>
+      <Alert show-icon>{{$t("m.info.noHubs")}}</Alert>
     </div>
     
     <div v-for="hub in hubs" class="hub" :key="hub.id">
@@ -80,13 +80,13 @@ export default {
     },
     addNewHub: function(name) {
       if (name == "new-hub-item") {
-        boardsStore.addHubToEnd(this.boardId, "item", "App/Files");
+        boardsStore.addHubToEnd(this.boardId, "item", this.$i18n.t("m.newHub.item"));
         this.fetchBoardItems();
       } else if (name == "new-hub-note") {
-        boardsStore.addHubToEnd(this.boardId, "note", "Notes");
+        boardsStore.addHubToEnd(this.boardId, "note", this.$i18n.t("m.newHub.note"));
         this.fetchBoardItems();
       } else if (name == "new-hub-todo") {
-        boardsStore.addHubToEnd(this.boardId, "todo", "Todo");
+        boardsStore.addHubToEnd(this.boardId, "todo", this.$i18n.t("m.newHub.todo"));
         this.fetchBoardItems();
       }
     }

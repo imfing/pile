@@ -68,7 +68,7 @@ export default {
         let me = this;
         menu.append(
           new MenuItem({
-            label: "Edit",
+            label: this.$i18n.t("m.action.edit"),
             click() {
               // Todo
             }
@@ -76,7 +76,7 @@ export default {
         );
         menu.append(
           new MenuItem({
-            label: "Delete",
+            label: this.$i18n.t("m.action.delete"),
             click() {
               me.deleteItem();
             }
@@ -96,8 +96,8 @@ export default {
 }
 
 .todo-row {
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .hub-item-todo:hover .todo-row {

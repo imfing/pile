@@ -9,7 +9,7 @@
               <Input type="textarea"
                     v-model="newNote"
                     :autosize="true" 
-                    placeholder="Enter something..."
+                    v-bind:placeholder="$t('m.note.placeholder')"
                     icon="plus"
                     ></Input>
             </Col>
@@ -30,13 +30,13 @@
 
       </div>
       <div slot="extra">
-        <Dropdown @on-click='handleHubOptions'>
+        <Dropdown placement="bottom-end" @on-click='handleHubOptions'>
           <Button type="text">
               <Icon type="more"></Icon>
           </Button>
           <DropdownMenu slot="list">
-              <DropdownItem name='hub-rename'>Rename</DropdownItem>
-              <DropdownItem name='hub-delete'>Delete</DropdownItem>            
+              <DropdownItem name='hub-rename'>{{$t("m.action.rename")}}</DropdownItem>
+              <DropdownItem name='hub-delete'>{{$t("m.action.delete")}}</DropdownItem>            
           </DropdownMenu>
         </Dropdown>
       </div>
@@ -67,7 +67,6 @@ export default {
   
   data() {
     return {
-      text: "www.baidu.com  gdgdf",
       newNote: "",
       renameHubModal: false,
       items: []
@@ -84,14 +83,17 @@ export default {
         this.showRenameHubModal();
       } else if (name == "hub-delete") {
         this.$Modal.confirm({
-          title: `Remove hub '${this.label}' ?`,
-          okText: "OK, remove it",
-          cancelText: "Cancel",
-          content: `<p>Remove hub <strong>"${this.label}"</strong>?</p>`,
+          title: this.$i18n.t("m.modal.delete.title") + ` '${this.label}' ?`,
+          okText: this.$i18n.t("m.modal.delete.ok"),
+          cancelText: this.$i18n.t("m.modal.delete.cancel"),
+          content:
+            `<p>` +
+            this.$i18n.t("m.modal.delete.content") +
+            ` <strong>"${this.label}"</strong>?</p>`,
           onOk: () => {
             boardsStore.removeHub(this.boardId, this.hubId);
             this.deleteHub();
-            this.$Message.info("Hub removed");
+            this.$Message.info(this.$i18n.t("m.modal.delete.success.hub"));
           }
         });
       }
@@ -119,7 +121,7 @@ export default {
       boardsStore.setHubLabel(this.boardId, this.hubId, newname);
       this.$emit("refreshHub");
       this.closeRenameHubModal();
-      this.$Message.success("Rename ok");
+      this.$Message.success(this.$i18n.t("m.modal.rename.success.hub"));
     },
     showRenameHubModal() {
       this.renameHubModal = true;

@@ -59,6 +59,7 @@
     "lowdb": "^1.0.0",
     "vue": "^2.5.13",
     "vue-electron": "^1.0.6",
+    "vue-i18n": "^7.4.2",
     "vue-markdown": "^2.2.4",
     "vue-router": "^2.5.3",
     "vuedraggable": "^2.16.0"

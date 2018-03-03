@@ -13,7 +13,7 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
-function createWindow () {
+function createWindow() {
   /**
    * Initial window options
    */
@@ -33,6 +33,53 @@ function createWindow () {
 }
 
 app.on('ready', createWindow)
+
+// Need to import vue first :(
+import Vue from 'vue';
+import VueI18n from 'vue-i18n'
+
+Vue.use(VueI18n)
+
+const i18n = new VueI18n({
+  locale: 'zh-CN',    // 语言标识
+  messages: {
+    'zh-CN': require('../renderer/lang/zh'),   // 中文语言包
+    'en-US': require('../renderer/lang/en')    // 英文语言包
+  }
+})
+
+const Menu = require('electron').Menu;
+var template = [
+  {
+    label: i18n.t("m.menu.view"),
+    submenu: [
+      {
+        label: i18n.t("m.menu.reload"),
+        accelerator: 'CmdOrCtrl+R',
+        role: 'reload'
+      },
+      {
+        label: i18n.t("m.menu.devtool"),
+        role: 'toggledevtools'
+      },
+      {
+        label: i18n.t("m.menu.close"),
+        role: 'close'
+      }
+    ]
+  },
+  {
+    label: i18n.t("m.menu.help"),
+    submenu: [
+      {
+        label: i18n.t("m.menu.about"),
+        click () { require('electron').shell.openExternal('https://github.com/mtobeiyf/pile') }
+      }
+    ]
+  }
+]
+var menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

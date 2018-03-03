@@ -1,19 +1,17 @@
 <template>
     <Modal :value="renameHubModal"
-         title="Rename Hub"
-         okText="Rename"
+         v-bind:title="$t('m.modal.rename.title')"
          :closable="false"
-         :mask-closable="false"
-         cancelText="Cancel">
+         :mask-closable="false">
     <Input v-model="newHubName"
-           placeholder="New name..."
+           v-bind:placeholder="$t('m.modal.rename.placeholder')"
            clearable
            autofocus
            @on-keyup.enter="submitHubName"
     />
     <div slot="footer">
-      <Button type="text" size="large" @click="closeRenameHubModal">Cancel</Button>
-      <Button type="primary" size="large" @click="submitHubName">Rename</Button>
+      <Button type="text" size="large" @click="closeRenameHubModal">{{$t("m.modal.rename.cancel")}}</Button>
+      <Button type="primary" size="large" @click="submitHubName">{{$t("m.modal.rename.ok")}}</Button>
     </div>
   </Modal>
 </template>

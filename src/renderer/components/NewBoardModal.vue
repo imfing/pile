@@ -1,17 +1,15 @@
 <template>
     <Modal :value="newBoardModal"
-         title="Add new board"
-         okText="Add"
+         v-bind:title="$t('m.board.new.title')"
          :closable="false"
-         :mask-closable="false"
-         cancelText="Cancel">
+         :mask-closable="false">
     <Input v-model="newBoardName"
-           placeholder="New board name"
+           v-bind:placeholder="$t('m.board.new.placeholder')"
            @on-keyup.enter="submitNewBoard"
     />
     <div slot="footer">
-      <Button type="text" size="large" @click="closeNewBoardModal">Cancel</Button>
-      <Button type="primary" size="large" @click="submitNewBoard">Add new board</Button>
+      <Button type="text" size="large" @click="closeNewBoardModal">{{$t("m.board.new.cancel")}}</Button>
+      <Button type="primary" size="large" @click="submitNewBoard">{{$t("m.board.new.confirm")}}</Button>
     </div>
   </Modal>
 </template>

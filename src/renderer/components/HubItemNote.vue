@@ -1,8 +1,6 @@
 <template>
   <div class="hub-item-note">
     <Row class="note-row">
-      <!-- <span v-html="textWithLink"
-        @click="handleLinkClick"></span> -->
       <vue-markdown>{{this.content}}</vue-markdown>
     </Row>
   </div>
@@ -47,6 +45,16 @@ export default {
   },
 
   mounted: function() {
+    document.addEventListener("click", function(event) {
+      if (
+        event.target.tagName === "A" &&
+        event.target.href.startsWith("http")
+      ) {
+        event.preventDefault();
+        shell.openExternal(event.target.href);
+      }
+    });
+
     // Add context menu
     this.$el.addEventListener(
       "contextmenu",
@@ -56,7 +64,7 @@ export default {
         let me = this;
         menu.append(
           new MenuItem({
-            label: "Edit",
+            label: this.$i18n.t("m.action.edit"),
             click() {
               // Todo
             }
@@ -64,7 +72,7 @@ export default {
         );
         menu.append(
           new MenuItem({
-            label: "Delete",
+            label: this.$i18n.t("m.action.delete"),
             click() {
               me.deleteItem();
             }
@@ -91,16 +99,13 @@ export default {
 </script>
 
 <style>
-/* @import url('../../../static/katex.min.css'); */
-/* @import url('../../../static/prism.css'); */
-
 .hub-item-note {
   border-bottom: 1px dashed #e9eaec;
 }
 
 .note-row {
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .hub-item-note:hover .note-row {

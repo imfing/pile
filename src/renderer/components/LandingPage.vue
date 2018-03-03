@@ -16,7 +16,7 @@
             ></board>
           </TabPane>
           <div slot="extra">
-            <Tooltip content="Add new board" placement="bottom-end" :transfer="true" :delay="500">
+            <Tooltip placement="bottom-end" :transfer="true" :delay="500">
               <Button type="ghost"
                       @click="showNewBoardModal"
                       size="small"
@@ -24,6 +24,9 @@
                       shape="circle"
                       style="margin-right: 5px;">
               </Button>
+              <div slot="content">
+                {{$t("m.board.new.tip")}}
+              </div>
             </Tooltip>
           </div>
         </Tabs>
@@ -96,24 +99,27 @@ export default {
       // this.$nextTick(() => this.$bus.$emit("boardAdded", savedBoard.id));
       this.closeNewBoardModal();
       this.loadBoards();
-      this.$Message.success("Board added");
+      this.$Message.success(this.$i18n.t("m.board.new.success"));
     },
     handleBoardRemove(boardLabel, boardId) {
       if (this.boards.length <= 1) {
-        this.$Message.error("You should keep at least one board.");
+        this.$Message.error(this.$i18n.t("m.board.lastBoard"));
       } else {
         this.$Modal.confirm({
-          title: `Remove board '${boardLabel}' ?`,
-          okText: "OK, remove it",
-          cancelText: "Cancel",
-          content: `<p>Remove board <strong>"${boardLabel}"</strong>?</p>`,
+          title: this.$i18n.t("m.modal.delete.title") + ` '${boardLabel}' ?`,
+          okText: this.$i18n.t("m.modal.delete.ok"),
+          cancelText: this.$i18n.t("m.modal.delete.cancel"),
+          content:
+            `<p>` +
+            this.$i18n.t("m.modal.delete.content") +
+            `<strong>"${boardLabel}"</strong>?</p>`,
           onOk: () => {
             boardsStore.removeBoard(boardId);
             const firstBoardId = boardsStore.getFirstBoard().id;
             boardsStore.setActiveBoard(firstBoardId);
             this.selectedTab = firstBoardId;
             this.loadBoards();
-            this.$Message.info("Board removed");
+            this.$Message.info(this.$i18n.t("m.modal.delete.success.board"));
           }
         });
       }
@@ -121,6 +127,12 @@ export default {
   },
 
   created() {
+    var app = require("electron").remote.app;
+    let locale = app.getLocale();
+    if (locale != "zh-CN") {
+      this.$i18n.locale = "en-US";
+    }
+
     this.selectedTab = boardsStore.getActiveBoard();
     this.loadBoards();
   }

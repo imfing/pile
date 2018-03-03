@@ -68,15 +68,7 @@ export default {
         let me = this;
         menu.append(
           new MenuItem({
-            label: "Delete",
-            click() {
-              me.deleteItem();
-            }
-          })
-        );
-        menu.append(
-          new MenuItem({
-            label: "Open folder",
+            label: this.$i18n.t("m.action.openFolder"),
             click() {
               // const fs = require('fs');
               // console.log(fs.lstatSync(me.path).isDirectory())
@@ -86,6 +78,15 @@ export default {
             }
           })
         );
+        menu.append(
+          new MenuItem({
+            label: this.$i18n.t("m.action.delete"),
+            click() {
+              me.deleteItem();
+            }
+          })
+        );
+
         menu.popup(remote.getCurrentWindow());
       },
       false
