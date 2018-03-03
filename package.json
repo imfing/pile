@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "fing <mtobeiyf@163.com>",
   "description": "Access your piles of work at one place.",
-  "license": "GPL v3.0",
+  "license": "(GPL-3.0)",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -17,8 +17,8 @@
     "postinstall": ""
   },
   "build": {
-    "productName": "pile",
-    "appId": "org.simulatedgreg.electron-vue",
+    "productName": "Pile",
+    "appId": "com.imfing.pile",
     "directories": {
       "output": "build"
     },
@@ -54,10 +54,12 @@
     "autolinker": "^1.6.2",
     "axios": "^0.16.1",
     "iview": "^2.9.2",
+    "lodash": "^4.17.5",
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0",
     "vue": "^2.5.13",
     "vue-electron": "^1.0.6",
+    "vue-markdown": "^2.2.4",
     "vue-router": "^2.5.3",
     "vuedraggable": "^2.16.0"
   },
