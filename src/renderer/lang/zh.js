@@ -8,6 +8,13 @@ export const m = {
     devtool: "开发者工具",
     close: "退出"
   },
+  settings: {
+    title: '设置',
+    save: '保存',    
+    close: '关闭',
+    langTitle: '界面语言',
+    success: '设置已保存'
+  },
   action: {
     rename: '重命名',
     delete: '删除',

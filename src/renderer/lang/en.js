@@ -8,6 +8,13 @@ export const m = {
     devtool: "Devtools",
     close: "Quit"
   },
+  settings: {
+    title: 'Settings',
+    save: 'Save',
+    close: 'Close',
+    langTitle: 'Display language',
+    success: 'Settings saved'
+  },
   action: {
     rename: 'Rename',
     delete: 'Delete',

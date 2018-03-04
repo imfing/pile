@@ -11,10 +11,37 @@ db.defaults({
     y: undefined
   },
   appSettings: {
-    locale: 'zh-CN'
+    locale: ""
   }
 }).write()
 
 export default {
-
+  getWindowState() {
+    return db.get('windowState')
+      .value()
+  },
+  updateWindowState(updateProp) {
+    return db.get('windowState')
+      .assign(updateProp)
+      .write()
+  },
+  getAppSettings() {
+    return db.get('appSettings')
+      .cloneDeep()
+      .value()
+  },
+  updateAppSettings(updateProp) {
+    return db.get('appSettings')
+      .assign(updateProp)
+      .write()
+  },
+  getLocale() {
+    return db.get('appSettings.locale')
+      .value()
+  },
+  updateLocale(locale){
+    return db.get('appSettings')
+      .set('locale', locale)
+      .write()
+  }
 }
