@@ -6,7 +6,7 @@
 
 > Organize your piled work at one place.
 
-[README](https://github.com/mtobeiyf/pile/blob/master/README.md)
+[README](https://github.com/mtobeiyf/pile/blob/master/README.md) | [中文说明](https://github.com/mtobeiyf/pile/blob/master/README_zh.md)
 
 <p align="center">
   <img src="https://s18.postimg.org/8xfca4ad5/sshot-1.png" width="600px" alt="">
@@ -59,7 +59,7 @@ A simple todolist related to the project.
 - Endless possibilities. Developer, designer, writer...
 - Markdown support, emoji included.
 
-### Download
+## Download
 
 Go to the [release page](https://github.com/mtobeiyf/pile/releases)
 and download the portable **zip** file.
