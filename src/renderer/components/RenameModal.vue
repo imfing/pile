@@ -7,6 +7,7 @@
            v-bind:placeholder="$t('m.modal.rename.placeholder')"
            autofocus
            icon="edit"
+           @on-keyup.enter="submitRename"
     />
     <div slot="footer">
       <Button type="text" size="large" @click="closeRenameModal">{{$t("m.modal.rename.cancel")}}</Button>

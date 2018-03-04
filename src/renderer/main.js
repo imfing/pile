@@ -12,7 +12,6 @@ import VueI18n from 'vue-i18n'
 Vue.use(iView);
 Vue.use(VueI18n)
 
-
 const i18n = new VueI18n({
   locale: 'zh-CN',    // 语言标识
   messages: {
@@ -21,7 +20,10 @@ const i18n = new VueI18n({
   }
 })
 
-
+// require static files here
+require('./assets/katex.min.css')
+require('./assets/prism.css')
+require('./assets/prism.js')
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios

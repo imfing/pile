@@ -9,8 +9,6 @@
         require('module').globalPaths.push('<%= htmlWebpackPlugin.options.nodeModules.replace(/\\/g, '\\\\') %>')
       </script>
     <% } %>
-    <link href="../static/prism.css" rel="stylesheet" />
-    <link href="../static/katex.min.css" rel="stylesheet" />
   </head>
   <body>
     <div id="app"></div>
@@ -19,6 +17,5 @@
       if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
     </script>
     <!-- webpack builds are automatically injected -->
-    <script src="../static/prism.js"></script>
   </body>
 </html>

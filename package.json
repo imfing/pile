@@ -23,7 +23,8 @@
       "output": "build"
     },
     "files": [
-      "dist/electron/**/*"
+      "dist/electron/**/*",
+      "static/**/*"
     ],
     "dmg": {
       "contents": [
@@ -57,6 +58,7 @@
     "lodash": "^4.17.5",
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0",
+    "markdown-it": "^8.4.1",
     "vue": "^2.5.13",
     "vue-electron": "^1.0.6",
     "vue-i18n": "^7.4.2",
