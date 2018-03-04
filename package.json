@@ -1,6 +1,6 @@
 {
   "name": "pile",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "fing <mtobeiyf@163.com>",
   "description": "Access your piles of work at one place.",
   "license": "(GPL-3.0)",
@@ -41,10 +41,10 @@
       ]
     },
     "mac": {
-      "icon": "build/icons/icon.icns"
+      "icon": "build/icons/pile.icns"
     },
     "win": {
-      "icon": "build/icons/icon.ico"
+      "icon": "build/icons/pile.ico"
     },
     "linux": {
       "icon": "build/icons"
