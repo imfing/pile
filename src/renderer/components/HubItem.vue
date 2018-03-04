@@ -3,8 +3,14 @@
     <div style="text-align:center; margin-bottom:5px;">
       <Icon v-if="this.isDir" type="folder" size=52></Icon>
       <img v-if="!this.isDir" ref="icon" src="" width="48px" height="48px">
-      <p style="font-size:12px;">{{this.label}}</p>
+      <p style="font-size:12px;">{{this.displayLabel}}</p>
     </div>
+
+    <rename-modal :renameModal="renameModal"
+                :oldContent="this.label"
+                @submitRename="submitRename"
+                @closeRenameModal="renameModal=false;"
+                ></rename-modal>
   </div>
 </template>
 
@@ -13,29 +19,30 @@ import { shell } from "electron";
 const { remote } = require("electron");
 const { Menu, MenuItem } = require("electron").remote;
 import boardsStore from "../store/modules/boardsStore";
+import RenameModal from "./RenameModal.vue"
 
 export default {
-  props: ["title", "path", "itemId"],
+  props: ["label", "path", "itemId"],
+
+  components: {
+    RenameModal
+  },
 
   data() {
     return {
-      isDir: false
+      isDir: false,
+      renameModal: false
     };
   },
 
   computed: {
-    label() {
+    displayLabel() {
       // return filename or path name
-      var filename = this.path
-        .split("\\")
-        .pop()
-        .split("/")
-        .pop();
       var length = 10;
       var displayName =
-        filename.length > length
-          ? filename.substring(0, length - 3) + "..."
-          : filename;
+        this.label.length > length
+          ? this.label.substring(0, length - 3) + "..."
+          : this.label;
       return displayName;
     }
   },
@@ -66,14 +73,20 @@ export default {
         e.preventDefault();
         const menu = new Menu();
         let me = this;
+
+        menu.append(
+          new MenuItem({
+            label: this.$i18n.t("m.action.rename"),
+            click() {
+              me.renameModal = true;
+            }
+          })
+        );
         menu.append(
           new MenuItem({
             label: this.$i18n.t("m.action.openFolder"),
             click() {
-              // const fs = require('fs');
-              // console.log(fs.lstatSync(me.path).isDirectory())
               const path = require("path");
-              // shell.openExternal(path.dirname(me.path));
               shell.showItemInFolder(me.path);
             }
           })
@@ -100,6 +113,10 @@ export default {
     },
     deleteItem: function() {
       this.$emit("deleteItem", this.itemId);
+    },
+    submitRename: function(content){
+      this.$emit("submitRename", this.itemId, content);
+      this.renameModal = false;
     }
   }
 };

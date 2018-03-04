@@ -52,7 +52,8 @@ export const m = {
       ok: 'Ok',
       cancel: 'Cancel',
       success: {
-        hub: 'Rename ok'
+        hub: 'Rename ok',
+        item: 'Rename ok'
       }
     },
     delete: {
@@ -63,6 +64,15 @@ export const m = {
       success: {
         board: 'Board removed',
         hub: 'Hub removed'
+      }
+    },
+    edit: {
+      title: 'Edit',
+      placeholder: 'Enter something here...',
+      ok: 'Save',
+      cancel: 'Cancel',
+      success: {
+        note: 'Note saved.'
       }
     }
   },

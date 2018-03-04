@@ -26,6 +26,7 @@
         :itemId="item.id"
         :content="item.content"
         @deleteItem="removeHubItem"
+        @submitEdit="saveEdit"
         ></hub-item-note>
 
       </div>
@@ -106,6 +107,11 @@ export default {
       boardsStore.addHubNote(this.boardId, this.hubId, this.newNote);
       this.newNote=""
       this.fetchHubItems();
+    },
+    saveEdit(itemId, content){
+      boardsStore.setHubItemContent(this.boardId, this.hubId, itemId, content);
+      this.fetchHubItems();
+      this.$Message.success(this.$i18n.t("m.modal.edit.success.note"));
     },
     fetchHubItems() {
       this.items = boardsStore.getHubItems(this.boardId, this.hubId);

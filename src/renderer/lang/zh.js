@@ -52,7 +52,8 @@ export const m = {
       ok: '重命名',
       cancel: '取消',
       success: {
-        hub: '区域重命名成功'
+        hub: '区域重命名成功',
+        item: '修改成功'
       }
     },
     delete: {
@@ -63,6 +64,15 @@ export const m = {
       success:{
         board: '标签页删除成功',
         hub: '区域删除成功'
+      }
+    },
+    edit: {
+      title: '编辑',
+      placeholder: '在此输入',
+      ok: '保存',
+      cancel: '取消',
+      success: {
+        note: '编辑已保存'
       }
     }
   }

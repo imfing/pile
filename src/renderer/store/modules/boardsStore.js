@@ -35,7 +35,7 @@ export default {
       .set('hubs', items)
       .write()
   },
-  saveHubItemsArray(boardId, hubId, items){
+  saveHubItemsArray(boardId, hubId, items) {
     return db
       .get('boards')
       .getById(boardId)
@@ -98,7 +98,7 @@ export default {
       .cloneDeep()
       .value()
   },
-  addHubItem(boardId, hubId, path) {
+  addHubItem(boardId, hubId, path, label) {
     return db
       .get('boards')
       .getById(boardId)
@@ -106,7 +106,8 @@ export default {
       .getById(hubId)
       .get('items')
       .insert({
-        path: path
+        path: path,
+        label: label
       })
       .write()
   },
@@ -146,6 +147,26 @@ export default {
       })
       .write()
   },
+  setHubItemContent(boardId, hubId, itemId, content) {
+    db.get('boards')
+      .getById(boardId)
+      .get('hubs')
+      .getById(hubId)
+      .get('items')
+      .getById(itemId)
+      .set('content', content)
+      .write()
+  },
+  setHubItemLabel(boardId, hubId, itemId, content) {
+    db.get('boards')
+      .getById(boardId)
+      .get('hubs')
+      .getById(hubId)
+      .get('items')
+      .getById(itemId)
+      .set('label', content)
+      .write()
+  },
   removeHubNote(boardId, hubId, itemId) {
     db.get('boards')
       .getById(boardId)
@@ -155,7 +176,7 @@ export default {
       .remove({ id: itemId })
       .write()
   },
-  setTodoIsDone(boardId, hubId, itemId, newVal){
+  setTodoIsDone(boardId, hubId, itemId, newVal) {
     db.get('boards')
       .getById(boardId)
       .get('hubs')

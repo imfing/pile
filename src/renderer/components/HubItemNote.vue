@@ -1,8 +1,14 @@
 <template>
   <div class="hub-item-note">
     <Row class="note-row">
-      <vue-markdown>{{this.content}}</vue-markdown>
+      <vue-markdown v-bind:source="this.content"
+      ></vue-markdown>
     </Row>
+    <edit-modal :editModal="editModal"
+                :oldContent="this.content"
+                @submitEdit="submitEdit"
+                @closeEditModal="editModal=false;"
+                ></edit-modal>
   </div>
 </template>
 
@@ -12,39 +18,24 @@ const { remote } = require("electron");
 const { Menu, MenuItem } = require("electron").remote;
 import boardsStore from "../store/modules/boardsStore";
 import VueMarkdown from "vue-markdown";
+import EditModal from "./EditModal.vue";
 
 export default {
   props: ["content", "itemId"],
 
   components: {
-    VueMarkdown
+    VueMarkdown,
+    EditModal
   },
 
   data() {
-    return {};
-  },
-
-  computed: {
-    textWithLink() {
-      var Autolinker = require("autolinker");
-      var rawText = this.content;
-      var linkedText = Autolinker.link(rawText, {
-        className: "link",
-        replaceFn: function(match) {
-          switch (match.getType()) {
-            case "url":
-              var url = match.getUrl();
-              return `<span class='link' title="${url}">${
-                url.split("/")[2]
-              }</span>`;
-          }
-        }
-      });
-      return linkedText;
-    }
+    return {
+      editModal: false
+    };
   },
 
   mounted: function() {
+    // Open <a> tag in external browser
     document.addEventListener("click", function(event) {
       if (
         event.target.tagName === "A" &&
@@ -66,7 +57,7 @@ export default {
           new MenuItem({
             label: this.$i18n.t("m.action.edit"),
             click() {
-              // Todo
+              me.editModal = true;
             }
           })
         );
@@ -93,6 +84,10 @@ export default {
     },
     deleteItem: function() {
       this.$emit("deleteItem", this.itemId);
+    },
+    submitEdit: function(content) {
+      this.$emit("submitEdit", this.itemId, content);
+      this.editModal = false;
     }
   }
 };

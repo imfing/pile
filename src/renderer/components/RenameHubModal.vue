@@ -19,11 +19,19 @@
 <script>
 export default {
   props: ["originalName", "renameHubModal"],
+
   data() {
     return {
       newHubName: this.originalName
     };
   },
+
+  watch: {
+    originalName: function() {
+      this.newHubName = this.originalName;
+    }
+  },
+
   methods: {
     submitHubName() {
       if (this.newHubName.trim() === "") {
@@ -33,7 +41,7 @@ export default {
       this.$emit("submitHubName", this.newHubName);
       this.newHubName = "";
     },
-    closeRenameHubModal(){
+    closeRenameHubModal() {
       this.$emit("closeRenameHubModal");
       this.newHubName = "";
     }

@@ -36,6 +36,7 @@
             :isDone="item.isDone"
             @changeIsDone="changeIsDone"
             @deleteItem="removeHubItem"
+            @submitEdit="saveEdit"
             ></hub-item-todo>
           </div>
           <div v-else>
@@ -45,6 +46,7 @@
             :isDone="item.isDone"
             @changeIsDone="changeIsDone"
             @deleteItem="removeHubItem"
+            @submitEdit="saveEdit"
             ></hub-item-todo>
           </div>
         </div>
@@ -121,7 +123,7 @@ export default {
       boardsStore.setTodoIsDone(this.boardId, this.hubId, itemId, newVal);
       this.fetchHubItems();
     },
-    toggleDone(state){
+    toggleDone(state) {
       // console.log(this.showDone);
       this.fetchHubItems();
     },
@@ -155,6 +157,11 @@ export default {
     },
     closeRenameHubModal() {
       this.renameHubModal = false;
+    },
+    saveEdit(itemId, content) {
+      boardsStore.setHubItemContent(this.boardId, this.hubId, itemId, content);
+      this.fetchHubItems();
+      this.$Message.success(this.$i18n.t("m.modal.edit.success.note"));
     }
   },
 

@@ -6,6 +6,12 @@
       <span v-html="textWithLink"
           @click="handleLinkClick"></span>
     </Row>
+
+    <edit-modal :editModal="editModal"
+            :oldContent="this.content"
+            @submitEdit="submitEdit"
+            @closeEditModal="editModal=false;"
+            ></edit-modal>
   </div>
 </template>
 
@@ -15,12 +21,19 @@ import { shell } from "electron";
 const { remote } = require("electron");
 const { Menu, MenuItem } = require("electron").remote;
 import boardsStore from "../store/modules/boardsStore";
+import EditModal from "./EditModal.vue";
 
 export default {
   props: ["content", "itemId", "isDone"],
 
+  components: {
+    EditModal
+  },
+
   data() {
-    return {};
+    return {
+      editModal: false
+    };
   },
 
   computed: {
@@ -55,6 +68,10 @@ export default {
     },
     deleteItem: function() {
       this.$emit("deleteItem", this.itemId);
+    },
+    submitEdit: function(content) {
+      this.$emit("submitEdit", this.itemId, content);
+      this.editModal = false;
     }
   },
 
@@ -70,7 +87,7 @@ export default {
           new MenuItem({
             label: this.$i18n.t("m.action.edit"),
             click() {
-              // Todo
+              me.editModal = true;
             }
           })
         );
