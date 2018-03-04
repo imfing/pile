@@ -21,13 +21,18 @@
           </Row>
         </form>
 
-        <hub-item-note v-for="item in items"
-        :key="item.id"
-        :itemId="item.id"
-        :content="item.content"
-        @deleteItem="removeHubItem"
-        @submitEdit="saveEdit"
-        ></hub-item-note>
+        <draggable v-model="items"
+        @change="handleDragItem"
+        @start="drag=true"
+        @end="drag=false">
+          <hub-item-note v-for="item in items"
+          :key="item.id"
+          :itemId="item.id"
+          :content="item.content"
+          @deleteItem="removeHubItem"
+          @submitEdit="saveEdit"
+          ></hub-item-note>
+        </draggable>
 
       </div>
       <div slot="extra">
@@ -56,16 +61,18 @@
 import { shell } from "electron";
 import boardsStore from "../store/modules/boardsStore";
 import RenameHubModal from "./RenameHubModal.vue";
-import HubItemNote from "./HubItemNote.vue"
+import HubItemNote from "./HubItemNote.vue";
+import draggable from "vuedraggable";
 
 export default {
   props: ["boardId", "label", "hubId"],
-  
+
   components: {
     RenameHubModal,
-    HubItemNote
+    HubItemNote,
+    draggable
   },
-  
+
   data() {
     return {
       newNote: "",
@@ -74,9 +81,7 @@ export default {
     };
   },
 
-  computed: {
-
-  },
+  computed: {},
 
   methods: {
     handleHubOptions: function(name) {
@@ -105,10 +110,10 @@ export default {
         return;
       }
       boardsStore.addHubNote(this.boardId, this.hubId, this.newNote);
-      this.newNote=""
+      this.newNote = "";
       this.fetchHubItems();
     },
-    saveEdit(itemId, content){
+    saveEdit(itemId, content) {
       boardsStore.setHubItemContent(this.boardId, this.hubId, itemId, content);
       this.fetchHubItems();
       this.$Message.success(this.$i18n.t("m.modal.edit.success.note"));
@@ -134,6 +139,9 @@ export default {
     },
     closeRenameHubModal() {
       this.renameHubModal = false;
+    },
+    handleDragItem() {
+      boardsStore.saveHubItemsArray(this.boardId, this.hubId, this.items);
     }
   },
 
@@ -145,7 +153,7 @@ export default {
 
 
 <style>
-.hub-content-note{
+.hub-content-note {
   min-height: 20px;
 }
 </style>
