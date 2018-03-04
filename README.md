@@ -1,6 +1,12 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mtobeiyf/pile/master/build/icons/pile.png" alt="">
+</p>
+
 # Pile
 
-> Access your piles of work in one place.
+> Organize your piled work at one place.
+
+[README](https://github.com/mtobeiyf/pile/blob/master/README.md)
 
 ## Screenshot
 
@@ -37,6 +43,9 @@ npm run build
 
 ## Acknowledgment
 
+- [Vue.js](https://vuejs.org/)
+- [vue-markdown](https://github.com/miaolz123/vue-markdown)
+- [lowdb](https://github.com/typicode/lowdb)
 - [Backlog](https://github.com/czytelny/backlog)
 
 ## License
