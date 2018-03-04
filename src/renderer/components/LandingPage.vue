@@ -1,12 +1,12 @@
 <template>
   <div id="wrapper">
     <Row id="tabrow">
-      <Col span="24" style="background: #eee;padding:16px;">
+      <Col span="24" style="background: #eee;padding:12px;">
         <Tabs v-model="selectedTab" 
               type="card" 
               closable
               @on-click="saveActiveBoard"
-              style="margin-top:5px;">
+              style="margin-top:5px; padding-top:5px;">
           <TabPane v-for="board in boards"
           :label="boardTabLabel(board.label, board.id)"
           :name="board.id"
