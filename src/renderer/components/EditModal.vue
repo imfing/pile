@@ -40,6 +40,7 @@ export default {
       this.$emit("submitEdit", this.newContent);
     },
     closeEditModal() {
+      this.newContent = this.oldContent;
       this.$emit("closeEditModal");
     }
   }

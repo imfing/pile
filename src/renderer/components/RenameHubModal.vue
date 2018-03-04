@@ -35,15 +35,12 @@ export default {
   methods: {
     submitHubName() {
       if (this.newHubName.trim() === "") {
-        this.newHubName = "";
         return false;
       }
       this.$emit("submitHubName", this.newHubName);
-      this.newHubName = "";
     },
     closeRenameHubModal() {
       this.$emit("closeRenameHubModal");
-      this.newHubName = "";
     }
   }
 };

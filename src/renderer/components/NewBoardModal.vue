@@ -6,6 +6,7 @@
     <Input v-model="newBoardName"
            v-bind:placeholder="$t('m.board.new.placeholder')"
            @on-keyup.enter="submitNewBoard"
+           autofocus
     />
     <div slot="footer">
       <Button type="text" size="large" @click="closeNewBoardModal">{{$t("m.board.new.cancel")}}</Button>
