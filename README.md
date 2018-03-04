@@ -8,6 +8,10 @@
 
 [README](https://github.com/mtobeiyf/pile/blob/master/README.md)
 
+<p align="center">
+  <img src="https://s18.postimg.org/8xfca4ad5/sshot-1.png" width="500px" alt="">
+</p>
+
 ## Why Pile?
 
 The way we get things done is project-oriented. However, the files, applications, tasklists, etc. are scattered everywhere. Pile is a place for you to put them altogether.
@@ -24,9 +28,29 @@ A board (or tab) is a place to hold all the resources of your **project** or **w
 
 A hub (or card) is an area for specific stuff. There are three different kinds of hubs:
 
-- **App/File**: You can add apps or files you may use in this area so that you can quickly access them.
-- **Notes**: Online resources (often appeared as links) or your thoughts can be taken down here.
-- **Todo**: A simple todolist related to the project.
+#### App/File
+
+You can add apps or files you may use in this area so that you can quickly access them.
+
+<p align="center">
+  <img src="https://s18.postimg.org/l6yd1ahux/pile11.gif" width="500px" alt="">
+</p>
+
+#### Notes
+
+Online resources (often appeared as links) or your thoughts can be taken down here.
+
+<p align="center">
+  <img src="https://s18.postimg.org/gauq96hl5/pile2.jpg" width="500px" alt="">
+</p>
+
+#### Todo
+
+A simple todolist related to the project.
+
+<p align="center">
+  <img src="https://s18.postimg.org/732hsukx5/pile3.jpg" width="500px" alt="">
+</p>
 
 ## Features
 
@@ -37,10 +61,6 @@ Go to the [release page](https://github.com/mtobeiyf/pile/releases)
 and download the portable **zip** file.
 Unzip it and run `Pile.exe`.
 
-
-## Screenshot
-
-![sshot-1.png](https://s18.postimg.org/8xfca4ad5/sshot-1.png)
 
 ## Technical
 
