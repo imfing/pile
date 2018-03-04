@@ -92,35 +92,39 @@ export default {
 
   methods: {
     async handleDrop(files) {
-      var filepath = files[0].path;
       const fs = require("fs");
       const path = require("path");
 
-      if (fs.lstatSync(filepath).isDirectory()) {
-        boardsStore.addHubItem(
-          this.boardId,
-          this.hubId,
-          filepath,
-          this.getLabel(filepath)
-        );
-      } else {
-        var filename = path.basename(filepath);
-        var filetype = path.extname(filename);
-        if (filetype == ".lnk") {
-          var spath = shell.readShortcutLink(filepath);
-          boardsStore.addHubItem(
-            this.boardId,
-            this.hubId,
-            spath.target,
-            this.getLabel(spath.target)
-          );
-        } else {
+      let i;
+      for (i = 0; i < files.length; i++) {
+        var filepath = files[i].path;
+
+        if (fs.lstatSync(filepath).isDirectory()) {
           boardsStore.addHubItem(
             this.boardId,
             this.hubId,
             filepath,
             this.getLabel(filepath)
           );
+        } else {
+          var filename = path.basename(filepath);
+          var filetype = path.extname(filename);
+          if (filetype == ".lnk") {
+            var spath = shell.readShortcutLink(filepath);
+            boardsStore.addHubItem(
+              this.boardId,
+              this.hubId,
+              spath.target,
+              this.getLabel(spath.target)
+            );
+          } else {
+            boardsStore.addHubItem(
+              this.boardId,
+              this.hubId,
+              filepath,
+              this.getLabel(filepath)
+            );
+          }
         }
       }
 
@@ -178,7 +182,7 @@ export default {
     handleDragItem() {
       boardsStore.saveHubItemsArray(this.boardId, this.hubId, this.items);
     },
-    saveRename(itemId, content){
+    saveRename(itemId, content) {
       boardsStore.setHubItemLabel(this.boardId, this.hubId, itemId, content);
       this.fetchHubItems();
       this.$Message.success(this.$i18n.t("m.modal.rename.success.item"));
