@@ -1,8 +1,18 @@
-# pile
+# Pile
 
 > Access your piles of work in one place.
 
-#### Build Setup
+## Screenshot
+
+## Technical
+
+### Stack
+
+- [Electron](https://electronjs.org/) : Framework
+- [electron-vue](https://github.com/SimulatedGREG/electron-vue) : Skeleton
+- [iView](https://www.iviewui.com/) : UI toolkit
+
+### Build Setup
 
 ``` bash
 # install dependencies
@@ -19,4 +29,19 @@ npm run build
 
 ---
 
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[1c165f7](https://github.com/SimulatedGREG/electron-vue/tree/1c165f7c5e56edaf48be0fbb70838a1af26bb015) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+## Versions
+
+### 0.1.0
+
+- Initial release
+
+## Acknowledgment
+
+- [Backlog](https://github.com/czytelny/backlog)
+
+## License
+
+Copyright (c) 2018 [Fing](http://imfing.com). 
+All rights reserved.
+
+Licensed under the [GPL v3.0](https://opensource.org/licenses/GPL-3.0) License.
