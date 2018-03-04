@@ -4,11 +4,24 @@ import lodashId from 'lodash-id'
 
 db._.mixin(lodashId)
 
+import Vue from 'vue'
+import VueI18n from 'vue-i18n'
+
+Vue.use(VueI18n)
+
+const i18n = new VueI18n({
+  locale: 'zh-CN',    // 语言标识
+  messages: {
+    'zh-CN': require('../../lang/zh'),   // 中文语言包
+    'en-US': require('../../lang/en')    // 英文语言包
+  }
+})
+
 db.defaults({
   activeBoard: 'default',
   boards: [{
     id: 'default',
-    label: 'Default board',
+    label: i18n.t("m.board.default"),
     hubs: []
   }]
 }).write()

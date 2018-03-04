@@ -15,6 +15,7 @@ export const m = {
     openFolder: '打开文件夹'
   },
   board: {
+    default: '工作区',
     empty: '空空如也~ 添加一个区域吧',
     lastBoard: '你需要至少保留一个标签',
     new: {

@@ -15,6 +15,7 @@ export const m = {
     openFolder: 'Open Folder'
   },
   board: {
+    default: 'Default Board',
     empty: 'Drag file or application here',
     lastBoard: 'You should keep at least one board',
     new: {
