@@ -27,29 +27,36 @@
           </Row>
         </form>
 
-        <div v-for="item in items"
-        :key="item.id">
-          <div v-if="!showDone">
-            <hub-item-todo v-if="!item.isDone"
-            :content="item.content"
-            :itemId="item.id"
-            :isDone="item.isDone"
-            @changeIsDone="changeIsDone"
-            @deleteItem="removeHubItem"
-            @submitEdit="saveEdit"
-            ></hub-item-todo>
+        <draggable v-model="items"
+        @change="handleDragItem"
+        @start="drag=true"
+        @end="drag=false">
+
+          <div v-for="item in items"
+          :key="item.id">
+            <div v-if="!showDone">
+              <hub-item-todo v-if="!item.isDone"
+              :content="item.content"
+              :itemId="item.id"
+              :isDone="item.isDone"
+              @changeIsDone="changeIsDone"
+              @deleteItem="removeHubItem"
+              @submitEdit="saveEdit"
+              ></hub-item-todo>
+            </div>
+            <div v-else>
+              <hub-item-todo v-if="item.isDone"
+              :content="item.content"
+              :itemId="item.id"
+              :isDone="item.isDone"
+              @changeIsDone="changeIsDone"
+              @deleteItem="removeHubItem"
+              @submitEdit="saveEdit"
+              ></hub-item-todo>
+            </div>
           </div>
-          <div v-else>
-            <hub-item-todo v-if="item.isDone"
-            :content="item.content"
-            :itemId="item.id"
-            :isDone="item.isDone"
-            @changeIsDone="changeIsDone"
-            @deleteItem="removeHubItem"
-            @submitEdit="saveEdit"
-            ></hub-item-todo>
-          </div>
-        </div>
+
+        </draggable>
       </div>
       <div slot="extra">
         <Dropdown placement="bottom-end" @on-click='handleHubOptions'>
@@ -77,13 +84,15 @@ import { shell } from "electron";
 import boardsStore from "../store/modules/boardsStore";
 import RenameHubModal from "./RenameHubModal.vue";
 import HubItemTodo from "./HubItemTodo.vue";
+import draggable from "vuedraggable";
 
 export default {
   props: ["boardId", "label", "hubId"],
 
   components: {
     RenameHubModal,
-    HubItemTodo
+    HubItemTodo,
+    draggable
   },
 
   data() {
@@ -162,6 +171,9 @@ export default {
       boardsStore.setHubItemContent(this.boardId, this.hubId, itemId, content);
       this.fetchHubItems();
       this.$Message.success(this.$i18n.t("m.modal.edit.success.note"));
+    },
+    handleDragItem() {
+      boardsStore.saveHubItemsArray(this.boardId, this.hubId, this.items);
     }
   },
 

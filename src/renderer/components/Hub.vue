@@ -8,7 +8,7 @@
         </div>
 
         <draggable v-model="items" 
-        :options="{group:'people'}" class="drag-box"
+        class="drag-box"
         @change="handleDragItem"
         @start="drag=true"
         @end="drag=false">
