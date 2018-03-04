@@ -28,14 +28,31 @@
                 {{$t("m.board.new.tip")}}
               </div>
             </Tooltip>
+            <Tooltip placement="bottom-end" :transfer="true" :delay="500">
+              <Button type="ghost"
+                      @click="settingsModal=true;"
+                      size="small"
+                      icon="gear-a"
+                      shape="circle"
+                      style="margin-right: 5px;">
+              </Button>
+              <div slot="content">
+                {{$t("m.board.new.tip")}}
+              </div>
+            </Tooltip>
           </div>
         </Tabs>
       </Col>
     </Row>
+
     <new-board-modal :newBoardModal="newBoardModal"
                      @submitNewBoard="submitNewBoard"
-                     @closeNewBoardModal="closeNewBoardModal">
-    </new-board-modal>
+                     @closeNewBoardModal="closeNewBoardModal"></new-board-modal>
+    <settings-modal :settingsModal="settingsModal"
+                    :locale="locale"
+                    @submitSettings="submitSettings"
+                    @closeSettingsModal="settingsModal=false;"></settings-modal>
+    
   </div>
 </template>
 
@@ -43,20 +60,26 @@
 import Board from "./Board.vue";
 import NewBoardModal from "./NewBoardModal.vue";
 import boardsStore from "../store/modules/boardsStore";
+import settingsStore from "../store/modules/settingsStore";
+import SettingsModal from "./SettingsModal.vue";
+import { loadavg } from "os";
 
 const remote = require("electron").remote;
 
 export default {
   components: {
     Board,
-    NewBoardModal
+    NewBoardModal,
+    SettingsModal
   },
 
   data() {
     return {
       boards: [],
       newBoardModal: false,
+      settingsModal: false,
       selectedTab: "default",
+      locale: "",
       boardTabLabel: (boardLabel, boardId) => h => {
         return h("div", [
           h("span", boardLabel),
@@ -123,14 +146,34 @@ export default {
           }
         });
       }
+    },
+    submitSettings(locale) {
+      this.settingsModal = false;
+      if (locale != this.locale) {
+        settingsStore.updateLocale(locale);
+        this.locale = settingsStore.getLocale();
+        this.$i18n.locale = this.locale;
+      }
+      this.$Message.success(this.$i18n.t("m.settings.success"));
     }
   },
 
   created() {
     var app = require("electron").remote.app;
     let locale = app.getLocale();
-    if (locale != "zh-CN") {
-      this.$i18n.locale = "en-US";
+
+    if (settingsStore.getLocale().length == 0) {
+      if (locale == "zh-CN") {
+        this.$i18n.locale = locale;
+        settingsStore.updateLocale(locale);
+      } else {
+        this.$i18n.locale = "en-US";
+        settingsStore.updateLocale("en-US");
+      }
+      this.locale = settingsStore.getLocale();
+    } else {
+      this.locale = settingsStore.getLocale();
+      this.$i18n.locale = this.locale;
     }
 
     this.selectedTab = boardsStore.getActiveBoard();
