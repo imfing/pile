@@ -9,6 +9,7 @@ export const m = {
     close: "Quit"
   },
   settings: {
+    tip: 'Open settings',
     title: 'Settings',
     save: 'Save',
     close: 'Close',

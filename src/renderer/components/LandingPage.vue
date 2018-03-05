@@ -37,7 +37,7 @@
                       style="margin-right: 5px;">
               </Button>
               <div slot="content">
-                {{$t("m.board.new.tip")}}
+                {{$t("m.settings.tip")}}
               </div>
             </Tooltip>
           </div>

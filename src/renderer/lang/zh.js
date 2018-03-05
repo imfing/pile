@@ -9,8 +9,9 @@ export const m = {
     close: "退出"
   },
   settings: {
+    tip: '打开设置',
     title: '设置',
-    save: '保存',    
+    save: '保存',
     close: '关闭',
     langTitle: '界面语言',
     success: '设置已保存'
