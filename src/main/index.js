@@ -14,6 +14,18 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
+const isSecondInstance = app.makeSingleInstance((commandLine, workingDirectory) => {
+  // Someone tried to run a second instance, we should focus our window.
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore()
+    mainWindow.focus()
+  }
+})
+
+if (isSecondInstance) {
+  app.quit()
+}
+
 function createWindow() {
   /**
    * Initial window options
@@ -22,7 +34,7 @@ function createWindow() {
   const path = require('path')
   // windowConfig.icon = path.join(__dirname, '/assets/pile.ico')
   // mainWindow = new BrowserWindow(windowConfig)
-  mainWindow = new BrowserWindow({icon: path.join(__dirname, '/assets/pile.ico')})
+  mainWindow = new BrowserWindow({ icon: path.join(__dirname, '/assets/pile.ico') })
 
   // mainWindow.webContents.openDevTools()
 
