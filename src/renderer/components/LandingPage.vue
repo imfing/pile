@@ -17,7 +17,7 @@
           </TabPane>
           <div slot="extra">
             <Tooltip placement="bottom-end" :transfer="true" :delay="500">
-              <Button type="ghost"
+              <Button type="dashed"
                       @click="showNewBoardModal"
                       size="small"
                       icon="plus"
@@ -29,7 +29,7 @@
               </div>
             </Tooltip>
             <Tooltip placement="bottom-end" :transfer="true" :delay="500">
-              <Button type="ghost"
+              <Button type="dashed"
                       @click="settingsModal=true;"
                       size="small"
                       icon="gear-a"
@@ -50,6 +50,7 @@
                      @closeNewBoardModal="closeNewBoardModal"></new-board-modal>
     <settings-modal :settingsModal="settingsModal"
                     :locale="locale"
+                    :boards="boards"
                     @submitSettings="submitSettings"
                     @closeSettingsModal="settingsModal=false;"></settings-modal>
     
@@ -62,7 +63,6 @@ import NewBoardModal from "./NewBoardModal.vue";
 import boardsStore from "../store/modules/boardsStore";
 import settingsStore from "../store/modules/settingsStore";
 import SettingsModal from "./SettingsModal.vue";
-import { loadavg } from "os";
 
 const remote = require("electron").remote;
 
@@ -103,6 +103,9 @@ export default {
   },
 
   methods: {
+    forceReload() {
+      remote.getCurrentWindow().reload();
+    },
     loadBoards() {
       this.boards = boardsStore.getList();
     },
@@ -147,13 +150,19 @@ export default {
         });
       }
     },
-    submitSettings(locale) {
+    submitSettings(locale, boards) {
       this.settingsModal = false;
       if (locale != this.locale) {
         settingsStore.updateLocale(locale);
         this.locale = settingsStore.getLocale();
         this.$i18n.locale = this.locale;
       }
+
+      boardsStore.saveBoardsArray(boards);
+      this.loadBoards();
+
+      this.forceReload();
+
       this.$Message.success(this.$i18n.t("m.settings.success"));
     }
   },

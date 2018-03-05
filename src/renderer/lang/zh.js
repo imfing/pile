@@ -14,6 +14,7 @@ export const m = {
     save: '保存',
     close: '关闭',
     langTitle: '界面语言',
+    boardsEdit: '标签页编辑',
     success: '设置已保存'
   },
   action: {

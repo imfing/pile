@@ -14,6 +14,7 @@ export const m = {
     save: 'Save',
     close: 'Close',
     langTitle: 'Display language',
+    boardsEdit: 'Setup boards order and name',    
     success: 'Settings saved'
   },
   action: {

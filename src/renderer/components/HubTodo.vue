@@ -5,7 +5,7 @@
       <div class="hub-content-note">
         <form action="">
           <Row style="margin-bottom:5px;">
-            <Col :xs="20" :sm="22" :md="22" :lg="22">
+            <Col :xs="20" :sm="21" :md="22" :lg="22">
               <Input
                     v-model="newTodoItem"
                     icon="plus" 
@@ -14,7 +14,7 @@
                     @on-click="submitTodo"
                     ></Input>
             </Col>
-            <Col :xs="4" :sm="2" :md="2" :lg="2"
+            <Col :xs="4" :sm="3" :md="2" :lg="2"
                  style="text-align: center;">
                   <i-switch
                   v-model="showDone" 
