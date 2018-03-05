@@ -2,6 +2,15 @@
   <img src="https://raw.githubusercontent.com/mtobeiyf/pile/master/build/icons/pile.png" width="200px" alt="">
 </p>
 
+<p align="center">
+  <a href="https://github.com/mtobeiyf/pile/releases">
+    <img src="https://img.shields.io/github/release/mtobeiyf/pile.svg" alt="">
+  </a>
+  <a href="http://perso.crans.org/besson/LICENSE.html">
+    <img src="https://img.shields.io/badge/License-GPLv3-green.svg" alt="">
+  </a>
+</p>
+
 # Pile
 
 > Organize your piled work at one place.
@@ -59,11 +68,13 @@ A simple todolist related to the project.
 - Endless possibilities. Developer, designer, writer...
 - Markdown support, emoji included.
 
-## Download
+## Installation
 
 Go to the [release page](https://github.com/mtobeiyf/pile/releases)
-and download the portable **zip** file.
-Unzip it and run `Pile.exe`.
+
+Download and run the setup **.exe** file and Pile will be insalled automatically
+
+Or download the portable **.zip** file, unzip it and run `Pile.exe`
 
 ## Technical
 
@@ -90,6 +101,18 @@ yarn run build:dir # or npm run build:dir
 ---
 
 ## Versions
+
+### 0.1.0
+
+#### Features
+- Tray icon support
+- Edit boards in settings
+- One instance restriction
+
+#### Fixes
+
+- Context menu missing for items
+- Wrong tooltip for setting button
 
 ### 0.1.0
 
