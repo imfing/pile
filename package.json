@@ -1,8 +1,8 @@
 {
   "name": "pile",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "fing <mtobeiyf@163.com>",
-  "description": "Access your piles of work at one place.",
+  "description": "A simple & powerful app to organize your piled work at one place",
   "license": "(GPL-3.0)",
   "main": "./dist/electron/main.js",
   "scripts": {
