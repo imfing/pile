@@ -4,9 +4,15 @@ export const m = {
     view: "视图",
     reload: "重新加载",
     help: "帮助",
+    feedback: '反馈建议',    
     about: "关于",
     devtool: "开发者工具",
     close: "退出"
+  },
+  tray: {
+    show: '显示',
+    quit: '退出',
+    autoBoot: '开机启动'
   },
   settings: {
     tip: '打开设置',

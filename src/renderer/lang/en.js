@@ -4,9 +4,15 @@ export const m = {
     view: "View",
     reload: "Reload",
     help: "Help",
+    feedback: 'Feedback',
     about: "About",
     devtool: "Devtools",
     close: "Quit"
+  },
+  tray: {
+    show: 'Show',
+    quit: 'Quit',
+    autoBoot: 'Run at boot'
   },
   settings: {
     tip: 'Open settings',
@@ -14,7 +20,7 @@ export const m = {
     save: 'Save',
     close: 'Close',
     langTitle: 'Display language',
-    boardsEdit: 'Setup boards order and name',    
+    boardsEdit: 'Setup boards order and name',
     success: 'Settings saved'
   },
   action: {

@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Menu, Tray, nativeImage } from 'electron'
 import settingsStore from "../renderer/store/modules/settingsStore"
 
 /**
@@ -10,6 +10,10 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow
+let tray = null
+
+const path = require('path')
+
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
@@ -18,12 +22,13 @@ const isSecondInstance = app.makeSingleInstance((commandLine, workingDirectory) 
   // Someone tried to run a second instance, we should focus our window.
   if (mainWindow) {
     if (mainWindow.isMinimized()) mainWindow.restore()
+    mainWindow.show()
     mainWindow.focus()
   }
 })
 
 if (isSecondInstance) {
-  app.quit()
+  app.exit()
 }
 
 function createWindow() {
@@ -31,10 +36,10 @@ function createWindow() {
    * Initial window options
    */
   // const windowConfig = settingsStore.getWindowState()
-  const path = require('path')
+
   // windowConfig.icon = path.join(__dirname, '/assets/pile.ico')
   // mainWindow = new BrowserWindow(windowConfig)
-  mainWindow = new BrowserWindow({ icon: path.join(__dirname, '/assets/pile.ico') })
+  mainWindow = new BrowserWindow({ icon: path.join(__static, 'icons/pile.ico') })
 
   // mainWindow.webContents.openDevTools()
 
@@ -49,6 +54,11 @@ function createWindow() {
     mainWindow = null
   })
 
+  mainWindow.on('close', function (event) {
+    event.preventDefault();
+    mainWindow.hide();
+    return false;
+  });
   // mainWindow.on('resize', () => saveWindowState(mainWindow))
   // mainWindow.on('move', () => saveWindowState(mainWindow))
   // mainWindow.on('close', () => saveWindowState(mainWindow))
@@ -71,7 +81,7 @@ app.on('ready', function () {
     }
   })
 
-  const Menu = require('electron').Menu;
+
   var template = [
     {
       label: i18n.t("m.menu.view"),
@@ -87,13 +97,17 @@ app.on('ready', function () {
         },
         {
           label: i18n.t("m.menu.close"),
-          role: 'close'
+          click() { app.exit() }
         }
       ]
     },
     {
       label: i18n.t("m.menu.help"),
       submenu: [
+        {
+          label: i18n.t("m.menu.feedback"),
+          click() { require('electron').shell.openExternal('https://github.com/mtobeiyf/pile/issues') }
+        },
         {
           label: i18n.t("m.menu.about"),
           click() { require('electron').shell.openExternal('https://github.com/mtobeiyf/pile') }
@@ -103,14 +117,49 @@ app.on('ready', function () {
   ]
   var menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu);
-});
 
+  let trayIcon = nativeImage.createFromPath(path.join(__static, 'icons/pile.png'));
+  tray = new Tray(trayIcon)
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: i18n.t("m.tray.show"),
+      click() {
+        mainWindow.show()
+        if (mainWindow.isMinimized()) mainWindow.restore()
+        mainWindow.focus()
+      }
+    },
+    {
+      label: i18n.t("m.tray.quit"),
+      click() {
+        app.exit()
+      }
+    }
+  ])
+  tray.on('click', function () {
+    mainWindow.show()
+    if (mainWindow.isMinimized()) mainWindow.restore()
+    mainWindow.focus()
+  })
+  tray.on('double-click', function () {
+    mainWindow.show()
+    if (mainWindow.isMinimized()) mainWindow.restore()
+    mainWindow.focus()
+  })
+  tray.setToolTip('Pile')
+  tray.setContextMenu(contextMenu)
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
+
+// app.on('before-quit', () => {
+//   mainWindow.removeAllListeners('close');
+//   mainWindow.close();
+// });
 
 app.on('activate', () => {
   if (mainWindow === null) {
