@@ -102,7 +102,7 @@ yarn run build:dir # or npm run build:dir
 
 ## Versions
 
-### 0.1.0
+### 0.1.1
 
 #### Features
 - Tray icon support
