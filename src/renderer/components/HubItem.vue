@@ -2,7 +2,8 @@
   <div @click="openLink" class="hubitem" :title="path">
     <div style="text-align:center; margin-bottom:5px;">
       <Icon v-if="this.isDir" type="folder" size=52></Icon>
-      <img v-if="!this.isDir" ref="icon" src="" width="48px" height="48px">
+      <Icon v-if="this.isMissing" type="close" size=52 color="#ed3f14"></Icon>      
+      <img v-if="(!this.isDir)&&(!this.isMissing)" ref="icon" src="" width="48px" height="48px">
       <p style="font-size:12px;">{{this.displayLabel}}</p>
     </div>
 
@@ -19,7 +20,7 @@ import { shell } from "electron";
 const { remote } = require("electron");
 const { Menu, MenuItem } = require("electron").remote;
 import boardsStore from "../store/modules/boardsStore";
-import RenameModal from "./RenameModal.vue"
+import RenameModal from "./RenameModal.vue";
 
 export default {
   props: ["label", "path", "itemId"],
@@ -31,6 +32,7 @@ export default {
   data() {
     return {
       isDir: false,
+      isMissing: false,
       renameModal: false
     };
   },
@@ -53,20 +55,7 @@ export default {
     const path = require("path");
     const fs = require("fs");
 
-    var self = this;
-
-    if (fs.lstatSync(this.path).isDirectory()) {
-      this.isDir = true;
-    } else {
-      var filename = path.basename(this.path);
-      var filetype = path.extname(filename);
-
-      app.getFileIcon(this.path, { size: "large" }, function(err, res) {
-        self.$refs.icon.src = res.toDataURL();
-      });
-    }
-
-    // Add context menu
+    // Add context menu first
     this.$el.addEventListener(
       "contextmenu",
       e => {
@@ -104,6 +93,23 @@ export default {
       },
       false
     );
+
+    var self = this;
+
+    if (fs.existsSync(this.path)) {
+      if (fs.lstatSync(this.path).isDirectory()) {
+        this.isDir = true;
+      } else {
+        var filename = path.basename(this.path);
+        var filetype = path.extname(filename);
+
+        app.getFileIcon(this.path, { size: "large" }, function(err, res) {
+          self.$refs.icon.src = res.toDataURL();
+        });
+      }
+    } else {
+      this.isMissing = true;
+    }
   },
 
   methods: {
@@ -114,7 +120,7 @@ export default {
     deleteItem: function() {
       this.$emit("deleteItem", this.itemId);
     },
-    submitRename: function(content){
+    submitRename: function(content) {
       this.$emit("submitRename", this.itemId, content);
       this.renameModal = false;
     }
@@ -126,6 +132,7 @@ export default {
 .hubitem {
   cursor: pointer;
   width: 100px;
+  height: 70px;
 }
 </style>
 
