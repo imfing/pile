@@ -25,6 +25,14 @@
       </draggable> 
     </div>
 
+    <div class="separator"></div>
+
+    <div>
+      <span style="color:#bbbec4;">
+        v{{require('electron').remote.app.getVersion()}}
+      </span>
+    </div>
+
     <div slot="footer">
       <Button type="text" size="large" @click="closeSettingsModal">{{$t("m.settings.close")}}</Button>
       <Button type="primary" size="large" @click="submitSettings">{{$t("m.settings.save")}}</Button>
