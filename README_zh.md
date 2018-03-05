@@ -2,11 +2,20 @@
   <img src="https://raw.githubusercontent.com/mtobeiyf/pile/master/build/icons/pile.png" width="200px" alt="">
 </p>
 
+<p align="center">
+  <a href="https://github.com/mtobeiyf/pile/releases">
+    <img src="https://img.shields.io/github/release/mtobeiyf/pile.svg" alt="">
+  </a>
+  <a href="http://perso.crans.org/besson/LICENSE.html">
+    <img src="https://img.shields.io/badge/License-GPLv3-green.svg" alt="">
+  </a>
+</p>
+
 # Pile
 
 > 有条不紊的管理你的工作与生活
 
-[README](https://github.com/mtobeiyf/pile/blob/master/README.md)
+[README](https://github.com/mtobeiyf/pile/blob/master/README.md) | [中文说明](https://github.com/mtobeiyf/pile/blob/master/README_zh.md)
 
 <p align="center">
   <img src="https://s18.postimg.org/8xfca4ad5/sshot-1.png" width="600px" alt="">
@@ -60,10 +69,13 @@ Pile就是一个让你更好的管理你的工作、学习、生活的强力工�
 - 无尽的可能性，不论你是开发者、设计师、作家……
 - 支持Markdown和emoji
 
-## 下载
+## 下载安装
 
 进入 [发行页面](https://github.com/mtobeiyf/pile/releases)
-下载**zip** 文件.
+
+下载并运行Setup的**.exe**文件，Pile将会自动安装好
+
+或者你也可以下载便携版**zip**文件，
 解压后运行`Pile.exe`.
 
 ## 技术相关
@@ -91,6 +103,18 @@ yarn run build:dir # or npm run build:dir
 ---
 
 ## 版本记录
+
+### 0.1.1
+
+#### 新特性
+- 支持托盘图标
+- 标签页重命名及排序
+- 限制运行一个实例
+
+#### 修复
+
+- 右击菜单不显示的问题
+- 设置按钮不正确的提示信息
 
 ### 0.1.0
 
