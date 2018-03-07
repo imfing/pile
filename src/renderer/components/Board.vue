@@ -13,6 +13,12 @@
             <DropdownItem name='new-hub-todo'>{{$t("m.newHub.todo")}}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
+      <Tooltip>
+        <Button type="text" shape="circle" icon="pin" @click="pinBoard"></Button>
+        <div slot="content">
+          {{$t("m.board.pinTip")}}
+        </div>
+      </Tooltip>
     </div>
     
     <div v-if="isBoardEmpty" class="info">
@@ -52,6 +58,8 @@ import HubNote from "./HubNote.vue";
 import HubTodo from "./HubTodo.vue";
 
 import boardsStore from "../store/modules/boardsStore";
+import { shell } from "electron";
+const app = require("electron").remote.app;
 
 export default {
   props: ["boardId", "label", "selectedTab"],
@@ -80,15 +88,43 @@ export default {
     },
     addNewHub: function(name) {
       if (name == "new-hub-item") {
-        boardsStore.addHubToEnd(this.boardId, "item", this.$i18n.t("m.newHub.item"));
+        boardsStore.addHubToEnd(
+          this.boardId,
+          "item",
+          this.$i18n.t("m.newHub.item")
+        );
         this.fetchBoardItems();
       } else if (name == "new-hub-note") {
-        boardsStore.addHubToEnd(this.boardId, "note", this.$i18n.t("m.newHub.note"));
+        boardsStore.addHubToEnd(
+          this.boardId,
+          "note",
+          this.$i18n.t("m.newHub.note")
+        );
         this.fetchBoardItems();
       } else if (name == "new-hub-todo") {
-        boardsStore.addHubToEnd(this.boardId, "todo", this.$i18n.t("m.newHub.todo"));
+        boardsStore.addHubToEnd(
+          this.boardId,
+          "todo",
+          this.$i18n.t("m.newHub.todo")
+        );
         this.fetchBoardItems();
       }
+    },
+    pinBoard() {
+      let homedir = app.getPath("desktop");
+      let exePath = require("process").execPath;
+      let shortcut = {
+        target: exePath,
+        cwd: require("path").dirname(exePath),
+        args: `--board ${this.boardId}`
+      };
+
+      shell.writeShortcutLink(
+        require("path").join(homedir, this.label + ".lnk"),
+        shortcut
+      );
+
+      this.$Message.success(this.$i18n.t("m.board.pinOK"));
     }
   },
 

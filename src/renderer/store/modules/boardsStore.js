@@ -60,6 +60,14 @@ export default {
     db.set('activeBoard', boardId)
       .write()
   },
+  checkBoard(boardId) {
+    let len = db.get('boards')
+      .filter({ id: boardId })
+      .value()
+      .length
+    if (len == 0) return false
+    else return true
+  },
   getActiveBoard() {
     return db.get('activeBoard')
       .value()

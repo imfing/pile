@@ -38,8 +38,9 @@ export const m = {
   },
   board: {
     default: '工作区',
-    empty: '空空如也~ 添加一个区域吧',
     lastBoard: '你需要至少保留一个标签',
+    pinTip: '固定该标签到桌面',
+    pinOK: '成功发送到桌面快捷方式',
     new: {
       tip: '添加新标签页',
       title: '添加新标签页',

@@ -12,6 +12,7 @@
           :name="board.id"
           :key="board.id">
             <board :boardId="board.id"
+                  :label="board.label"
                   :selectedTab="selectedTab"
             ></board>
           </TabPane>
@@ -173,7 +174,18 @@ export default {
       this.$i18n.locale = data;
     });
 
+    let args = remote.process.argv;
+
+    if (
+      args.length > 1 &&
+      args[1] == "--board" &&
+      boardsStore.checkBoard(args[2])
+    ) {
+      this.saveActiveBoard(args[2]);
+    }
+
     this.selectedTab = boardsStore.getActiveBoard();
+
     this.loadBoards();
   }
 };

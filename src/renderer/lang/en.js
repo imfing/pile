@@ -38,8 +38,9 @@ export const m = {
   },
   board: {
     default: 'Default Board',
-    empty: 'Drag file or application here',
     lastBoard: 'You should keep at least one board',
+    pinTip: 'Pin this board to desktop',
+    pinOK: 'Created shortcut on desktop',
     new: {
       tip: 'Add new board',
       title: 'Add new board',
