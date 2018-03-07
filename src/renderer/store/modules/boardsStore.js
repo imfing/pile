@@ -1,4 +1,4 @@
-import db from '../../store'
+import {db} from '../../store'
 
 import lodashId from 'lodash-id'
 

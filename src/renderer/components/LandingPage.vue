@@ -61,10 +61,10 @@
 import Board from "./Board.vue";
 import NewBoardModal from "./NewBoardModal.vue";
 import boardsStore from "../store/modules/boardsStore";
-import settingsStore from "../store/modules/settingsStore";
 import SettingsModal from "./SettingsModal.vue";
 
 const remote = require("electron").remote;
+const { ipcRenderer } = require("electron");
 
 export default {
   components: {
@@ -153,9 +153,8 @@ export default {
     submitSettings(locale, boards) {
       this.settingsModal = false;
       if (locale != this.locale) {
-        settingsStore.updateLocale(locale);
-        this.locale = settingsStore.getLocale();
-        this.$i18n.locale = this.locale;
+        ipcRenderer.send("updateLocale", locale);
+        this.$i18n.locale = locale;
       }
 
       boardsStore.saveBoardsArray(boards);
@@ -168,22 +167,12 @@ export default {
   },
 
   created() {
-    var app = require("electron").remote.app;
-    let locale = app.getLocale();
+    ipcRenderer.send("getLocale");
 
-    if (settingsStore.getLocale().length == 0) {
-      if (locale == "zh-CN") {
-        this.$i18n.locale = locale;
-        settingsStore.updateLocale(locale);
-      } else {
-        this.$i18n.locale = "en-US";
-        settingsStore.updateLocale("en-US");
-      }
-      this.locale = settingsStore.getLocale();
-    } else {
-      this.locale = settingsStore.getLocale();
-      this.$i18n.locale = this.locale;
-    }
+    ipcRenderer.on("loadLocale", (event, data) => {
+      this.locale = data;
+      this.$i18n.locale = data;
+    });
 
     this.selectedTab = boardsStore.getActiveBoard();
     this.loadBoards();

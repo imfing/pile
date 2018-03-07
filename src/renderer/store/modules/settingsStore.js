@@ -1,6 +1,6 @@
-import db from '../../store'
+import { settings } from '../../store'
 
-db.defaults({
+settings.defaults({
   windowState: {
     height: 563,
     useContentSize: true,
@@ -17,30 +17,30 @@ db.defaults({
 
 export default {
   getWindowState() {
-    return db.get('windowState')
+    return settings.get('windowState')
       .value()
   },
   updateWindowState(updateProp) {
-    return db.get('windowState')
+    return settings.get('windowState')
       .assign(updateProp)
       .write()
   },
   getAppSettings() {
-    return db.get('appSettings')
+    return settings.get('appSettings')
       .cloneDeep()
       .value()
   },
   updateAppSettings(updateProp) {
-    return db.get('appSettings')
+    return settings.get('appSettings')
       .assign(updateProp)
       .write()
   },
   getLocale() {
-    return db.get('appSettings.locale')
+    return settings.get('appSettings.locale')
       .value()
   },
-  updateLocale(locale){
-    return db.get('appSettings')
+  updateLocale(locale) {
+    return settings.get('appSettings')
       .set('locale', locale)
       .write()
   }

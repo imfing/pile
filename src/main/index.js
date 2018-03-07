@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, Tray, nativeImage } from 'electron'
+import { app, BrowserWindow, Menu, Tray, nativeImage, ipcMain } from 'electron'
 import settingsStore from "../renderer/store/modules/settingsStore"
 
 /**
@@ -35,11 +35,11 @@ function createWindow() {
   /**
    * Initial window options
    */
-  // const windowConfig = settingsStore.getWindowState()
+  const windowConfig = settingsStore.getWindowState()
 
-  // windowConfig.icon = path.join(__dirname, '/assets/pile.ico')
-  // mainWindow = new BrowserWindow(windowConfig)
-  mainWindow = new BrowserWindow({ icon: path.join(__static, 'icons/pile.ico') })
+  windowConfig.icon = path.join(__static, 'icons/pile.ico')
+  mainWindow = new BrowserWindow(windowConfig)
+  // mainWindow = new BrowserWindow({ icon: path.join(__static, 'icons/pile.ico') })
 
   // mainWindow.webContents.openDevTools()
 
@@ -59,9 +59,9 @@ function createWindow() {
     mainWindow.hide();
     return false;
   });
-  // mainWindow.on('resize', () => saveWindowState(mainWindow))
-  // mainWindow.on('move', () => saveWindowState(mainWindow))
-  // mainWindow.on('close', () => saveWindowState(mainWindow))
+
+  mainWindow.on('resize', () => saveWindowState(mainWindow))
+  mainWindow.on('move', () => saveWindowState(mainWindow))
 }
 
 app.on('ready', createWindow)
@@ -74,13 +74,16 @@ Vue.use(VueI18n)
 
 app.on('ready', function () {
   var i18n = new VueI18n({
-    locale: getLocale(),    // 语言标识
+    locale: getLocale(),
     messages: {
-      'zh-CN': require('../renderer/lang/zh'),   // 中文语言包
-      'en-US': require('../renderer/lang/en')    // 英文语言包
+      'zh-CN': require('../renderer/lang/zh'),
+      'en-US': require('../renderer/lang/en')
     }
   })
 
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('loadLocale', getLocale())
+  })
 
   var template = [
     {
@@ -150,21 +153,24 @@ app.on('ready', function () {
   tray.setContextMenu(contextMenu)
 });
 
+app.on('activate', () => {
+  if (mainWindow === null) {
+    createWindow()
+  }
+})
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
 
-// app.on('before-quit', () => {
-//   mainWindow.removeAllListeners('close');
-//   mainWindow.close();
-// });
+ipcMain.on('getLocale', (event, data) => {
+  mainWindow.webContents.send('loadLocale', getLocale())
+})
 
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
-  }
+ipcMain.on('updateLocale', (event, data) => {
+  settingsStore.updateLocale(data)
 })
 
 function saveWindowState(mainWindow) {
@@ -174,11 +180,11 @@ function saveWindowState(mainWindow) {
 function getLocale() {
   if (settingsStore.getLocale().length == 0) {
     if (app.getLocale() == "zh-CN") {
-      // settingsStore.updateLocale(app.getLocale())
+      settingsStore.updateLocale("zh-CN")
       return "zh-CN"
     }
     else {
-      // settingsStore.updateLocale("en-US")
+      settingsStore.updateLocale("en-US")
       return "en-US"
     }
   }

@@ -9,4 +9,5 @@ npm-debug.log.*
 thumbs.db
 !.gitkeep
 db.json
+settings.json
 .vscode/*
