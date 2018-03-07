@@ -20,7 +20,7 @@
       <draggable :list="boardsLocal">
         <div v-for="board in boardsLocal" class="board" :key="board.id">
           <Icon type="drag" size=10></Icon>
-          <Input v-model="board.label" style="width: 200px" size="small" @on-blur="saveBoards"/>
+          <Input v-model="board.label" style="width: 200px" size="small"/>
         </div>
       </draggable> 
     </div>
@@ -28,9 +28,23 @@
     <div class="separator"></div>
 
     <div>
-      <span style="color:#bbbec4;">
-        v{{require('electron').remote.app.getVersion()}}
-      </span>
+      <p style="color:#bbbec4; margin-bottom:5px;">
+        {{$t("m.settings.update.current")}}: {{require('electron').remote.app.getVersion()}}
+      </p>
+      <Button type="ghost"
+              icon="loop" 
+              v-if="!newVersionAvailable"
+              :loading="loadingUpdates"
+              @click="checkUpdate">
+        <span v-if="!loadingUpdates">{{$t("m.settings.update.check")}}</span>
+        <span v-else>{{$t("m.settings.update.check")}}</span>
+      </Button>
+      <Button type="success"
+              icon="checkmark"
+              v-if="newVersionAvailable"
+              @click="gotoUpdate">
+              {{$t("m.settings.update.newFound")}}
+      </Button>
     </div>
 
     <div slot="footer">
@@ -42,6 +56,8 @@
 
 <script>
 import draggable from "vuedraggable";
+import axios from "axios";
+const { remote } = require("electron");
 
 export default {
   props: ["locale", "settingsModal", "boards"],
@@ -61,7 +77,10 @@ export default {
         { value: "en-US", label: "English" },
         { value: "zh-CN", label: "简体中文" }
       ],
-      boardsLocal: null
+      boardsLocal: null,
+      newVersionAvailable: false,
+      currentVersion: remote.app.getVersion(),
+      loadingUpdates: false
     };
   },
 
@@ -81,16 +100,35 @@ export default {
     closeSettingsModal() {
       this.curLocale = this.locale;
       this.updateLocalBoards();
+      this.loadingUpdates = false;
       this.$emit("closeSettingsModal");
     },
     changeLang(value) {
       this.curLocale = value;
     },
-    saveBoards() {
-      // console.log(this.boardsLocal)
-    },
     updateLocalBoards() {
       this.boardsLocal = JSON.parse(JSON.stringify(this.boards));
+    },
+    checkUpdate() {
+      this.loadingUpdates = true;
+      // console.log(`${this.currentVersion}`);
+      axios
+        .get("https://api.github.com/repos/mtobeiyf/pile/releases/latest")
+        .then(({ data }) => {
+          if (`v${this.currentVersion}` === data.tag_name) {
+            this.$Message.info(this.$i18n.t("m.settings.update.notFound"));
+          } else {
+            this.newVersionAvailable = true;
+          }
+        })
+        .finally(() => {
+          this.loadingUpdates = false;
+        });
+    },
+    gotoUpdate() {
+      require("electron").shell.openExternal(
+        "https://github.com/mtobeiyf/pile/releases"
+      );
     }
   }
 };

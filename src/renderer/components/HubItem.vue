@@ -133,6 +133,7 @@ export default {
   cursor: pointer;
   width: 100px;
   height: 70px;
+  margin-bottom: 10px;
 }
 </style>
 

@@ -122,7 +122,6 @@ export default {
       const savedBoard = boardsStore.saveNewBoard(boardName);
       this.selectedTab = savedBoard.id;
       this.saveActiveBoard(savedBoard.id);
-      // this.$nextTick(() => this.$bus.$emit("boardAdded", savedBoard.id));
       this.closeNewBoardModal();
       this.loadBoards();
       this.$Message.success(this.$i18n.t("m.board.new.success"));

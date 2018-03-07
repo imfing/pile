@@ -21,6 +21,13 @@ export const m = {
     close: '关闭',
     langTitle: '界面语言',
     boardsEdit: '标签页编辑',
+    update: {
+      current: '当前版本',
+      check: '检查更新',
+      loading: '检查中...',
+      notFound: '已经是最新版',      
+      newFound: '立即更新'      
+    },
     success: '设置已保存'
   },
   action: {

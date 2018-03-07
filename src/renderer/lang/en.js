@@ -21,6 +21,13 @@ export const m = {
     close: 'Close',
     langTitle: 'Display language',
     boardsEdit: 'Setup boards order and name',
+    update: {
+      current: 'Current version',
+      check: 'Check updates',
+      loading: 'Checking...',
+      notFound: 'You have the latest version',
+      newFound: 'New version available'
+    },
     success: 'Settings saved'
   },
   action: {
