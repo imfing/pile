@@ -13,8 +13,8 @@
             <DropdownItem name='new-hub-todo'>{{$t("m.newHub.todo")}}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <Tooltip>
-        <Button type="text" shape="circle" icon="pin" @click="pinBoard"></Button>
+      <Tooltip placement="bottom-end" style="float:right; margin-right:5px;">
+        <Button type="text" shape="circle" size="small" icon="pin" @click="pinBoard"></Button>
         <div slot="content">
           {{$t("m.board.pinTip")}}
         </div>

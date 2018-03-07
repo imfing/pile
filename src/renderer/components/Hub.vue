@@ -110,13 +110,17 @@ export default {
           var filename = path.basename(filepath);
           var filetype = path.extname(filename);
           if (filetype == ".lnk") {
-            var spath = shell.readShortcutLink(filepath);
-            boardsStore.addHubItem(
-              this.boardId,
-              this.hubId,
-              spath.target,
-              this.getLabel(spath.target)
-            );
+            try {
+              var spath = shell.readShortcutLink(filepath);
+              boardsStore.addHubItem(
+                this.boardId,
+                this.hubId,
+                spath.target,
+                this.getLabel(spath.target)
+              );
+            } catch (err) {
+              this.$Message.error(this.$i18n.t("m.info.lnkError"));
+            }
           } else {
             boardsStore.addHubItem(
               this.boardId,

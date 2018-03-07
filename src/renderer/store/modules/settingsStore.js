@@ -3,7 +3,7 @@ import { settings } from '../../store'
 settings.defaults({
   windowState: {
     height: 563,
-    useContentSize: true,
+    useContentSize: false,
     width: 1000,
     show: false,
     minWidth: 300,
