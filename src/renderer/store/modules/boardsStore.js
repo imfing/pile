@@ -1,27 +1,21 @@
-import {db} from '../../store'
+import { db } from '../../store'
 
 import lodashId from 'lodash-id'
 
 db._.mixin(lodashId)
 
-import Vue from 'vue'
-import VueI18n from 'vue-i18n'
-
-Vue.use(VueI18n)
-
-const i18n = new VueI18n({
-  locale: 'zh-CN',    // 语言标识
-  messages: {
-    'zh-CN': require('../../lang/zh'),   // 中文语言包
-    'en-US': require('../../lang/en')    // 英文语言包
-  }
-})
+function getLabel() {
+  var app = require("electron").remote.app;
+  let locale = app.getLocale()
+  if (locale == "zh-CN") return "工作区"
+  else return "Default Board"
+}
 
 db.defaults({
   activeBoard: 'default',
   boards: [{
     id: 'default',
-    label: i18n.t("m.board.default"),
+    label: getLabel(),
     hubs: []
   }]
 }).write()

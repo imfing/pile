@@ -52,7 +52,6 @@ export default {
 
   created() {
     this.updateLocalBoards();
-    // this.settings = settingsRepository.getAppSettings()
   },
 
   data() {
