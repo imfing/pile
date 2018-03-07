@@ -12,7 +12,7 @@ export const m = {
   tray: {
     show: '显示',
     quit: '退出',
-    autoBoot: '开机启动'
+    autoStart: '开机启动'
   },
   settings: {
     tip: '打开设置',

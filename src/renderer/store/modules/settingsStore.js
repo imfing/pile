@@ -43,5 +43,15 @@ export default {
     return settings.get('appSettings')
       .set('locale', locale)
       .write()
+  },
+  updateAutoStart(value) {
+    settings.set('appSettings.autoStart', value).write()
+  },
+  getAutoStart() {
+    if (!settings.get('appSettings').has('autoStart').value()) {
+      settings.set('appSettings.autoStart', false).write()
+      return false
+    }
+    else return settings.get('appSettings.autoStart').value()
   }
 }

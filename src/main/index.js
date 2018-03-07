@@ -133,6 +133,21 @@ app.on('ready', function () {
       }
     },
     {
+      label: i18n.t("m.tray.autoStart"),
+      type: 'checkbox',
+      checked: settingsStore.getAutoStart(),
+      click() {
+        let status = contextMenu.items[1].checked
+        if (status) {
+          app.setLoginItemSettings({ openAtLogin: true })
+        }
+        else {
+          app.setLoginItemSettings({ openAtLogin: false })
+        }
+        settingsStore.updateAutoStart(status)
+      }
+    },
+    {
       label: i18n.t("m.tray.quit"),
       click() {
         app.exit()
