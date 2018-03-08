@@ -66,6 +66,7 @@ A simple todolist related to the project.
 - Drag and drop, easy and convenient.
 - Various application scenarios.
 - Endless possibilities. Developer, designer, writer...
+- Pin your workspace/project to your desktop.
 - Markdown support, emoji included.
 
 ## Installation
@@ -101,6 +102,19 @@ yarn run build:dir # or npm run build:dir
 ---
 
 ## Versions
+
+### 0.2.0
+
+#### New Features
+- Launch at system startup
+- Check for updates
+- Pin current board to desktop
+- Remember last window size and position
+
+#### Fixes
+- Data storage being overwritten on setup
+- Windows size auto growth
+- Incorrect default board language
 
 ### 0.1.1
 
