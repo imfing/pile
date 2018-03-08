@@ -12,7 +12,7 @@ export const m = {
   tray: {
     show: 'Show',
     quit: 'Quit',
-    autoStart: 'Lauch at startup'
+    autoStart: 'Launch at startup'
   },
   settings: {
     tip: 'Open settings',
