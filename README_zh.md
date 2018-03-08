@@ -18,7 +18,7 @@
 [README](https://github.com/mtobeiyf/pile/blob/master/README.md) | [中文说明](https://github.com/mtobeiyf/pile/blob/master/README_zh.md)
 
 <p align="center">
-  <img src="https://s18.postimg.org/8xfca4ad5/sshot-1.png" width="600px" alt="">
+  <img src="https://s18.postimg.org/rfw51g4e1/sshot-2.png" width="600px" alt="">
 </p>
 
 ## 为什么使用Pile?
