@@ -18,7 +18,7 @@
 [README](https://github.com/mtobeiyf/pile/blob/master/README.md) | [中文说明](https://github.com/mtobeiyf/pile/blob/master/README_zh.md)
 
 <p align="center">
-  <img src="https://s18.postimg.org/8xfca4ad5/sshot-1.png" width="600px" alt="">
+  <img src="https://s18.postimg.org/rfw51g4e1/sshot-2.png" width="600px" alt="">
 </p>
 
 ## 为什么使用Pile?
@@ -67,7 +67,8 @@ Pile就是一个让你更好的管理你的工作、学习、生活的强力工�
 - 简易的拖拽操作
 - 适用于多种应用场景
 - 无尽的可能性，不论你是开发者、设计师、作家……
-- 支持Markdown和emoji
+- 固定标签到桌面，让工作区触手可及
+- 支持Markdown和emoji :smiley:
 
 ## 下载安装
 
@@ -103,6 +104,19 @@ yarn run build:dir # or npm run build:dir
 ---
 
 ## 版本记录
+
+### 0.2.0
+
+#### 新特性
+- 托盘设置开机启动
+- 在设置中检测新版本
+- 固定当前标签到桌面以便快捷访问
+- 自动恢复上次窗口大小及位置
+
+#### 修复
+- 错误的数据存储位置
+- 每次运行窗口大小不一
+- 错误的默认标签语言
 
 ### 0.1.1
 
