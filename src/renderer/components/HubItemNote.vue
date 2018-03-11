@@ -36,7 +36,7 @@ export default {
 
   mounted: function() {
     // Open <a> tag in external browser
-    document.addEventListener("click", function(event) {
+    this.$el.addEventListener("click", function(event) {
       if (
         event.target.tagName === "A" &&
         event.target.href.startsWith("http")
