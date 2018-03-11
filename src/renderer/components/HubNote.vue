@@ -11,6 +11,7 @@
                     :autosize="true" 
                     v-bind:placeholder="$t('m.note.placeholder')"
                     icon="plus"
+                    @on-keypress="handleCtrlEnter($event)"
                     ></Input>
             </Col>
             <Col :xs="2" :sm="2" :md="1" :lg="1"
@@ -142,6 +143,11 @@ export default {
     },
     handleDragItem() {
       boardsStore.saveHubItemsArray(this.boardId, this.hubId, this.items);
+    },
+    handleCtrlEnter: function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.keyCode == 10) {
+        this.submitNewNote();
+      }
     }
   },
 
