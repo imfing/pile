@@ -41,6 +41,8 @@ export const m = {
     lastBoard: 'You should keep at least one board',
     pinTip: 'Pin this board to desktop',
     pinOK: 'Created shortcut on desktop',
+    sortTip: 'Adjust hubs',
+    sortOK: 'Hubs adjusted',
     new: {
       tip: 'Add new board',
       title: 'Add new board',
@@ -99,6 +101,12 @@ export const m = {
       success: {
         note: 'Note saved.'
       }
+    },
+    sort: {
+      title: 'Adjust hubs',
+      ok: 'Save',
+      cancel: 'Cancel',
+      success: 'Adjusted'
     }
   },
 

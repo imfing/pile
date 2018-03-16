@@ -14,6 +14,14 @@
         </DropdownMenu>
       </Dropdown>
       <Tooltip placement="bottom-end" style="float:right; margin-right:5px;">
+        <Button type="text" shape="circle" size="small" icon="navicon"
+                @click="sortHubModal=true;"
+                :disabled="isBoardEmpty"></Button>
+        <div slot="content">
+          {{$t("m.board.sortTip")}}
+        </div>
+      </Tooltip>
+      <Tooltip placement="bottom-end" style="float:right; margin-right:8px;">
         <Button type="text" shape="circle" size="small" icon="pin" @click="pinBoard"></Button>
         <div slot="content">
           {{$t("m.board.pinTip")}}
@@ -49,6 +57,12 @@
         @refreshHub="fetchBoardItems"></hub-todo>      
     </div>
 
+    <sort-hub-modal :sortHubModal="sortHubModal"
+                    :hubs="hubs"
+                    @closeSortHubModal="sortHubModal=false;"
+                    @submitSortHubs="submitSortHubs">
+    </sort-hub-modal>
+
   </div>
 </template>
 
@@ -56,6 +70,7 @@
 import Hub from "./Hub.vue";
 import HubNote from "./HubNote.vue";
 import HubTodo from "./HubTodo.vue";
+import SortHubModal from "./SortHubModal.vue";
 
 import boardsStore from "../store/modules/boardsStore";
 import { shell } from "electron";
@@ -67,12 +82,14 @@ export default {
   components: {
     Hub,
     HubNote,
-    HubTodo
+    HubTodo,
+    SortHubModal
   },
 
   data() {
     return {
-      hubs: []
+      hubs: [],
+      sortHubModal: false
     };
   },
 
@@ -125,6 +142,13 @@ export default {
       );
 
       this.$Message.success(this.$i18n.t("m.board.pinOK"));
+    },
+    submitSortHubs(hubs) {
+      this.sortHubModal = false;
+      boardsStore.saveHubsArray(this.boardId, hubs);
+      this.fetchBoardItems();
+
+      this.$Message.success(this.$i18n.t("m.modal.sort.success"));
     }
   },
 

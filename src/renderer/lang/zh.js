@@ -41,6 +41,8 @@ export const m = {
     lastBoard: '你需要至少保留一个标签',
     pinTip: '固定该标签到桌面',
     pinOK: '成功发送到桌面快捷方式',
+    sortTip: '调整区域',
+    sortOK: '调整完成',
     new: {
       tip: '添加新标签页',
       title: '添加新标签页',
@@ -99,6 +101,12 @@ export const m = {
       success: {
         note: '编辑已保存'
       }
+    },
+    sort: {
+      title: '调整区域',
+      ok: '保存',
+      cancel: '取消',
+      success: '调整成功'      
     }
   }
 }
