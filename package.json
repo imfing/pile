@@ -54,7 +54,7 @@
   "dependencies": {
     "autolinker": "^1.6.2",
     "axios": "^0.16.1",
-    "iview": "^2.9.2",
+    "iview": "^2.11.0",
     "lodash": "^4.17.5",
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0",
