@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/mtobeiyf/pile/master/build/icons/pile.png" width="200px" alt="">
+  <img src="https://user-images.githubusercontent.com/5097752/37513096-f73074bc-293e-11e8-81f8-2c9a0a10091b.png" width="200px" alt="">
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
 [README](https://github.com/mtobeiyf/pile/blob/master/README.md) | [中文说明](https://github.com/mtobeiyf/pile/blob/master/README_zh.md)
 
 <p align="center">
-  <img src="https://s18.postimg.org/8xfca4ad5/sshot-1.png" width="600px" alt="">
+  <img src="https://user-images.githubusercontent.com/5097752/37512418-14efa934-293d-11e8-89d8-4038e1235ba0.png" width="600px" alt="">
 </p>
 
 ## Why Pile?
@@ -102,6 +102,15 @@ yarn run build:dir # or npm run build:dir
 ---
 
 ## Versions
+
+### 0.2.1
+
+#### New Features
+- Support rearrange hubs in current board
+- Support Shift+Enter to submit new Note
+
+#### Fixes
+- Fix links opened multiple times when clicked in Note
 
 ### 0.2.0
 
