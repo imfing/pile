@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/mtobeiyf/pile/master/build/icons/pile.png" width="200px" alt="">
+  <img src="https://user-images.githubusercontent.com/5097752/37513096-f73074bc-293e-11e8-81f8-2c9a0a10091b.png" width="200px" alt="">
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
 [README](https://github.com/mtobeiyf/pile/blob/master/README.md) | [中文说明](https://github.com/mtobeiyf/pile/blob/master/README_zh.md)
 
 <p align="center">
-  <img src="https://s18.postimg.org/rfw51g4e1/sshot-2.png" width="600px" alt="">
+  <img src="https://user-images.githubusercontent.com/5097752/37513680-b2437d52-2940-11e8-8d87-544c0b4b4c02.png" width="600px" alt="">
 </p>
 
 ## 为什么使用Pile?
@@ -104,6 +104,15 @@ yarn run build:dir # or npm run build:dir
 ---
 
 ## 版本记录
+
+### 0.2.1
+
+#### 新特性
+- 调整标签页中区域顺序
+- Shift+Enter快捷提交笔记
+
+#### 修复
+- 笔记中的链接点击后多次打开
 
 ### 0.2.0
 
