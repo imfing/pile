@@ -60,8 +60,9 @@ export default {
       if (e.dataTransfer.files.length) {
         this.handleDrop(e.dataTransfer.files);
       }
-      if (e.dataTransfer.getData("text").length) {
-        this.handleUrlDrop(e.dataTransfer.getData("text"));
+      let url = e.dataTransfer.getData("text")
+      if (url.length && url[0]!=' ') {
+        this.handleUrlDrop(url);
       }
       return false;
     });
