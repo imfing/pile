@@ -71,11 +71,13 @@ A simple todolist related to the project.
 
 ## Installation
 
-Go to the [release page](https://github.com/mtobeiyf/pile/releases)
+### Windows
+- Go to the [release page](https://github.com/mtobeiyf/pile/releases)
+- Download and run the setup **.exe** file and Pile will be insalled automatically
+- Or download the portable **.zip** file, unzip it and run `Pile.exe`
 
-Download and run the setup **.exe** file and Pile will be insalled automatically
-
-Or download the portable **.zip** file, unzip it and run `Pile.exe`
+### Linux / MacOS
+ - See [Build Steps](https://github.com/mtobeiyf/pile#user-content-build-setup) below
 
 ## Technical
 
