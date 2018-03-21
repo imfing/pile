@@ -51,7 +51,7 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     // Get icon given the path
     var app = require("electron").remote.app;
     const path = require("path");
@@ -73,15 +73,16 @@ export default {
             }
           })
         );
-        menu.append(
-          new MenuItem({
-            label: this.$i18n.t("m.action.openFolder"),
-            click() {
-              const path = require("path");
-              shell.showItemInFolder(me.path);
-            }
-          })
-        );
+        if (!this.isURL(this.path))
+          menu.append(
+            new MenuItem({
+              label: this.$i18n.t("m.action.openFolder"),
+              click() {
+                const path = require("path");
+                shell.showItemInFolder(me.path);
+              }
+            })
+          );
         menu.append(
           new MenuItem({
             label: this.$i18n.t("m.action.delete"),

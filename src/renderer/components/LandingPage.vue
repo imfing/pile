@@ -31,7 +31,7 @@
             </Tooltip>
             <Tooltip placement="bottom-end" :transfer="true" :delay="500">
               <Button type="dashed"
-                      @click="settingsModal=true;"
+                      @click="showSettingsModal"
                       size="small"
                       icon="gear-a"
                       shape="circle"
@@ -149,6 +149,11 @@ export default {
           }
         });
       }
+    },
+    showSettingsModal() {
+      // Refresh boards data first
+      this.loadBoards();
+      this.settingsModal = true;
     },
     submitSettings(locale, boards) {
       this.settingsModal = false;
