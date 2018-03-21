@@ -60,6 +60,9 @@ export default {
       if (e.dataTransfer.files.length) {
         this.handleDrop(e.dataTransfer.files);
       }
+      if (e.dataTransfer.getData("text").length) {
+        this.handleUrlDrop(e.dataTransfer.getData("text"));
+      }
       return false;
     });
     this.$el.addEventListener("dragover", e => {
@@ -134,6 +137,19 @@ export default {
 
       this.fetchHubItems();
     },
+    async handleUrlDrop(url) {
+      if (this.isURL(url)) {
+        boardsStore.addHubItem(
+          this.boardId,
+          this.hubId,
+          url,
+          url.split("/")[2]
+        );
+        this.fetchHubItems();
+      } else {
+        this.$Message.error(this.$i18n.t("m.info.urlError"));
+      }
+    },
     getLabel(path) {
       return path
         .split("\\")
@@ -190,6 +206,9 @@ export default {
       boardsStore.setHubItemLabel(this.boardId, this.hubId, itemId, content);
       this.fetchHubItems();
       this.$Message.success(this.$i18n.t("m.modal.rename.success.item"));
+    },
+    isURL(str) {
+      return /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(str);
     }
   },
 

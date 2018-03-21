@@ -85,6 +85,17 @@ app.on('ready', function () {
     mainWindow.webContents.send('loadLocale', getLocale())
   })
 
+  // Handle drop redirect
+  var handleRedirect = (e, url) => {
+    if(url != mainWindow.webContents.getURL()) {
+      e.preventDefault()
+      require('electron').shell.openExternal(url)
+    }
+  }
+  
+  mainWindow.webContents.on('will-navigate', handleRedirect)
+  mainWindow.webContents.on('new-window', handleRedirect)
+
   var template = [
     {
       label: i18n.t("m.menu.view"),

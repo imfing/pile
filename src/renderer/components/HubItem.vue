@@ -2,8 +2,9 @@
   <div @click="openLink" class="hubitem" :title="path">
     <div style="text-align:center; margin-bottom:5px;">
       <Icon v-if="this.isDir" type="folder" size=52></Icon>
-      <Icon v-if="this.isMissing" type="close" size=52 color="#ed3f14"></Icon>      
-      <img v-if="(!this.isDir)&&(!this.isMissing)" ref="icon" src="" width="48px" height="48px">
+      <Icon v-if="this.isLink" type="link" size=52></Icon>
+      <Icon v-if="this.isMissing" type="close" size=52 color="#ed3f14"></Icon>
+      <img v-if="(!this.isDir)&&(!this.isLink)&&(!this.isMissing)" ref="icon" src="" width="48px" height="48px">
       <p style="font-size:12px;">{{this.displayLabel}}</p>
     </div>
 
@@ -33,6 +34,7 @@ export default {
     return {
       isDir: false,
       isMissing: false,
+      isLink: false,
       renameModal: false
     };
   },
@@ -49,7 +51,7 @@ export default {
     }
   },
 
-  mounted: function() {
+  mounted () {
     // Get icon given the path
     var app = require("electron").remote.app;
     const path = require("path");
@@ -96,19 +98,23 @@ export default {
 
     var self = this;
 
-    if (fs.existsSync(this.path)) {
-      if (fs.lstatSync(this.path).isDirectory()) {
-        this.isDir = true;
-      } else {
-        var filename = path.basename(this.path);
-        var filetype = path.extname(filename);
-
-        app.getFileIcon(this.path, { size: "large" }, function(err, res) {
-          self.$refs.icon.src = res.toDataURL();
-        });
-      }
+    if (this.isURL(this.path)) {
+      this.isLink = true;
     } else {
-      this.isMissing = true;
+      if (fs.existsSync(this.path)) {
+        if (fs.lstatSync(this.path).isDirectory()) {
+          this.isDir = true;
+        } else {
+          var filename = path.basename(this.path);
+          var filetype = path.extname(filename);
+
+          app.getFileIcon(this.path, { size: "large" }, function(err, res) {
+            self.$refs.icon.src = res.toDataURL();
+          });
+        }
+      } else {
+        this.isMissing = true;
+      }
     }
   },
 
@@ -123,6 +129,9 @@ export default {
     submitRename: function(content) {
       this.$emit("submitRename", this.itemId, content);
       this.renameModal = false;
+    },
+    isURL(str) {
+      return /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(str);
     }
   }
 };

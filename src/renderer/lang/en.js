@@ -55,7 +55,8 @@ export const m = {
   info: {
     emptyHub: 'Drag app/file/folder here and access them in this place.',
     noHubs: 'No hubs yes. Try creating a new hub using the menu above.',
-    lnkError: 'Error reading the shortcut, please drop the orginal file.'
+    lnkError: 'Error reading the shortcut, please drop the orginal file.',
+    urlError: 'Invalid URL, make sure it begins with "http(s)"'
   },
   todo: {
     todo: 'Todo',
