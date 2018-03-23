@@ -37,7 +37,13 @@ function createWindow() {
    */
   const windowConfig = settingsStore.getWindowState()
 
-  windowConfig.icon = path.join(__static, 'icons/pile.ico')
+  if (process.platform === 'win32') {
+    windowConfig.icon = path.join(__static, 'icons/pile.ico')
+  }
+  else {
+    windowConfig.icon = path.join(__static, 'icons/pile.png')
+  }
+
   mainWindow = new BrowserWindow(windowConfig)
   // mainWindow = new BrowserWindow({ icon: path.join(__static, 'icons/pile.ico') })
 
@@ -87,12 +93,12 @@ app.on('ready', function () {
 
   // Handle drop redirect
   var handleRedirect = (e, url) => {
-    if(url != mainWindow.webContents.getURL()) {
+    if (url != mainWindow.webContents.getURL()) {
       e.preventDefault()
       require('electron').shell.openExternal(url)
     }
   }
-  
+
   mainWindow.webContents.on('will-navigate', handleRedirect)
   mainWindow.webContents.on('new-window', handleRedirect)
 
