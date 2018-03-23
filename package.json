@@ -1,6 +1,6 @@
 {
   "name": "pile",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Fing <mtobeiyf@163.com>",
   "description": "A simple & powerful app to organize your piled work at one place",
   "license": "(GPL-3.0)",
@@ -27,8 +27,7 @@
       "static/**/*"
     ],
     "dmg": {
-      "contents": [
-        {
+      "contents": [{
           "x": 410,
           "y": 150,
           "type": "link",
@@ -45,7 +44,14 @@
       "icon": "build/icons/pile.icns"
     },
     "win": {
-      "icon": "build/icons/pile.ico"
+      "icon": "build/icons/pile.ico",
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "nsis": {
+      "artifactName": "${productName}-Setup-${version}.${ext}"
     },
     "linux": {
       "icon": "build/icons"
