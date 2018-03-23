@@ -3,6 +3,9 @@
 </p>
 
 <p align="center">
+  <a href="https://travis-ci.org/mtobeiyf/pile">
+    <img src="https://travis-ci.org/mtobeiyf/pile.svg?branch=master" alt="">
+  </a>
   <a href="https://github.com/mtobeiyf/pile/releases">
     <img src="https://img.shields.io/github/release/mtobeiyf/pile.svg" alt="">
   </a>
@@ -104,6 +107,14 @@ yarn run build:dir # or npm run build:dir
 ---
 
 ## Versions
+
+### 0.2.2
+#### New Features
+- Drag and drop links/url from browser address bar
+- Release Linux & macOS builds
+
+#### Fixes
+- Settings modal overwrites board data
 
 ### 0.2.1
 
