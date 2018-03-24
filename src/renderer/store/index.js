@@ -10,11 +10,11 @@ const app = require('electron').app
 const APP = process.type === 'renderer' ? remote.app : app
 const STORE_PATH = APP.getPath('userData')
 
-if (process.type !== 'renderer') {
-  if (!fs.existsSync(STORE_PATH)) {
-    fs.mkdirpSync(STORE_PATH)
-  }
-}
+// if (process.type !== 'renderer') {
+//   if (!fs.existsSync(STORE_PATH)) {
+//     fs.mkdirpSync(STORE_PATH)
+//   }
+// }
 
 const dataAdapter = (process.env.NODE_ENV !== 'development') ?
   new FileSync(path.join(STORE_PATH, 'db.json')) :

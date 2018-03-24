@@ -138,7 +138,9 @@ app.on('ready', function () {
   var menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu);
 
-  let trayIcon = nativeImage.createFromPath(path.join(__static, 'icons/pile.png'));
+  let trayIcon = process.platform === "darwin"
+    ? nativeImage.createFromPath(path.join(__static, 'icons/menubar.png'))
+    : nativeImage.createFromPath(path.join(__static, 'icons/pile.png'));
   tray = new Tray(trayIcon)
   const contextMenu = Menu.buildFromTemplate([
     {
