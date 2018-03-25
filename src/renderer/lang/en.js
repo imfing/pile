@@ -21,6 +21,11 @@ export const m = {
     close: 'Close',
     langTitle: 'Display language',
     boardsEdit: 'Setup boards order and name',
+    themes: {
+      title: 'Theme',
+      defaultLightTheme: 'Light',
+      defaultDarkTheme: 'Dark',
+    },
     update: {
       current: 'Current version',
       check: 'Check updates',

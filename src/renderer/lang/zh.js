@@ -21,6 +21,11 @@ export const m = {
     close: '关闭',
     langTitle: '界面语言',
     boardsEdit: '标签页编辑',
+    themes: {
+      title: 'TODO',
+      defaultLightTheme: 'TODO',
+      defaultDarkTheme: 'TODO',
+    },
     update: {
       current: '当前版本',
       check: '检查更新',

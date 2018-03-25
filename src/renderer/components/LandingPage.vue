@@ -52,6 +52,7 @@
     <settings-modal :settingsModal="settingsModal"
                     :locale="locale"
                     :boards="boards"
+                    :theme="theme"
                     @submitSettings="submitSettings"
                     @closeSettingsModal="settingsModal=false;"></settings-modal>
     
@@ -62,6 +63,7 @@
 import Board from "./Board.vue";
 import NewBoardModal from "./NewBoardModal.vue";
 import boardsStore from "../store/modules/boardsStore";
+import settingsStore from "../store/modules/settingsStore";
 import SettingsModal from "./SettingsModal.vue";
 
 const remote = require("electron").remote;
@@ -81,6 +83,7 @@ export default {
       settingsModal: false,
       selectedTab: "default",
       locale: "",
+      theme: "",
       boardTabLabel: (boardLabel, boardId) => h => {
         return h("div", [
           h("span", boardLabel),
@@ -155,11 +158,15 @@ export default {
       this.loadBoards();
       this.settingsModal = true;
     },
-    submitSettings(locale, boards) {
+    submitSettings(locale, boards, theme) {
       this.settingsModal = false;
       if (locale != this.locale) {
         ipcRenderer.send("updateLocale", locale);
         this.$i18n.locale = locale;
+      }
+      if(theme != this.theme) {
+        ipcRenderer.send("updateThemeName", theme);
+        this.theme = theme;
       }
 
       boardsStore.saveBoardsArray(boards);
@@ -190,6 +197,7 @@ export default {
     }
 
     this.selectedTab = boardsStore.getActiveBoard();
+    this.theme = settingsStore.getThemeName();  
 
     this.loadBoards();
   }

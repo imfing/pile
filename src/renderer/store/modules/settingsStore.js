@@ -11,7 +11,11 @@ settings.defaults({
     y: undefined
   },
   appSettings: {
-    locale: ""
+    locale: "",
+    theme: {
+      name: "lightTheme",
+      background: "#eee",
+    },
   }
 }).write()
 
@@ -53,5 +57,15 @@ export default {
       return false
     }
     else return settings.get('appSettings.autoStart').value()
-  }
+  },
+  getThemeName() {
+    if (!settings.get('appSettings.theme').has('name').value()) {
+      settings.set('appSettings.theme.name', 'lightTheme').write()
+      return "lightTheme"
+    }
+    else return settings.get('appSettings.theme.name').value()
+  },
+  updateThemeName(theme) {
+    return settings.get('appSettings.theme').set('name', theme).write()
+  },
 }

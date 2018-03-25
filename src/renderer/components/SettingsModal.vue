@@ -9,8 +9,8 @@
       <Select v-model="curLocale"
               @on-change="changeLang"
               style="width:200px">
-        <Option v-for="item in langList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-    </Select>
+          <Option v-for="item in langList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+      </Select>
     </div>
 
     <div class="separator"></div>
@@ -23,6 +23,17 @@
           <Input v-model="board.label" style="width: 200px" size="small"/>
         </div>
       </draggable> 
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+      <h3 style="margin-bottom:5px;">{{$t("m.settings.themes.title")}}</h3>
+      <Select v-model="curTheme"
+              @on-change="changeTheme"
+              style="width:200px">
+          <Option v-for="theme in themes" :value="theme.value" :key="theme.value">{{ theme.label }}</Option>
+      </Select>
     </div>
 
     <div class="separator"></div>
@@ -60,7 +71,7 @@ import axios from "axios";
 const { remote } = require("electron");
 
 export default {
-  props: ["locale", "settingsModal", "boards"],
+  props: ["locale", "settingsModal", "boards", "theme"],
 
   components: {
     draggable
@@ -80,7 +91,12 @@ export default {
       boardsLocal: null,
       newVersionAvailable: false,
       currentVersion: remote.app.getVersion(),
-      loadingUpdates: false
+      loadingUpdates: false,
+      themes: [
+        { value: "lightTheme", label: "Light Theme" },
+        { value: "darkTheme", label: "Dark Theme" },
+      ],
+      curTheme: this.theme,
     };
   },
 
@@ -90,16 +106,20 @@ export default {
     },
     boards: function() {
       this.updateLocalBoards();
-    }
+    },
+    theme: function () {
+      this.curTheme = this.theme;
+    },
   },
 
   methods: {
     submitSettings() {
-      this.$emit("submitSettings", this.curLocale, this.boardsLocal);
+      this.$emit("submitSettings", this.curLocale, this.boardsLocal, this.curTheme); //, this.theme
     },
     closeSettingsModal() {
       this.curLocale = this.locale;
       this.updateLocalBoards();
+      this.curTheme = this.theme;
       this.loadingUpdates = false;
       this.$emit("closeSettingsModal");
     },
@@ -108,6 +128,9 @@ export default {
     },
     updateLocalBoards() {
       this.boardsLocal = JSON.parse(JSON.stringify(this.boards));
+    },
+    changeTheme(value) {
+      this.curTheme = value;
     },
     checkUpdate() {
       this.loadingUpdates = true;

@@ -81,6 +81,7 @@ Vue.use(VueI18n)
 app.on('ready', function () {
   var i18n = new VueI18n({
     locale: getLocale(),
+    theme: getTheme(),
     messages: {
       'zh-CN': require('../renderer/lang/zh'),
       'en-US': require('../renderer/lang/en')
@@ -207,6 +208,14 @@ ipcMain.on('updateLocale', (event, data) => {
   settingsStore.updateLocale(data)
 })
 
+ipcMain.on('getTheme', (event, data) => {
+  mainWindow.webContents.send('loadTheme', getTheme())
+})
+
+ipcMain.on('updateThemeName', (event, data) => {
+  settingsStore.updateThemeName(data)
+})
+
 function saveWindowState(mainWindow) {
   settingsStore.updateWindowState(mainWindow.getBounds())
 }
@@ -224,6 +233,22 @@ function getLocale() {
   }
   else {
     return settingsStore.getLocale()
+  }
+}
+
+function getTheme() {
+  if (settingsStore.getTheme().length == 0) {
+    if (app.getTheme() == "lightTheme") {
+      settingsStore.updateThemeName("lightTheme")
+      return "lightTheme"
+    }
+    else {
+      settingsStore.updateThemeName("darkTheme")
+      return "darkTheme"
+    }
+  }
+  else {
+    return settingsStore.getTheme()
   }
 }
 
