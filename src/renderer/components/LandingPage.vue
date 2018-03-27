@@ -1,9 +1,9 @@
 <template>
   <div id="wrapper">
     <Row id="tabrow">
-      <Col span="24" style="background: #eee;padding:12px;">
+      <Col span="24" style="padding:12px;">
         <Tabs v-model="selectedTab" 
-              type="card" 
+              type="card"
               closable
               @on-click="saveActiveBoard"
               style="margin-top:5px; padding-top:5px;">
@@ -104,6 +104,12 @@ export default {
         ]);
       }
     };
+  },
+
+  computed: {
+    theme: function() {
+      return settingsStore.getFullTheme();
+    }
   },
 
   methods: {

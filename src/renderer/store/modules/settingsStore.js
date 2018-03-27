@@ -1,3 +1,4 @@
+import _find from 'lodash/find'
 import { settings } from '../../store'
 
 settings.defaults({
@@ -18,6 +19,9 @@ settings.defaults({
         id: "lightTheme",
         name: "Light Theme",
         background: "#eee",
+        hubItemTodo: "#f8f8f9",
+        hubItemTodoBackground: "#f8f8f9",
+        hubItemNote: "",
       },
       {
         id: "darkTheme",
@@ -73,6 +77,18 @@ export default {
       return "lightTheme"
     }
     else return settings.get('appSettings.theme').value()
+  },
+  getFullTheme() {
+    var themeId = null;
+    if (!settings.get('appSettings').has('theme').value()) {
+      settings.set('appSettings.theme', 'lightTheme').write()
+      themeId = "lightTheme"
+    }
+    else themeId = settings.get('appSettings.theme').value()
+    var fullTheme = _find(this.themes, function(theme) {theme.id == themeId});
+    if (themeId != null && fullTheme) {
+      return fullTheme
+    }
   },
   updateTheme(theme) {
     return settings.get('appSettings').set('theme', theme).write()
