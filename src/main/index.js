@@ -1,5 +1,24 @@
 import { app, BrowserWindow, Menu, Tray, nativeImage, ipcMain } from 'electron'
-import settingsStore from "../renderer/store/modules/settingsStore"
+import configStore from "./configStore"
+
+// Load settings and data
+const path = require('path')
+const fs = require('fs')
+var configPath
+var dataPath 
+if (process.env.NODE_ENV !== 'development') {
+  if (!fs.existsSync(app.getPath('userData'))) {
+    fs.mkdirSync(app.getPath('userData'))
+  }
+  configPath = path.join(app.getPath('userData'), 'settings.json')
+  dataPath = path.join(app.getPath('userData'), 'db.json')
+}
+else {
+  configPath = 'settings.json'
+  dataPath = 'db.json'
+}
+const appSettings = configStore(configPath)
+global.userDataPath = dataPath
 
 /**
  * Set `__static` path to static files in production
@@ -11,8 +30,6 @@ if (process.env.NODE_ENV !== 'development') {
 
 let mainWindow
 let tray = null
-
-const path = require('path')
 
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
@@ -35,7 +52,7 @@ function createWindow() {
   /**
    * Initial window options
    */
-  const windowConfig = settingsStore.getWindowState()
+  const windowConfig = appSettings.getWindowState()
 
   if (process.platform === 'win32') {
     windowConfig.icon = path.join(__static, 'icons/pile.ico')
@@ -166,7 +183,7 @@ app.on('ready', function () {
     {
       label: i18n.t("m.tray.autoStart"),
       type: 'checkbox',
-      checked: settingsStore.getAutoStart(),
+      checked: appSettings.getAutoStart(),
       click() {
         let status = contextMenu.items[1].checked
         if (status) {
@@ -175,7 +192,7 @@ app.on('ready', function () {
         else {
           app.setLoginItemSettings({ openAtLogin: false })
         }
-        settingsStore.updateAutoStart(status)
+        appSettings.updateAutoStart(status)
       }
     },
     {
@@ -216,26 +233,26 @@ ipcMain.on('getLocale', (event, data) => {
 })
 
 ipcMain.on('updateLocale', (event, data) => {
-  settingsStore.updateLocale(data)
+  appSettings.updateLocale(data)
 })
 
 function saveWindowState(mainWindow) {
-  settingsStore.updateWindowState(mainWindow.getBounds())
+  appSettings.updateWindowState(mainWindow.getBounds())
 }
 
 function getLocale() {
-  if (settingsStore.getLocale().length == 0) {
+  if (appSettings.getLocale().length == 0) {
     if (app.getLocale() == "zh-CN") {
-      settingsStore.updateLocale("zh-CN")
+      appSettings.updateLocale("zh-CN")
       return "zh-CN"
     }
     else {
-      settingsStore.updateLocale("en-US")
+      appSettings.updateLocale("en-US")
       return "en-US"
     }
   }
   else {
-    return settingsStore.getLocale()
+    return appSettings.getLocale()
   }
 }
 
