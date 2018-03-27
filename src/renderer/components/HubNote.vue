@@ -145,7 +145,7 @@ export default {
       boardsStore.saveHubItemsArray(this.boardId, this.hubId, this.items);
     },
     handleCtrlEnter: function(e) {
-      if ((e.metaKey || e.ctrlKey) && e.keyCode == 10) {
+      if ((e.metaKey || e.ctrlKey) && (e.keyCode == 10 || e.keyCode == 13)) {
         this.submitNewNote();
       }
     }

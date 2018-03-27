@@ -198,7 +198,7 @@ export default {
 
 <style>
 body {
-  font-family: "Segoe UI", "Microsoft YaHei", "Lato", sans-serif !important;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif !important;
   height: 100vh;
   background-color: #eee !important;
 }

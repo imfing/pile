@@ -3,29 +3,27 @@
     <Card>
       <p slot="title">{{this.label}}</p>
       <div class="hub-content-note">
-        <form action="">
-          <Row style="margin-bottom:5px;">
-            <Col :xs="20" :sm="21" :md="22" :lg="22">
-              <Input
-                    v-model="newTodoItem"
-                    icon="plus" 
-                    v-bind:placeholder="$t('m.todo.hint')"
-                    @on-enter="submitTodo"
-                    @on-click="submitTodo"
-                    ></Input>
-            </Col>
-            <Col :xs="4" :sm="3" :md="2" :lg="2"
-                 style="text-align: center;">
-                  <i-switch
-                  v-model="showDone" 
-                  size="large"
-                  @on-change="toggleDone">
-                    <span slot="open">{{$t("m.todo.todo")}}</span>
-                    <span slot="close">{{$t("m.todo.done")}}</span>
-                  </i-switch>
-            </Col>
-          </Row>
-        </form>
+        <Row style="margin-bottom:5px;">
+          <Col :xs="20" :sm="21" :md="22" :lg="22">
+            <Input
+                  v-model="newTodoItem"
+                  icon="plus" 
+                  v-bind:placeholder="$t('m.todo.hint')"
+                  @on-enter="submitTodo"
+                  @on-click="submitTodo"
+                  ></Input>
+          </Col>
+          <Col :xs="4" :sm="3" :md="2" :lg="2"
+                style="text-align: center;">
+                <i-switch
+                v-model="showDone" 
+                size="large"
+                @on-change="toggleDone">
+                  <span slot="open">{{$t("m.todo.todo")}}</span>
+                  <span slot="close">{{$t("m.todo.done")}}</span>
+                </i-switch>
+          </Col>
+        </Row>
 
         <draggable v-model="items"
         @change="handleDragItem"
