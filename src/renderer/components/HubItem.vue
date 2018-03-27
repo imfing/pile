@@ -104,7 +104,20 @@ export default {
     } else {
       if (fs.existsSync(this.path)) {
         if (fs.lstatSync(this.path).isDirectory()) {
-          this.isDir = true;
+          if (process.platform === "darwin") {
+            const { getIconForPath, ICON_SIZE_MEDIUM } = require("system-icon");
+            getIconForPath(this.path, ICON_SIZE_MEDIUM, (err, result) => {
+              if (err) {
+                console.error(err);
+              } else {
+                const nativeImage = require("electron").nativeImage;
+                let image = nativeImage.createFromBuffer(result);
+                self.$refs.icon.src = image.toDataURL();
+              }
+            });
+          } else {
+            this.isDir = true;
+          }
         } else {
           var filename = path.basename(this.path);
           var filetype = path.extname(filename);
@@ -115,8 +128,8 @@ export default {
               if (err) {
                 console.error(err);
               } else {
-                const nativeImage = require('electron').nativeImage
-                let image = nativeImage.createFromBuffer(result)
+                const nativeImage = require("electron").nativeImage;
+                let image = nativeImage.createFromBuffer(result);
                 self.$refs.icon.src = image.toDataURL();
               }
             });
