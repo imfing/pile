@@ -109,9 +109,16 @@ export default {
           var filename = path.basename(this.path);
           var filetype = path.extname(filename);
 
-          app.getFileIcon(this.path, { size: "large" }, function(err, res) {
-            self.$refs.icon.src = res.toDataURL();
-          });
+          if (process.platform === "darwin") {
+            app.getFileIcon(this.path, { size: "normal" }, function(err, res) {
+              self.$refs.icon.src = res.toDataURL();
+            });
+          }
+          else{
+            app.getFileIcon(this.path, { size: "large" }, function(err, res) {
+              self.$refs.icon.src = res.toDataURL();
+            });
+          }
         }
       } else {
         this.isMissing = true;
