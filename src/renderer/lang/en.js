@@ -7,7 +7,16 @@ export const m = {
     feedback: 'Feedback',
     about: "About",
     devtool: "Devtools",
-    close: "Quit"
+    close: "Quit",
+    edit: {
+      label: "Edit",
+      undo: "Undo",
+      redo: "Redo",
+      cut: "Cut",
+      copy: "Copy",
+      paste: "Paste",
+      selectall: "Select All"
+    }
   },
   tray: {
     show: 'Show',

@@ -7,7 +7,16 @@ export const m = {
     feedback: '反馈建议',    
     about: "关于",
     devtool: "开发者工具",
-    close: "退出"
+    close: "退出",
+    edit: {
+      label: "编辑",
+      undo: "撤销",
+      redo: "恢复",
+      cut: "剪切",
+      copy: "复制",
+      paste: "粘贴",
+      selectall: "全选"
+    }
   },
   tray: {
     show: '显示',

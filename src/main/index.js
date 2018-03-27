@@ -122,6 +122,18 @@ app.on('ready', function () {
       ]
     },
     {
+      label: i18n.t("m.menu.edit.label"),
+      submenu: [
+        { label: i18n.t("m.menu.edit.undo"), accelerator: "CmdOrCtrl+Z", selector: "undo:" },
+        { label: i18n.t("m.menu.edit.redo"), accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
+        { type: "separator" },
+        { label: i18n.t("m.menu.edit.cut"), accelerator: "CmdOrCtrl+X", selector: "cut:" },
+        { label: i18n.t("m.menu.edit.copy"), accelerator: "CmdOrCtrl+C", selector: "copy:" },
+        { label: i18n.t("m.menu.edit.paste"), accelerator: "CmdOrCtrl+V", selector: "paste:" },
+        { label: i18n.t("m.menu.edit.selectall"), accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+      ]
+    },
+    {
       label: i18n.t("m.menu.help"),
       submenu: [
         {
