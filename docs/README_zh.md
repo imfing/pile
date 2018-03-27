@@ -15,7 +15,7 @@
 
 > 有条不紊的管理你的工作与生活
 
-[README](https://github.com/mtobeiyf/pile/blob/master/README.md) | [中文说明](https://github.com/mtobeiyf/pile/blob/master/README_zh.md)
+[README](https://github.com/mtobeiyf/pile/blob/master/README.md) | [中文说明](https://github.com/mtobeiyf/pile/blob/master/docs/README_zh.md)
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/5097752/37513680-b2437d52-2940-11e8-8d87-544c0b4b4c02.png" width="600px" alt="">
@@ -105,43 +105,7 @@ yarn run build:dir # or npm run build:dir
 
 ## 版本记录
 
-### 0.2.1
-
-#### 新特性
-- 调整标签页中区域顺序
-- Shift+Enter快捷提交笔记
-
-#### 修复
-- 笔记中的链接点击后多次打开
-
-### 0.2.0
-
-#### 新特性
-- 托盘设置开机启动
-- 在设置中检测新版本
-- 固定当前标签到桌面以便快捷访问
-- 自动恢复上次窗口大小及位置
-
-#### 修复
-- 错误的数据存储位置
-- 每次运行窗口大小不一
-- 错误的默认标签语言
-
-### 0.1.1
-
-#### 新特性
-- 支持托盘图标
-- 标签页重命名及排序
-- 限制运行一个实例
-
-#### 修复
-
-- 右击菜单不显示的问题
-- 设置按钮不正确的提示信息
-
-### 0.1.0
-
-- 第一个发行版
+详细的变更记录可以访问[CHANGELOG_zh.md](https://github.com/mtobeiyf/pile/blob/master/docs/CHANGELOG_zh.md)
 
 ## 鸣谢
 

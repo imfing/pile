@@ -18,7 +18,7 @@
 
 > Organize your piled work at one place.
 
-[README](https://github.com/mtobeiyf/pile/blob/master/README.md) | [中文说明](https://github.com/mtobeiyf/pile/blob/master/README_zh.md)
+[README](https://github.com/mtobeiyf/pile/blob/master/README.md) | [中文说明](https://github.com/mtobeiyf/pile/blob/master/docs/README_zh.md)
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/5097752/37512418-14efa934-293d-11e8-89d8-4038e1235ba0.png" width="600px" alt="">
@@ -106,53 +106,9 @@ yarn run build:dir # or npm run build:dir
 
 ---
 
-## Versions
+## Changelog
 
-### 0.2.2
-#### New Features
-- Drag and drop links/url from browser address bar
-- Release Linux & macOS builds
-
-#### Fixes
-- Settings modal overwrites board data
-
-### 0.2.1
-
-#### New Features
-- Support rearrange hubs in current board
-- Support Shift+Enter to submit new Note
-
-#### Fixes
-- Fix links opened multiple times when clicked in Note
-
-### 0.2.0
-
-#### New Features
-- Launch at system startup
-- Check for updates
-- Pin current board to desktop
-- Remember last window size and position
-
-#### Fixes
-- Data storage being overwritten on setup
-- Windows size auto growth
-- Incorrect default board language
-
-### 0.1.1
-
-#### Features
-- Tray icon support
-- Edit boards in settings
-- One instance restriction
-
-#### Fixes
-
-- Context menu missing for items
-- Wrong tooltip for setting button
-
-### 0.1.0
-
-- Initial release
+Detailed changes for each release are documented in the [CHANGELOG.md](https://github.com/mtobeiyf/pile/blob/master/docs/CHANGELOG.md)
 
 ## Acknowledgment
 
