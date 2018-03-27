@@ -1,12 +1,11 @@
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
-import low from 'lowdb'
 
 export default function (dataPath) {
   const fs = require("fs")
   const settingsAdapter = new FileSync(dataPath)
   const settings = low(settingsAdapter)
-  
+
   settings.defaults({
     windowState: {
       height: 563,
