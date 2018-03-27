@@ -110,11 +110,17 @@ export default {
           var filetype = path.extname(filename);
 
           if (process.platform === "darwin") {
-            app.getFileIcon(this.path, { size: "normal" }, function(err, res) {
-              self.$refs.icon.src = res.toDataURL();
+            const { getIconForPath, ICON_SIZE_MEDIUM } = require("system-icon");
+            getIconForPath(this.path, ICON_SIZE_MEDIUM, (err, result) => {
+              if (err) {
+                console.error(err);
+              } else {
+                const nativeImage = require('electron').nativeImage
+                let image = nativeImage.createFromBuffer(result)
+                self.$refs.icon.src = image.toDataURL();
+              }
             });
-          }
-          else{
+          } else {
             app.getFileIcon(this.path, { size: "large" }, function(err, res) {
               self.$refs.icon.src = res.toDataURL();
             });
