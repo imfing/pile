@@ -12,10 +12,19 @@ settings.defaults({
   },
   appSettings: {
     locale: "",
-    theme: {
-      name: "lightTheme",
-      background: "#eee",
-    },
+    theme: "lightTheme",
+    themes: [
+      {
+        id: "lightTheme",
+        name: "Light Theme",
+        background: "#eee",
+      },
+      {
+        id: "darkTheme",
+        name: "Dark Theme",
+        background: "#eee",
+      }
+    ]
   }
 }).write()
 
@@ -58,14 +67,24 @@ export default {
     }
     else return settings.get('appSettings.autoStart').value()
   },
-  getThemeName() {
-    if (!settings.get('appSettings.theme').has('name').value()) {
-      settings.set('appSettings.theme.name', 'lightTheme').write()
+  getTheme() {
+    if (!settings.get('appSettings').has('theme').value()) {
+      settings.set('appSettings.theme', 'lightTheme').write()
       return "lightTheme"
     }
-    else return settings.get('appSettings.theme.name').value()
+    else return settings.get('appSettings.theme').value()
   },
-  updateThemeName(theme) {
-    return settings.get('appSettings.theme').set('name', theme).write()
+  updateTheme(theme) {
+    return settings.get('appSettings').set('theme', theme).write()
+  },
+  getThemes() {
+    if (!settings.get('appSettings').has('themes').value()) {
+      settings.set('appSettings.themes', settings.defaults.appSettings.themes).write()
+      return settings.defaults.appSettings.themes
+    }
+    else return settings.get('appSettings.themes').value()
+  },
+  updateThemes(themes) {
+    return settings.get('appSettings').set('themes', themes).write()
   },
 }

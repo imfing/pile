@@ -165,8 +165,8 @@ export default {
         this.$i18n.locale = locale;
       }
       if(theme != this.theme) {
-        ipcRenderer.send("updateThemeName", theme);
         this.theme = theme;
+        settingsStore.updateTheme(theme);
       }
 
       boardsStore.saveBoardsArray(boards);
@@ -197,7 +197,7 @@ export default {
     }
 
     this.selectedTab = boardsStore.getActiveBoard();
-    this.theme = settingsStore.getThemeName();  
+    this.theme = settingsStore.getTheme();
 
     this.loadBoards();
   }
