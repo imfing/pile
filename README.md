@@ -74,13 +74,18 @@ A simple todolist related to the project.
 
 ## Installation
 
+:tada: Support Windows/Linux/macOS
+
 ### Windows
 - Go to the [release page](https://github.com/mtobeiyf/pile/releases)
 - Download and run the setup **.exe** file and Pile will be insalled automatically
 - Or download the portable **.zip** file, unzip it and run `Pile.exe`
 
-### Linux / MacOS
- - See [Build Steps](https://github.com/mtobeiyf/pile#user-content-build-setup) below
+### Linux / macOS
+- Go to the [release page](https://github.com/mtobeiyf/pile/releases)
+- Linux user: Download **.AppImage** and run it
+- Mac user: Download portable **.zip** file or **.dmg** installation file
+- You can build by yourself, see [Build Steps](https://github.com/mtobeiyf/pile#user-content-build-setup)
 
 ## Technical
 

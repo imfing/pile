@@ -1,5 +1,17 @@
 # 版本记录
 
+## [0.3.0](https://github.com/mtobeiyf/pile/compare/v0.2.2...v0.3.0)
+### 新特性
+- 支持macOS和Linux平台
+- 其它小的改进
+
+### 修复
+- [macOS/Linux] 地址栏图标显示异常
+- [macOS/Linux] 第一次运行错误提升
+- [macOS] 应用/文件图标不正常显示
+- [macOS] 文本框无法复制粘贴
+- [macOS] 地址栏图标过大
+
 ## [0.2.2](https://github.com/mtobeiyf/pile/compare/v0.2.1...v0.2.2)
 
 ### 新特性

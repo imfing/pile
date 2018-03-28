@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/mtobeiyf/pile/compare/v0.2.2...v0.3.0)
+### New Features
+- Builds for macOS and Linux are available
+- Other small adjustments
+
+### Fixes
+- [macOS/Linux] Wrong icon display on launcher bar
+- [macOS/Linux] Error message at first launch
+- [macOS] Wrong App/File icon display
+- [macOS] Copy & Paste not working
+- [macOS] Too large menu bar icon
+
 ## [0.2.2](https://github.com/mtobeiyf/pile/compare/v0.2.1...v0.2.2)
 ### New Features
 - Drag and drop links/url from browser address bar

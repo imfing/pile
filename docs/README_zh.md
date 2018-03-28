@@ -72,16 +72,24 @@ Pile就是一个让你更好的管理你的工作、学习、生活的强力工�
 
 ## 下载安装
 
-进入 [发行页面](https://github.com/mtobeiyf/pile/releases)
+:tada: 支持 Windows/Linux/macOS
 
-下载并运行Setup的**.exe**文件，Pile将会自动安装好
+### Windows
 
-或者你也可以下载便携版**zip**文件，
-解压后运行`Pile.exe`.
+- 进入 [发行页面](https://github.com/mtobeiyf/pile/releases)
+- 下载并运行安装**.exe**文件，Pile将会自动安装好并启动
+- 也可以下载便携版**zip**文件，解压后运行`Pile.exe`
+
+### Linux/macOS
+
+- 进入 [发行页面](https://github.com/mtobeiyf/pile/releases)
+- Linux用户: 下载 **.AppImage** 并运行
+- Mac用户: 下载便携版 **.zip** 文件，或者 **.dmg** 安装文件
+- 你也可以尝试自己构建，见 [开发配置](https://github.com/mtobeiyf/pile/blob/master/docs/README_zh.md#%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE)
 
 ## 技术相关
 
-### Stack
+### 技术栈
 
 - [Electron](https://electronjs.org/) : 框架
 - [electron-vue](https://github.com/SimulatedGREG/electron-vue) : 脚手架
