@@ -14,21 +14,7 @@ settings.defaults({
   appSettings: {
     locale: "",
     theme: "lightTheme",
-    themes: [
-      {
-        id: "lightTheme",
-        name: "Light Theme",
-        background: "#eee",
-        hubItemTodo: "#f8f8f9",
-        hubItemTodoBackground: "#f8f8f9",
-        hubItemNote: "",
-      },
-      {
-        id: "darkTheme",
-        name: "Dark Theme",
-        background: "#eee",
-      }
-    ]
+    themes: [],
   }
 }).write()
 
@@ -79,24 +65,48 @@ export default {
     else return settings.get('appSettings.theme').value()
   },
   getFullTheme() {
-    var themeId = null;
-    if (!settings.get('appSettings').has('theme').value()) {
-      settings.set('appSettings.theme', 'lightTheme').write()
-      themeId = "lightTheme"
-    }
-    else themeId = settings.get('appSettings.theme').value()
-    var fullTheme = _find(this.themes, function(theme) {theme.id == themeId});
+    var themeId = this.getTheme()
+    var themes = this.getThemes()
+    console.log("themeId: " + themeId)
+    console.log("themes: " + JSON.stringify(themes))
+    var fullTheme = _find(themes, function(theme) {return theme.id == themeId})
+    console.log("Theme null: " + (fullTheme == null))
+    console.log("theme: " + JSON.stringify(fullTheme))
     if (themeId != null && fullTheme) {
       return fullTheme
     }
+    return themes[0];
   },
   updateTheme(theme) {
     return settings.get('appSettings').set('theme', theme).write()
   },
   getThemes() {
     if (!settings.get('appSettings').has('themes').value()) {
-      settings.set('appSettings.themes', settings.defaults.appSettings.themes).write()
-      return settings.defaults.appSettings.themes
+      var themesDef = [
+        {
+          id: "lightTheme",
+          name: "Light Theme",
+          background: "#252525",
+          hubItemTodo: "#f8f8f9",
+          hubItemTodoBackground: "#f8f8f9",
+          hubItemNote: "",
+        },
+        // {
+        //   id: "lightTheme",
+        //   name: "Light Theme",
+        //   background: "#eee",
+        //   hubItemTodo: "#f8f8f9",
+        //   hubItemTodoBackground: "#f8f8f9",
+        //   hubItemNote: "",
+        // },
+        {
+          id: "darkTheme",
+          name: "Dark Theme",
+          background: "#252525",
+        }
+      ];
+      settings.set('appSettings.themes', themesDef).write()
+      return themesDef
     }
     else return settings.get('appSettings.themes').value()
   },

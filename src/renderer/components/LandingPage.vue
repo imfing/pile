@@ -1,5 +1,5 @@
 <template>
-  <div id="wrapper">
+  <div id="wrapper" :style="[ theme.hub ]">
     <Row id="tabrow">
       <Col span="24" style="padding:12px;">
         <Tabs v-model="selectedTab" 
@@ -105,16 +105,17 @@ export default {
       }
     };
   },
-
-  computed: {
-    theme: function() {
-      return settingsStore.getFullTheme();
-    }
-  },
-
   methods: {
     forceReload() {
       remote.getCurrentWindow().reload();
+    },
+    loadTheme: function() {
+      this.theme = settingsStore.getFullTheme();
+      this.setBodyTheme();
+      return this.theme;
+    },
+    setBodyTheme: function (theme) {
+      document.body.style.background = this.theme.bodyBackground;
     },
     loadBoards() {
       this.boards = boardsStore.getList();
@@ -203,8 +204,8 @@ export default {
     }
 
     this.selectedTab = boardsStore.getActiveBoard();
-    this.theme = settingsStore.getTheme();
 
+    this.loadTheme();
     this.loadBoards();
   }
 };
@@ -214,6 +215,5 @@ export default {
 body {
   font-family: "Segoe UI", "Microsoft YaHei", "Lato", sans-serif !important;
   height: 100vh;
-  background-color: #eee !important;
 }
 </style>
