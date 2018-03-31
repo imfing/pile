@@ -5,7 +5,7 @@ import configStore from "./configStore"
 const path = require('path')
 const fs = require('fs')
 var configPath
-var dataPath 
+var dataPath
 if (process.env.NODE_ENV !== 'development') {
   if (!fs.existsSync(app.getPath('userData'))) {
     fs.mkdirSync(app.getPath('userData'))
@@ -167,9 +167,16 @@ app.on('ready', function () {
   var menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu);
 
-  let trayIcon = process.platform === "darwin"
-    ? nativeImage.createFromPath(path.join(__static, 'icons/menubar.png'))
-    : nativeImage.createFromPath(path.join(__static, 'icons/pile.png'));
+  var trayIcon
+  if (process.platform === "darwin") {
+    trayIcon = nativeImage.createFromPath(path.join(__static, 'icons/menubar.png'))
+  }
+  else if (process.platform === "win32") {
+    trayIcon = nativeImage.createFromPath(path.join(__static, 'icons/pile.ico'))
+  }
+  else {
+    trayIcon = nativeImage.createFromPath(path.join(__static, 'icons/pile.png'))
+  }
   tray = new Tray(trayIcon)
   const contextMenu = Menu.buildFromTemplate([
     {
