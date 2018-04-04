@@ -69,18 +69,18 @@
       </div>
     </Card>
 
-    <rename-hub-modal :renameHubModal="renameHubModal"
-      :original-name="this.label"
-      @submitHubName="renameHub"
-      @closeRenameHubModal="closeRenameHubModal"
-    ></rename-hub-modal>
+    <rename-modal :renameModal="renameHubModal"
+    :oldContent="this.label"
+    @submitRename="renameHub"
+    @closeRenameModal="renameHubModal=false;">
+    </rename-modal>
   </div>
 </template>
 
 <script>
 import { shell } from "electron";
 import boardsStore from "../store/modules/boardsStore";
-import RenameHubModal from "./RenameHubModal.vue";
+import RenameModal from "./RenameModal.vue";
 import HubItemTodo from "./HubItemTodo.vue";
 import draggable from "vuedraggable";
 
@@ -88,7 +88,7 @@ export default {
   props: ["boardId", "label", "hubId"],
 
   components: {
-    RenameHubModal,
+    RenameModal,
     HubItemTodo,
     draggable
   },
@@ -108,7 +108,7 @@ export default {
   methods: {
     handleHubOptions: function(name) {
       if (name == "hub-rename") {
-        this.showRenameHubModal();
+        this.renameHubModal = true;
       } else if (name == "hub-delete") {
         this.$Modal.confirm({
           title: this.$i18n.t("m.modal.delete.title") + ` '${this.label}' ?`,
@@ -156,14 +156,8 @@ export default {
     renameHub(newname) {
       boardsStore.setHubLabel(this.boardId, this.hubId, newname);
       this.$emit("refreshHub");
-      this.closeRenameHubModal();
-      this.$Message.success(this.$i18n.t("m.modal.rename.success.hub"));
-    },
-    showRenameHubModal() {
-      this.renameHubModal = true;
-    },
-    closeRenameHubModal() {
       this.renameHubModal = false;
+      this.$Message.success(this.$i18n.t("m.modal.rename.success.hub"));
     },
     saveEdit(itemId, content) {
       boardsStore.setHubItemContent(this.boardId, this.hubId, itemId, content);

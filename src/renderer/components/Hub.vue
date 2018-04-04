@@ -36,18 +36,18 @@
       </div>
     </Card>
 
-    <rename-hub-modal :renameHubModal="renameHubModal"
-    :original-name="this.label"
-    @submitHubName="renameHub"
-    @closeRenameHubModal="closeRenameHubModal"
-    ></rename-hub-modal>
+    <rename-modal :renameModal="renameHubModal"
+    :oldContent="this.label"
+    @submitRename="renameHub"
+    @closeRenameModal="renameHubModal=false;">
+    </rename-modal>
   </div>
 </template>
 
 <script>
 import HubItem from "./HubItem.vue";
 import boardsStore from "../store/modules/boardsStore";
-import RenameHubModal from "./RenameHubModal.vue";
+import RenameModal from "./RenameModal.vue";
 import { basename, extname } from "path";
 import { shell } from "electron";
 import draggable from "vuedraggable";
@@ -60,8 +60,8 @@ export default {
       if (e.dataTransfer.files.length) {
         this.handleDrop(e.dataTransfer.files);
       }
-      let url = e.dataTransfer.getData("text")
-      if (url.length && url[0]!=' ') {
+      let url = e.dataTransfer.getData("text");
+      if (url.length && url[0] != " ") {
         this.handleUrlDrop(url);
       }
       return false;
@@ -76,7 +76,7 @@ export default {
 
   components: {
     HubItem,
-    RenameHubModal,
+    RenameModal,
     draggable
   },
 
@@ -171,18 +171,12 @@ export default {
     renameHub(newname) {
       boardsStore.setHubLabel(this.boardId, this.hubId, newname);
       this.$emit("refreshHub");
-      this.closeRenameHubModal();
-      this.$Message.success(this.$i18n.t("m.modal.rename.success.hub"));
-    },
-    showRenameHubModal() {
-      this.renameHubModal = true;
-    },
-    closeRenameHubModal() {
       this.renameHubModal = false;
+      this.$Message.success(this.$i18n.t("m.modal.rename.success.hub"));
     },
     handleHubOptions: function(name) {
       if (name == "hub-rename") {
-        this.showRenameHubModal();
+        this.renameHubModal = true;
       } else if (name == "hub-delete") {
         this.$Modal.confirm({
           title: this.$i18n.t("m.modal.delete.title") + ` '${this.label}' ?`,
