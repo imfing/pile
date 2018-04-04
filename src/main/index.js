@@ -14,9 +14,12 @@ if (process.env.NODE_ENV !== 'development') {
   dataPath = path.join(app.getPath('userData'), 'db.json')
 }
 else {
+  // Data under developing
   configPath = 'settings.json'
   dataPath = 'db.json'
 }
+
+// AppSettings
 const appSettings = configStore(configPath)
 global.userDataPath = dataPath
 
@@ -119,21 +122,14 @@ app.on('ready', function () {
   mainWindow.webContents.on('will-navigate', handleRedirect)
   mainWindow.webContents.on('new-window', handleRedirect)
 
+  // Menu
   var template = [
     {
       label: i18n.t("m.menu.view"),
       submenu: [
-        {
-          label: i18n.t("m.menu.reload"),
-          accelerator: 'CmdOrCtrl+R',
-          role: 'reload'
-        },
-        {
-          label: i18n.t("m.menu.devtool"),
-          role: 'toggledevtools'
-        },
-        {
-          label: i18n.t("m.menu.close"),
+        { label: i18n.t("m.menu.reload"), accelerator: 'CmdOrCtrl+R', role: 'reload' },
+        { label: i18n.t("m.menu.devtool"), accelerator: 'F12', role: 'toggledevtools'},
+        { label: i18n.t("m.menu.close"), accelerator: 'CmdOrCtrl+Alt+Q',
           click() { app.exit() }
         }
       ]
@@ -167,6 +163,7 @@ app.on('ready', function () {
   var menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu);
 
+  // Set tray
   var trayIcon
   if (process.platform === "darwin") {
     trayIcon = nativeImage.createFromPath(path.join(__static, 'icons/menubar.png'))
@@ -243,11 +240,8 @@ ipcMain.on('updateLocale', (event, data) => {
   appSettings.updateLocale(data)
 })
 
-function saveWindowState(mainWindow) {
-  appSettings.updateWindowState(mainWindow.getBounds())
-}
-
 function getLocale() {
+  // Get locale from setting
   if (appSettings.getLocale().length == 0) {
     if (app.getLocale() == "zh-CN") {
       appSettings.updateLocale("zh-CN")
@@ -261,6 +255,11 @@ function getLocale() {
   else {
     return appSettings.getLocale()
   }
+}
+
+function saveWindowState(mainWindow) {
+  // Save the window state
+  appSettings.updateWindowState(mainWindow.getBounds())
 }
 
 /**
