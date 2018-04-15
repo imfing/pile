@@ -5,7 +5,7 @@
          :mask-closable="false">
     
     <div>
-      <h3 style="margin-bottom:5px;">{{$t("m.settings.langTitle")}}</h3>
+      <h3>{{$t("m.settings.langTitle")}}</h3>
       <Select v-model="curLocale"
               @on-change="changeLang"
               style="width:200px">
@@ -16,13 +16,30 @@
     <div class="separator"></div>
 
     <div>
-      <h3 style="margin-bottom:5px;">{{$t("m.settings.boardsEdit")}}</h3>
+      <h3>{{$t("m.settings.boardsEdit")}}</h3>
       <draggable :list="boardsLocal">
         <div v-for="board in boardsLocal" class="board" :key="board.id">
           <Icon type="drag" size=10></Icon>
           <Input v-model="board.label" style="width: 200px" size="small"/>
         </div>
       </draggable> 
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+      <div class="arrow-title" @click="toggleAdvanced">
+        <h3>
+          <div class="arrow_box" :class="{'arrow_box--open':showAdvanced}"></div>
+          {{$t("m.settings.advanced.title")}}
+        </h3>
+      </div>
+      <transition v-on:enter="enter" v-on:leave="leave">
+        <div v-show="showAdvanced">
+          test
+          <!-- TODO -->
+        </div>
+      </transition>
     </div>
 
     <div class="separator"></div>
@@ -58,6 +75,7 @@
 import draggable from "vuedraggable";
 import axios from "axios";
 const { remote } = require("electron");
+import Velocity from 'velocity-animate'
 
 export default {
   props: ["locale", "settingsModal", "boards"],
@@ -80,7 +98,8 @@ export default {
       boardsLocal: null,
       newVersionAvailable: false,
       currentVersion: remote.app.getVersion(),
-      loadingUpdates: false
+      loadingUpdates: false,
+      showAdvanced: false
     };
   },
 
@@ -109,6 +128,35 @@ export default {
     updateLocalBoards() {
       this.boardsLocal = JSON.parse(JSON.stringify(this.boards));
     },
+    // Advanced
+    toggleAdvanced() {
+      this.showAdvanced = !this.showAdvanced;
+    },
+    enter: function(el, done) {
+      // entering animation
+      Velocity(
+        el,
+        "slideDown",
+        {
+          duration: 300,
+          easing: "easeInBack"
+        },
+        { complete: done }
+      );
+    },
+    leave: function(el, done) {
+      // leaving animation
+      Velocity(
+        el,
+        "slideUp",
+        {
+          duration: 300,
+          easing: "easeInBack"
+        },
+        { complete: done }
+      );
+    },
+    // Update
     checkUpdate() {
       this.loadingUpdates = true;
       // console.log(`${this.currentVersion}`);
@@ -135,8 +183,44 @@ export default {
 </script>
 
 <style>
+h3 {
+  margin-bottom: 5px;
+}
+
 .separator {
   border-bottom: 1px solid #f5f5f5;
   margin: 15px 0;
+}
+
+/* Arrow title*/
+.arrow-title {
+  cursor: pointer;
+}
+
+.arrow_box {
+  width: 10px;
+  height: 10px;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.arrow_box:after,
+.arrow_box:before {
+  border: solid transparent;
+  content: " ";
+  position: absolute;
+}
+
+.arrow_box:after {
+  border-width: 5px;
+}
+.arrow_box:before {
+  border-left-color: #000;
+  border-width: 5px;
+}
+
+.arrow_box--open {
+  transform: rotateZ(90deg);
+  transform-origin: 50% 50%;
 }
 </style>

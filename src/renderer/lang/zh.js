@@ -30,6 +30,10 @@ export const m = {
     close: '关闭',
     langTitle: '界面语言',
     boardsEdit: '标签页编辑',
+    advanced: {
+      title: '高级设置',
+      tip: '谨慎修改此部分设置'
+    },
     update: {
       current: '当前版本',
       check: '检查更新',

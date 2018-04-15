@@ -30,6 +30,10 @@ export const m = {
     close: 'Close',
     langTitle: 'Display language',
     boardsEdit: 'Setup boards order and name',
+    advanced: {
+      title: 'Advanced',
+      tip: 'You know what you are doing'
+    },
     update: {
       current: 'Current version',
       check: 'Check updates',

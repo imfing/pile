@@ -67,6 +67,7 @@
     "lowdb": "^1.0.0",
     "markdown-it": "^8.4.1",
     "system-icon": "^0.1.2",
+    "velocity-animate": "^1.5.1",
     "vue": "^2.5.13",
     "vue-electron": "^1.0.6",
     "vue-i18n": "^7.4.2",
