@@ -23,6 +23,7 @@
         </form>
 
         <draggable v-model="items"
+        class="markdown-note"
         :options="{animation:150}"        
         @change="handleDragItem"
         @start="drag=true"
@@ -152,8 +153,13 @@ export default {
 };
 </script>
 
+<style lang='scss'>
+@import '../assets/github';
 
-<style>
+.markdown-note {
+  @include github;
+}
+
 .hub-content-note {
   min-height: 20px;
 }

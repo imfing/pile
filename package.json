@@ -100,6 +100,8 @@
     "html-webpack-plugin": "^2.30.1",
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
+    "node-sass": "^4.8.3",
+    "sass-loader": "^7.0.1",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "vue-html-loader": "^1.2.4",
