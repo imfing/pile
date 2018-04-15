@@ -7,6 +7,7 @@ const fs = require('fs')
 var configPath
 var dataPath
 if (process.env.NODE_ENV !== 'development') {
+  // set to avoid error at first launch
   if (!fs.existsSync(app.getPath('userData'))) {
     fs.mkdirSync(app.getPath('userData'))
   }
@@ -21,7 +22,12 @@ else {
 
 // AppSettings
 const appSettings = configStore(configPath)
-global.userDataPath = dataPath
+if (process.env.NODE_ENV !== 'development'){
+  global.userDataPath = appSettings.getDataPath()
+}
+else {
+  global.userDataPath = dataPath
+}
 
 /**
  * Set `__static` path to static files in production
@@ -129,7 +135,7 @@ app.on('ready', function () {
       submenu: [
         { label: i18n.t("m.menu.reload"), accelerator: 'CmdOrCtrl+R', role: 'reload' },
         { label: i18n.t("m.menu.devtool"), accelerator: 'F12', role: 'toggledevtools'},
-        { label: i18n.t("m.menu.close"), accelerator: 'CmdOrCtrl+Alt+Q',
+        { label: i18n.t("m.menu.close"), accelerator: 'CmdOrCtrl+Q',
           click() { app.exit() }
         }
       ]
