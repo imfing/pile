@@ -4,8 +4,7 @@ import configStore from "./configStore"
 // Load settings and data
 const path = require('path')
 const fs = require('fs')
-var configPath
-var dataPath
+var configPath, dataPath, customStylePath
 if (process.env.NODE_ENV !== 'development') {
   // set to avoid error at first launch
   if (!fs.existsSync(app.getPath('userData'))) {
@@ -13,11 +12,13 @@ if (process.env.NODE_ENV !== 'development') {
   }
   configPath = path.join(app.getPath('userData'), 'settings.json')
   dataPath = path.join(app.getPath('userData'), 'db.json')
+  customStylePath = path.join(app.getPath('userData'), 'style.css')
 }
 else {
   // Data under developing
   configPath = 'settings.json'
   dataPath = 'db.json'
+  customStylePath = 'style.css'
 }
 
 // AppSettings
@@ -115,6 +116,7 @@ app.on('ready', function () {
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.send('loadLocale', getLocale())
+    injectCustomStyle(customStylePath)
   })
 
   // Handle drop redirect
@@ -266,6 +268,18 @@ function getLocale() {
 function saveWindowState(mainWindow) {
   // Save the window state
   appSettings.updateWindowState(mainWindow.getBounds())
+}
+
+function injectCustomStyle(path) {
+  // inject local css file
+  if (fs.existsSync(path)) {
+    fs.readFile(path, "utf-8", function (error, data) {
+      if (!error) {
+        var formatedData = data.replace(/\s{2,10}/g, ' ').trim()
+        mainWindow.webContents.insertCSS(formatedData)
+      }
+    })
+  }
 }
 
 /**
