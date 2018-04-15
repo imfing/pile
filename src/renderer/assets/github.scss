@@ -3,7 +3,8 @@
 @mixin github {
   body {
     font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-    color: rgb(51, 51, 51);
+    // color: rgb(51, 51, 51);
+    color: black;
     line-height: 1.8;
   }
   body>*:first-child {
@@ -94,7 +95,7 @@
   dl,
   table {
     margin: 0.8em 0;
-    color: rgb(102, 92, 92);
+    // color: rgb(102, 92, 92);
   }
   li>ol,
   li>ul {
@@ -170,6 +171,9 @@
     padding-right: 0;
   }
   table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
     padding: 0;
   }
   table tr {
@@ -202,10 +206,10 @@
   table tr td:last-child {
     margin-bottom: 0;
   }
-  .CodeMirror-gutters {
+/*  .CodeMirror-gutters {
     border-right: 1px solid #ddd;
   }
-  /* .md-fences,
+  .md-fences,
 code,
 tt {
   border: 1px solid #ddd;

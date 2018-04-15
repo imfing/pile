@@ -99,8 +99,7 @@ export default {
 }
 
 .note-row {
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding: 0px 5px;
 }
 
 .hub-item-note:hover .note-row {

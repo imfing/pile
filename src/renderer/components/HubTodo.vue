@@ -2,7 +2,7 @@
   <div>
     <Card>
       <p slot="title">{{this.label}}</p>
-      <div class="hub-content-note">
+      <div class="hub-content-todo">
         <Row style="margin-bottom:5px;">
           <Col :xs="20" :sm="21" :md="22" :lg="22">
             <Input
@@ -26,6 +26,7 @@
         </Row>
 
         <draggable v-model="items"
+        class="todo-items"
         :options="{animation:150}"        
         @change="handleDragItem"
         @start="drag=true"
@@ -177,6 +178,13 @@ export default {
 </script>
 
 <style>
+.hub-content-todo {
+  min-height: 20px;
+}
 
+.todo-items {
+  max-height: 500px;
+  overflow: auto;
+}
 </style>
 

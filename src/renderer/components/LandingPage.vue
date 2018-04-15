@@ -1,7 +1,7 @@
 <template>
   <div id="wrapper">
     <Row id="tabrow">
-      <Col span="24" style="background: #eee;padding:12px;">
+      <Col span="24">
         <Tabs v-model="selectedTab" 
               type="card" 
               closable
@@ -198,8 +198,15 @@ export default {
 
 <style>
 body {
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif !important;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif !important;
   height: 100vh;
   background-color: #eee !important;
 }
+
+#tabrow {
+  background: #eee;
+  padding: 5px 12px;
+}
+
 </style>

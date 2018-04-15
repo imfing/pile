@@ -159,8 +159,9 @@ export default {
 </script>
 
 <style>
-.hub {
+.tab-content .hub {
   margin-bottom: 10px;
+  padding: 0px 1px;
 }
 .tab-content {
   min-height: 300px;

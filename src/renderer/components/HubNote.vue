@@ -154,10 +154,28 @@ export default {
 </script>
 
 <style lang='scss'>
-@import '../assets/github';
+@import "../assets/github";
 
 .markdown-note {
   @include github;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.markdown-note::-webkit-scrollbar {
+  width: 6px;
+  margin: 0px 10px;
+}
+
+.markdown-note::-webkit-scrollbar-track {
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+  background: white;
+}
+
+.markdown-note::-webkit-scrollbar-thumb {
+  background-color: darkgray;
+  border-radius: 6px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .hub-content-note {
