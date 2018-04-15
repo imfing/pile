@@ -17,7 +17,7 @@
 
     <div>
       <h3>{{$t("m.settings.boardsEdit")}}</h3>
-      <draggable :list="boardsLocal">
+      <draggable :list="boardsLocal" :options="{animation:150}">
         <div v-for="board in boardsLocal" class="board" :key="board.id">
           <Icon type="drag" size=10></Icon>
           <Input v-model="board.label" style="width: 200px" size="small"/>

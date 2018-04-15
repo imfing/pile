@@ -5,7 +5,7 @@
         :mask-closable="false">
 
     <div>
-      <draggable :list="hubsLocal">
+      <draggable :list="hubsLocal" :options="{animation:150}">
         <div v-for="hub in hubsLocal"
              :key="hub.id">
           <Icon type="drag" size=10></Icon>

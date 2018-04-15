@@ -26,6 +26,7 @@
         </Row>
 
         <draggable v-model="items"
+        :options="{animation:150}"        
         @change="handleDragItem"
         @start="drag=true"
         @end="drag=false">
