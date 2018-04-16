@@ -23,12 +23,15 @@ else {
 
 // AppSettings
 const appSettings = configStore(configPath)
+// TODO: data path modification
 if (process.env.NODE_ENV !== 'development'){
   global.userDataPath = appSettings.getDataPath()
 }
 else {
   global.userDataPath = dataPath
 }
+
+global.userStylePath = customStylePath
 
 /**
  * Set `__static` path to static files in production
@@ -116,7 +119,7 @@ app.on('ready', function () {
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.send('loadLocale', getLocale())
-    injectCustomStyle(customStylePath)
+    // injectCustomStyle(customStylePath)
   })
 
   // Handle drop redirect
