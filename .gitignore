@@ -8,6 +8,7 @@ npm-debug.log
 npm-debug.log.*
 thumbs.db
 !.gitkeep
+.vscode/*
 db.json
 settings.json
-.vscode/*
+style.css
