@@ -3,10 +3,10 @@
     <Row id="tabrow">
       <Col span="24">
         <Tabs v-model="selectedTab" 
+              class="tabs"
               type="card" 
               closable
-              @on-click="saveActiveBoard"
-              style="margin-top:5px; padding-top:5px;">
+              @on-click="saveActiveBoard">
           <TabPane v-for="board in boards"
           :label="boardTabLabel(board.label, board.id)"
           :name="board.id"
@@ -199,9 +199,9 @@ export default {
 <style>
 body {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", "微软雅黑", Arial, sans-serif !important;
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   height: 100vh;
-  background-color: #eee !important;
+  background-color: #eee;
 }
 
 #tabrow {
@@ -209,4 +209,7 @@ body {
   padding: 5px 12px;
 }
 
+#tabrow .tabs {
+  margin: 10px 0px;
+}
 </style>

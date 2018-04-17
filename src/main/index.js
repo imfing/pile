@@ -12,13 +12,13 @@ if (process.env.NODE_ENV !== 'development') {
   }
   configPath = path.join(app.getPath('userData'), 'settings.json')
   dataPath = path.join(app.getPath('userData'), 'db.json')
-  customStylePath = path.join(app.getPath('userData'), 'style.css')
+  customStylePath = path.join(app.getPath('userData'), 'style.less')
 }
 else {
   // Data under developing
   configPath = 'settings.json'
   dataPath = 'db.json'
-  customStylePath = 'style.css'
+  customStylePath = 'style.less'
 }
 
 // AppSettings
