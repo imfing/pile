@@ -67,6 +67,12 @@ import RenameModal from "./RenameModal.vue";
 import HubItemNote from "./HubItemNote.vue";
 import draggable from "vuedraggable";
 
+// Code highlight
+import Prism from "prismjs";
+import "prismjs/themes/prism-okaidia.css";
+var loadLanguages = require("prismjs/components/index.js");
+loadLanguages(); // load all
+
 export default {
   props: ["boardId", "label", "hubId"],
 
@@ -149,18 +155,21 @@ export default {
 
   created() {
     this.fetchHubItems();
+    Prism.highlightAll();
+  },
+
+  updated: function() {
+    this.$nextTick(function() {
+      // Code that will run only after the
+      // entire view has been re-rendered
+      Prism.highlightAll();
+    });
   }
 };
 </script>
 
 <style lang='scss'>
-@import "../assets/github";
-
-.markdown-note {
-  @include github;
-  max-height: 500px;
-  overflow: auto;
-}
+@import "../assets/github-markdown";
 
 .markdown-note::-webkit-scrollbar {
   width: 6px;

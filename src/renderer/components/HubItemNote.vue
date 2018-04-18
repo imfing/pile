@@ -1,7 +1,7 @@
 <template>
   <div class="hub-item-note">
     <Row class="note-row">
-      <vue-markdown v-bind:source="this.content"
+      <vue-markdown class="markdown-body" v-bind:source="this.content"
       ></vue-markdown>
     </Row>
     <edit-modal :editModal="editModal"
@@ -99,7 +99,7 @@ export default {
 }
 
 .note-row {
-  padding: 0px 5px;
+  padding: 5px 5px;
 }
 
 .hub-item-note:hover .note-row {

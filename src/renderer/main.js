@@ -21,9 +21,7 @@ const i18n = new VueI18n({
 })
 
 // require static files here
-require('./assets/katex.min.css')
-require('./assets/prism.css')
-require('./assets/prism.js')
+require('katex/dist/katex.min.css')
 require('./assets/styleLoader.js')
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
