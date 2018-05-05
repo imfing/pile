@@ -168,8 +168,8 @@ export default {
 };
 </script>
 
-<style lang='scss'>
-@import "../assets/github-markdown";
+<style>
+@import "../assets/github-markdown.css";
 
 .markdown-note::-webkit-scrollbar {
   width: 6px;

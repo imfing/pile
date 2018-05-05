@@ -214,9 +214,11 @@ body {
 #tabrow {
   background: #eee;
   padding: 5px 12px;
+  height: 100vh;
 }
 
 #tabrow .tabs {
   margin: 10px 0px;
 }
+
 </style>
