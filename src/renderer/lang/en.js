@@ -32,7 +32,13 @@ export const m = {
     boardsEdit: 'Setup boards order and name',
     advanced: {
       title: 'Advanced',
-      tip: 'You know what you are doing'
+      tip: 'You know what you are doing',
+      storage: {
+        open: 'Open Storage Folder',
+        title: 'Storage Path',
+        change: 'Change Path',
+        reset: 'Reset'
+      }
     },
     update: {
       current: 'Current version',

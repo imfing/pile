@@ -2,47 +2,50 @@
   <div id="wrapper">
     <Row id="tabrow">
       <Col span="24">
-        <Tabs v-model="selectedTab" 
-              class="tabs"
-              type="card" 
-              closable
-              @on-click="saveActiveBoard">
-          <TabPane v-for="board in boards"
-          :label="boardTabLabel(board.label, board.id)"
-          :name="board.id"
-          :key="board.id">
-            <board :boardId="board.id"
-                  :label="board.label"
-                  :selectedTab="selectedTab"
-            ></board>
-          </TabPane>
-          <div slot="extra">
-            <Tooltip placement="bottom-end" :transfer="true" :delay="500">
-              <Button type="dashed"
-                      @click="showNewBoardModal"
-                      size="small"
-                      icon="plus"
-                      shape="circle"
-                      style="margin-right: 5px;">
-              </Button>
-              <div slot="content">
-                {{$t("m.board.new.tip")}}
-              </div>
-            </Tooltip>
-            <Tooltip placement="bottom-end" :transfer="true" :delay="500">
-              <Button type="dashed"
-                      @click="showSettingsModal"
-                      size="small"
-                      icon="gear-a"
-                      shape="circle"
-                      style="margin-right: 5px;">
-              </Button>
-              <div slot="content">
-                {{$t("m.settings.tip")}}
-              </div>
-            </Tooltip>
-          </div>
-        </Tabs>
+      <Tabs v-model="selectedTab"
+            class="tabs"
+            type="card"
+            closable
+            @on-click="saveActiveBoard">
+        <TabPane v-for="board in boards"
+                 :label="boardTabLabel(board.label, board.id)"
+                 :name="board.id"
+                 :key="board.id">
+          <board :boardId="board.id"
+                 :label="board.label"
+                 :selectedTab="selectedTab"></board>
+        </TabPane>
+        <div slot="extra">
+          <Tooltip placement="bottom-end"
+                   :transfer="true"
+                   :delay="500">
+            <Button type="dashed"
+                    @click="showNewBoardModal"
+                    size="small"
+                    icon="plus"
+                    shape="circle"
+                    style="margin-right: 5px;">
+            </Button>
+            <div slot="content">
+              {{$t("m.board.new.tip")}}
+            </div>
+          </Tooltip>
+          <Tooltip placement="bottom-end"
+                   :transfer="true"
+                   :delay="500">
+            <Button type="dashed"
+                    @click="showSettingsModal"
+                    size="small"
+                    icon="gear-a"
+                    shape="circle"
+                    style="margin-right: 5px;">
+            </Button>
+            <div slot="content">
+              {{$t("m.settings.tip")}}
+            </div>
+          </Tooltip>
+        </div>
+      </Tabs>
       </Col>
     </Row>
 
@@ -52,9 +55,10 @@
     <settings-modal :settingsModal="settingsModal"
                     :locale="locale"
                     :boards="boards"
+                    @changeDataPath="changeDataPath"
                     @submitSettings="submitSettings"
                     @closeSettingsModal="settingsModal=false;"></settings-modal>
-    
+
   </div>
 </template>
 
@@ -168,6 +172,9 @@ export default {
       this.forceReload();
 
       this.$Message.success(this.$i18n.t("m.settings.success"));
+    },
+    changeDataPath(newPath) {
+      ipcRenderer.send("changeDataPath", newPath);
     }
   },
 

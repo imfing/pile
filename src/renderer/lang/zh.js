@@ -32,7 +32,13 @@ export const m = {
     boardsEdit: '标签页编辑',
     advanced: {
       title: '高级设置',
-      tip: '谨慎修改此部分设置'
+      tip: '谨慎修改此部分设置',
+      storage: {
+        open: '打开存储位置',
+        title: '存储位置',
+        change: '更改位置',
+        reset: '重置'
+      }
     },
     update: {
       current: '当前版本',

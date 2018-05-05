@@ -1,12 +1,13 @@
 import { app, BrowserWindow, Menu, Tray, nativeImage, ipcMain } from 'electron'
 import configStore from "./configStore"
 
-// Load settings and data
 const path = require('path')
 const fs = require('fs')
+
+// Load settings and data
 var configPath, dataPath, customStylePath
 if (process.env.NODE_ENV !== 'development') {
-  // set to avoid error at first launch
+  // Set to avoid error at first launch
   if (!fs.existsSync(app.getPath('userData'))) {
     fs.mkdirSync(app.getPath('userData'))
   }
@@ -23,15 +24,12 @@ else {
 
 // AppSettings
 const appSettings = configStore(configPath)
-// TODO: data path modification
-if (process.env.NODE_ENV !== 'development'){
-  global.userDataPath = appSettings.getDataPath()
-}
-else {
-  global.userDataPath = dataPath
-}
 
-global.userStylePath = customStylePath
+global.settings = {}
+
+// Load paths
+global.settings.userDataPath = appSettings.getDataPath()
+global.settings.userStylePath = customStylePath
 
 /**
  * Set `__static` path to static files in production
@@ -243,6 +241,8 @@ app.on('window-all-closed', () => {
   }
 })
 
+// ipc Events
+
 ipcMain.on('getLocale', (event, data) => {
   mainWindow.webContents.send('loadLocale', getLocale())
 })
@@ -250,6 +250,12 @@ ipcMain.on('getLocale', (event, data) => {
 ipcMain.on('updateLocale', (event, data) => {
   appSettings.updateLocale(data)
 })
+
+ipcMain.on('changeDataPath', (event, data) => {
+  appSettings.updateDatePath(data)
+})
+
+// Helper Functions
 
 function getLocale() {
   // Get locale from setting
