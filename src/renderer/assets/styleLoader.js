@@ -27,7 +27,9 @@ function injectCustomScript(path) {
 }
 
 window.onload = function () {
-  var customStylePath = require('electron').remote.getGlobal('userStylePath')
-  injectCustomStyle(customStylePath, 'less')
-  injectCustomScript('/src/renderer/assets/less.min.js')
+  var customStylePath = require('electron').remote.getGlobal('settings').userStylePath
+  if (fs.existsSync(customStylePath)) {
+    injectCustomStyle(customStylePath, 'less')
+    injectCustomScript('/src/renderer/assets/less.min.js')
+  }
 }
