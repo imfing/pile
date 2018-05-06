@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.3.2](https://github.com/mtobeiyf/pile/compare/v0.3.0...v0.3.2)
+### New Features
+- User can specify data path
+- Support customizing style
+- Markdown style enhancement
+- Shortcut to quit app
+- Drag animation improved
+- Slim scroll bar
+- Theme supported (coming soon)
+
+### Fixes
+- Code highlight not working
+- Copy and paste on macOS
+- Blurry Windows tray icon
+- Wrong LaTeX equation display
+
 ## [0.3.0](https://github.com/mtobeiyf/pile/compare/v0.2.2...v0.3.0)
 ### New Features
 - Builds for macOS and Linux are available
