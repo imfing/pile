@@ -215,10 +215,26 @@ body {
   background: #eee;
   padding: 5px 12px;
   height: 100vh;
+  overflow: auto;
 }
 
 #tabrow .tabs {
   margin: 10px 0px;
+}
+
+#tabrow::-webkit-scrollbar {
+  width: 8px;
+}
+
+#tabrow::-webkit-scrollbar-track {
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+  background: #eee;
+}
+
+#tabrow::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 8px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 </style>

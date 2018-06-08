@@ -2,16 +2,15 @@
   <div class="hub-item-todo">
     <Row class="todo-row">
       <Checkbox :value="isDone"
-      @on-change="changeIsDone"></Checkbox>
+                @on-change="changeIsDone"></Checkbox>
       <span v-html="textWithLink"
-          @click="handleLinkClick"></span>
+            @click="handleLinkClick"></span>
     </Row>
 
     <edit-modal :editModal="editModal"
-            :oldContent="this.content"
-            @submitEdit="submitEdit"
-            @closeEditModal="editModal=false;"
-            ></edit-modal>
+                :oldContent="this.content"
+                @submitEdit="submitEdit"
+                @closeEditModal="editModal=false;"></edit-modal>
   </div>
 </template>
 
@@ -47,7 +46,7 @@ export default {
             case "url":
               var url = match.getUrl();
               return `<span class='link' title="${url}">${
-                url.split("/")[2]
+                url.replace(/(^\w+:|^)\/\//, '')
               }</span>`;
           }
         }
@@ -114,6 +113,17 @@ export default {
 
 .todo-row {
   padding: 0px 5px;
+}
+
+.todo-row .link {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.todo-row .link:hover {
+  color: #57a3f3;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .hub-item-todo:hover .todo-row {
