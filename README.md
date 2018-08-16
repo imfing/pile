@@ -45,7 +45,7 @@ A hub (or card) is an area for specific stuff. There are currently three kinds o
 You can add apps or files you may use in this area so that you can quickly access them and open them.
 
 <p align="center">
-  <img src="https://s18.postimg.org/l6yd1ahux/pile11.gif" width="700px" alt="">
+  <img src="https://user-images.githubusercontent.com/5097752/37556606-908ce60a-2a33-11e8-8e3e-7e96fadc1b13.gif" width="700px" alt="">
 </p>
 
 #### Notes
@@ -53,7 +53,7 @@ You can add apps or files you may use in this area so that you can quickly acces
 Online resources (often appeared as links) or your thoughts can be taken down here. **Markdown** is supported! :tada:
 
 <p align="center">
-  <img src="https://s18.postimg.org/gauq96hl5/pile2.jpg" width="700px" alt="">
+  <img src="https://user-images.githubusercontent.com/5097752/37556612-995ba5f0-2a33-11e8-8904-9da862f47c07.jpg" width="700px" alt="">
 </p>
 
 #### Todo
@@ -61,7 +61,7 @@ Online resources (often appeared as links) or your thoughts can be taken down he
 A simple todolist related to the project.
 
 <p align="center">
-  <img src="https://s18.postimg.org/732hsukx5/pile3.jpg" width="700px" alt="">
+  <img src="https://user-images.githubusercontent.com/5097752/37556613-9b643f2e-2a33-11e8-9c7c-9fdd9080aa6a.jpg" width="700px" alt="">
 </p>
 
 ## Features
